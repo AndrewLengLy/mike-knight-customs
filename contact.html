@@ -66,6 +66,21 @@
   cursor: pointer;
 }
 .field textarea { resize: vertical; min-height: 8rem; }
+.field input[type="file"] { padding: 0.65rem 0.9rem; cursor: pointer; color: var(--silver); }
+.field input[type="file"]::file-selector-button {
+  font-family: var(--f-data); font-size: var(--step--1);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--white); background: var(--ink-3);
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.9rem; margin-right: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.field input[type="file"]::file-selector-button:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+.form__botcheck { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form__status { padding-top: var(--space-2); display: none; }
+.form__status.is-ok { display: block; color: var(--mkc-green); }
+.form__status.is-err { display: block; color: #f07040; }
 .form__note {
   display: grid; grid-template-columns: auto 1fr; gap: var(--space-2);
   align-items: baseline;
@@ -166,7 +181,12 @@
       <p class="data data--live" style="margin-bottom: var(--space-2);">Form · MKC/INTAKE-01</p>
       <h2 id="form-title" class="display display--md" style="margin-bottom: var(--space-3);">Request a Free Quote</h2>
 
-      <form class="form" action="#" method="post">
+      <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post">
+        <input type="hidden" name="access_key" value="bb71e729-83e3-4205-899f-dc61b512aca0" />
+        <input type="hidden" name="subject" value="New Quote Request · MKC Website" />
+        <input type="hidden" name="from_name" value="MKC Website Intake" />
+        <input type="checkbox" name="botcheck" class="form__botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
         <div class="form__row">
           <div class="field">
             <label for="f-name">Full Name <span class="req">Req</span></label>
@@ -211,17 +231,26 @@
           </div>
         </div>
 
+        <div class="form__row form__row--full">
+          <div class="field">
+            <label for="f-photo">Damage Photo <span style="color: var(--silver-dim); letter-spacing: 0.08em;">JPG / PNG · Max 5 MB</span></label>
+            <input id="f-photo" name="attachment" type="file" accept="image/jpeg,image/png,image/heic,image/webp" />
+          </div>
+        </div>
+
         <div class="form__note">
-          <span class="data data--live">Photos</span>
-          <p>Photos speed up your estimate. After you submit, reply to our
-          confirmation with pictures of the damage, or text them straight to
-          <a href="tel:+15302149949" style="color: var(--mkc-green);">(530) 214-9949</a>.</p>
+          <span class="data data--live">More Photos</span>
+          <p>Have more angles? Text additional pictures straight to
+          <a href="tel:+15302149949" style="color: var(--mkc-green);">(530) 214-9949</a>.
+          The more we see, the faster your estimate.</p>
         </div>
 
         <div class="form__submit">
           <button class="btn btn--primary" type="submit">Submit Intake <span class="arrow">→</span></button>
           <span class="data">Response within one business day</span>
         </div>
+
+        <p class="form__status data" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
 
@@ -404,5 +433,47 @@
 </footer>
 
 <script src="js/mkc.js"></script>
+<script>
+// Web3Forms intake submission
+(function () {
+  var form = document.getElementById('intake-form');
+  var status = document.getElementById('form-status');
+  var photo = document.getElementById('f-photo');
+
+  function show(msg, ok) {
+    status.textContent = msg;
+    status.classList.toggle('is-ok', ok);
+    status.classList.toggle('is-err', !ok);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (photo.files.length && photo.files[0].size > 5 * 1024 * 1024) {
+      show('Photo is over 5 MB. Please choose a smaller image or text it to (530) 214-9949.', false);
+      return;
+    }
+
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    show('Sending…', true);
+
+    fetch(form.action, { method: 'POST', body: new FormData(form) })
+      .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
+      .then(function (r) {
+        if (r.ok) {
+          form.reset();
+          show('Received. We\'ll get back to you within one business day.', true);
+        } else {
+          show((r.json && r.json.message) || 'Something went wrong. Please call (530) 214-9949.', false);
+        }
+      })
+      .catch(function () {
+        show('Network error. Please try again or call (530) 214-9949.', false);
+      })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
