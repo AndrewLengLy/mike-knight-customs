@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA</title>
+<meta name="description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MIKE KNIGHT CUSTOMS · GLOBAL DESIGN SYSTEM  v1.0
+   Direction: Luxury Minimalist / Mechanical Grit
+   Base #0B0F12 · 1px structural borders · mono data readouts
+   ============================================================ */
+
+/* ---------- 01 · TOKENS ---------- */
+:root {
+  /* surface */
+  --ink:        #0B0F12;   /* page base: deep ink slate      */
+  --ink-2:      #10151A;   /* raised panel                    */
+  --ink-3:      #161D24;   /* hover / inset field             */
+  --line:       #222B33;   /* 1px structural border           */
+  --line-soft:  #1A2229;   /* hairline dividers               */
+
+  /* type color */
+  --white:      #F4F7F9;   /* primary display + headings      */
+  --silver:     #98A2AB;   /* body copy                       */
+  --silver-dim: #5E6972;   /* captions / disabled             */
+
+  /* single industrial accent, used sparingly */
+  --mkc-green:      #A8F040;
+  --mkc-green-dim:  rgba(168, 240, 64, 0.14);
+
+  /* type stacks */
+  --f-display: "Anton", "Arial Narrow", sans-serif;          /* heavy mechanical display */
+  --f-body:    "Archivo", "Helvetica Neue", sans-serif;      /* geometric, hyper-legible */
+  --f-data:    "IBM Plex Mono", "Courier New", monospace;    /* data readouts            */
+
+  /* scale */
+  --step--1: clamp(0.78rem, 0.74rem + 0.2vw, 0.88rem);
+  --step-0:  clamp(0.95rem, 0.9rem + 0.25vw, 1.06rem);
+  --step-1:  clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem);
+  --step-2:  clamp(1.5rem, 1.3rem + 1vw, 2.2rem);
+  --step-3:  clamp(2.2rem, 1.7rem + 2.4vw, 3.6rem);
+  --step-4:  clamp(3rem, 2.1rem + 4.6vw, 6rem);
+
+  /* rhythm */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --space-6: 8rem;
+
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --max-w: 1440px;
+}
+
+/* tighter vertical rhythm on phones */
+@media (max-width: 640px) {
+  :root {
+    --space-4: 2.25rem;
+    --space-5: 3.5rem;
+    --space-6: 4.5rem;
+  }
+}
+
+/* ---------- 02 · RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  background: var(--ink);
+  color: var(--silver);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+::selection { background: var(--mkc-green); color: var(--ink); }
+
+:focus-visible {
+  outline: 1px solid var(--mkc-green);
+  outline-offset: 3px;
+}
+
+/* ---------- 03 · TYPE UTILITIES ---------- */
+.display {
+  font-family: var(--f-display);
+  font-weight: 400;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 0.96;
+  letter-spacing: 0.005em;
+}
+.display--xl { font-size: var(--step-4); }
+.display--lg { font-size: var(--step-3); }
+.display--md { font-size: var(--step-2); }
+
+.data {
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--silver-dim);
+}
+.data--live { color: var(--mkc-green); }
+.data--white { color: var(--white); }
+
+.eyebrow {
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--mkc-green);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem; height: 1px;
+  background: var(--mkc-green);
+}
+
+.lede {
+  font-size: var(--step-1);
+  font-weight: 400;
+  color: var(--silver);
+  max-width: 56ch;
+}
+
+.body-max { max-width: 62ch; }
+
+/* ---------- 04 · LAYOUT PRIMITIVES ---------- */
+.wrap {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--space-3);
+}
+
+.section { padding-block: var(--space-6); }
+.section--flush { padding-block: 0; }
+.section--rule { border-top: 1px solid var(--line); }
+
+/* ---------- 05 · STRUCTURAL BORDER COMPONENTS ---------- */
+
+/* metadata point: border-scoped spec row, replaces icon boxes */
+.meta-point {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+.meta-point:last-child { border-bottom: 1px solid var(--line); }
+.meta-point__idx { font-family: var(--f-data); font-size: var(--step--1); color: var(--silver-dim); letter-spacing: 0.1em; }
+.meta-point__label { font-weight: 600; color: var(--white); font-size: var(--step-0); letter-spacing: 0.01em; }
+.meta-point__value { font-family: var(--f-data); font-size: var(--step--1); color: var(--mkc-green); letter-spacing: 0.08em; text-transform: uppercase; text-align: right; }
+
+/* spec frame: 1px border with blueprint corner ticks */
+.spec-frame { position: relative; border: 1px solid var(--line); }
+.spec-frame::before, .spec-frame::after,
+.spec-frame > .tick::before, .spec-frame > .tick::after {
+  content: "";
+  position: absolute;
+  width: 9px; height: 9px;
+  border-color: var(--mkc-green);
+  border-style: solid;
+  border-width: 0;
+}
+.spec-frame::before        { top: -1px; left: -1px;   border-top-width: 1px; border-left-width: 1px; }
+.spec-frame::after         { top: -1px; right: -1px;  border-top-width: 1px; border-right-width: 1px; }
+.spec-frame > .tick::before{ bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+.spec-frame > .tick::after { bottom: -1px; right: -1px;border-bottom-width: 1px; border-right-width: 1px; }
+
+/* data readout: mono spec table overlay */
+.readout {
+  background: rgba(11, 15, 18, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+}
+.readout__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--line-soft);
+  letter-spacing: 0.06em;
+}
+.readout__row:first-child { border-top: 0; }
+.readout__row dt { color: var(--silver-dim); text-transform: uppercase; }
+.readout__row dd { color: var(--white); text-align: right; }
+.readout__row dd.is-live { color: var(--mkc-green); }
+
+/* ---------- 06 · CONTROLS ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 1.05rem 1.8rem;
+  border: 1px solid var(--line);
+  color: var(--white);
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.btn .arrow { transition: transform 0.25s ease; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+.btn--primary {
+  background: var(--mkc-green);
+  border-color: var(--mkc-green);
+  color: var(--ink);
+  font-weight: 600;
+}
+.btn--primary:hover { background: var(--white); border-color: var(--white); }
+
+.btn--ghost:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+
+/* ---------- 07 · NAVIGATION ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 15, 18, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav__inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 4.25rem;
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-right: var(--space-3);
+  border-right: 1px solid var(--line);
+}
+.nav__mark {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.nav__mark span { color: var(--mkc-green); }
+.nav__tag { font-family: var(--f-data); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-dim); }
+
+.nav__inner > nav { display: flex; align-items: stretch; }
+.nav__links { display: flex; align-items: stretch; }
+.nav__links > li { display: flex; position: relative; }
+.nav__links a, .nav__links .nav__toggle {
+  display: flex;
+  align-items: center;
+  padding: 0 1.4rem;
+  font-family: var(--f-data);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--silver);
+  border-left: 1px solid var(--line-soft);
+  transition: color 0.2s ease;
+}
+.nav__links a:hover, .nav__links a[aria-current="page"], .nav__links .nav__toggle:hover { color: var(--mkc-green); }
+
+.nav__menu {
+  position: absolute;
+  top: 100%; left: 0;
+  min-width: 17rem;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  display: none;
+  flex-direction: column;
+}
+.nav__links li:hover .nav__menu,
+.nav__links li:focus-within .nav__menu { display: flex; }
+.nav__menu a {
+  border-left: 0;
+  border-top: 1px solid var(--line-soft);
+  padding: 0.95rem 1.4rem;
+  justify-content: space-between;
+}
+.nav__menu a:first-child { border-top: 0; }
+.nav__menu a small { color: var(--silver-dim); letter-spacing: 0.06em; }
+
+.nav__cta { display: flex; align-items: center; gap: 0; }
+.nav__cta .btn { border-top: 0; border-bottom: 0; height: 100%; }
+
+.nav__burger { display: none; padding: 0 1rem; border-left: 1px solid var(--line); color: var(--white); font-family: var(--f-data); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+@media (max-width: 960px) {
+  .nav__links, .nav__cta .btn--ghost { display: none; }
+  .nav__burger { display: flex; align-items: center; }
+  .nav.is-open .nav__links {
+    display: flex;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--ink-2);
+    border-bottom: 1px solid var(--line);
+    align-items: stretch;
+  }
+  .nav.is-open .nav__links > li { display: block; }
+  .nav.is-open .nav__links a, .nav.is-open .nav__toggle { padding: 1rem var(--gutter); border-left: 0; border-top: 1px solid var(--line-soft); width: 100%; }
+  .nav__menu { position: static; border: 0; display: flex; background: var(--ink-3); }
+}
+@media (max-width: 640px) {
+  .nav__cta .btn { padding-inline: 1.1rem; }
+  .nav__tag { display: none; }
+  .nav__brand { padding-left: var(--gutter); }
+  .nav__inner { padding-inline: 0; }
+  .nav__burger { padding-inline: var(--gutter); }
+}
+
+/* ---------- 08 · FOOTER ---------- */
+.footer { border-top: 1px solid var(--line); }
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+}
+.footer h4 { font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-dim); margin-bottom: var(--space-2); font-weight: 400; }
+.footer li { padding: 0.4rem 0; border-bottom: 1px solid var(--line-soft); }
+.footer li a { font-size: var(--step--1); color: var(--silver); transition: color 0.2s; }
+.footer li a:hover { color: var(--mkc-green); }
+.footer__legal {
+  display: flex; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-block: var(--space-2);
+}
+@media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
+
+/* ---------- 09 · MOTION ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+</style>
+<style>
+/* ============ HOMEPAGE-SCOPED LAYOUT ============ */
+
+/* --- HERO: asymmetric editorial spread --- */
+.hero { border-bottom: 1px solid var(--line); position: relative; }
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  min-height: min(88vh, 60rem);
+}
+.hero__copy {
+  padding: var(--space-5) var(--gutter) var(--space-4) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+  max-width: calc((var(--max-w) / 12) * 7);
+  margin-left: max(var(--gutter), calc((100vw - var(--max-w)) / 2));
+  padding-left: 0;
+}
+.hero__title { margin: 0.5rem 0 0.25rem; }
+.hero__title em { font-style: normal; color: var(--mkc-green); }
+.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.hero__meta { margin-top: var(--space-3); }
+
+/* right rail: immersive edge-to-edge frame */
+.hero__visual {
+  position: relative;
+  border-left: 1px solid var(--line);
+  min-height: 24rem;
+  overflow: hidden;
+}
+.hero__visual img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.06);
+}
+.hero__visual::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(11,15,18,0.55), transparent 32%);
+}
+@media (max-width: 960px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__copy { margin-left: 0; padding: var(--space-5) var(--gutter); max-width: none; }
+  .hero__visual { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* --- INSURANCE TICKER STRIP --- */
+.carriers { border-bottom: 1px solid var(--line); background: var(--ink-2); }
+.carriers__inner {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding-block: 1.1rem;
+  flex-wrap: wrap;
+}
+.carriers__inner .sep { color: var(--line); }
+
+/* --- DIFFERENCE LEDGER (no card grid) --- */
+.ledger { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-4); }
+.ledger__intro { position: sticky; top: 6rem; align-self: start; display: flex; flex-direction: column; gap: var(--space-2); }
+.ledger__rows { border-top: 1px solid var(--line); }
+.ledger__row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.25s ease;
+}
+.ledger__row:hover { background: linear-gradient(90deg, var(--mkc-green-dim), transparent 40%); }
+.ledger__row h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-1); color: var(--white); letter-spacing: 0.02em; line-height: 1.1; }
+@media (max-width: 960px) {
+  .ledger { grid-template-columns: 1fr; }
+  .ledger__intro { position: static; }
+  .ledger__row { grid-template-columns: 3.5rem 1fr; }
+  .ledger__row p { grid-column: 2; }
+}
+
+/* --- PROOF CENTERS --- */
+.proof { border-top: 1px solid var(--line); }
+.proof__unit {
+  display: grid;
+  grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+}
+.proof__unit + .proof__unit { border-top: 1px solid var(--line); }
+.proof__unit:nth-child(even) .proof__media { order: 2; }
+.proof__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
+.proof__spec .readout { background: var(--ink-2); }
+@media (max-width: 960px) {
+  .proof__unit { grid-template-columns: 1fr; }
+  .proof__unit:nth-child(even) .proof__media { order: 0; }
+}
+
+/* comparator */
+.compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; background: var(--ink-2); }
+.compare img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; filter: saturate(0.9);
+}
+.compare__after { z-index: 2; }
+.compare__handle {
+  position: absolute; top: 0; bottom: 0; left: 55%;
+  width: 1px; background: var(--mkc-green); z-index: 3;
+  pointer-events: none;
+}
+.compare__handle::after {
+  content: "◂ ▸";
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--ink); background: var(--mkc-green);
+  padding: 0.35rem 0.5rem; white-space: nowrap;
+}
+.compare input[type="range"] {
+  position: absolute; inset: 0; z-index: 4;
+  width: 100%; height: 100%;
+  opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none;
+}
+.compare__flag {
+  position: absolute; top: var(--space-2); z-index: 3;
+  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
+  background: rgba(11,15,18,0.8);
+}
+.compare__flag--before { left: var(--space-2); color: var(--silver); }
+.compare__flag--after { right: var(--space-2); color: var(--mkc-green); border-color: var(--mkc-green); }
+
+/* --- SERVICES INDEX: editorial rows --- */
+.svc-row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 5fr) minmax(0, 5fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+  color: var(--silver);
+  transition: background 0.25s ease;
+}
+.svc-row:last-of-type { border-bottom: 1px solid var(--line); }
+.svc-row:hover { background: linear-gradient(90deg, transparent, var(--mkc-green-dim) 85%); }
+.svc-row h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-2); color: var(--white); line-height: 1; letter-spacing: 0.015em; }
+.svc-row:hover h3 { color: var(--mkc-green); }
+.svc-row .arrow { font-family: var(--f-data); color: var(--silver-dim); transition: transform 0.25s, color 0.25s; }
+.svc-row:hover .arrow { transform: translateX(6px); color: var(--mkc-green); }
+@media (max-width: 820px) {
+  .svc-row { grid-template-columns: 3.5rem 1fr auto; }
+  .svc-row p { display: none; }
+}
+
+/* --- REVIEW WALL --- */
+.review { text-align: left; display: grid; grid-template-columns: minmax(0,4fr) minmax(0,8fr); gap: var(--space-4); }
+.review blockquote {
+  font-family: var(--f-body); font-weight: 500;
+  font-size: var(--step-2); line-height: 1.35; color: var(--white);
+  border-left: 1px solid var(--mkc-green);
+  padding-left: var(--space-3);
+}
+.review figcaption { margin-top: var(--space-2); }
+.review__score { display: flex; flex-direction: column; gap: var(--space-2); }
+.review__stars { font-size: var(--step-2); color: var(--mkc-green); letter-spacing: 0.3rem; }
+@media (max-width: 820px) { .review { grid-template-columns: 1fr; } }
+
+/* --- FINAL CTA --- */
+.cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
+.cta-final__inner { padding-block: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
+      <span class="nav__mark">MK<span>C</span></span>
+      <span class="nav__tag">Chico · CA<br />Est. 2016</span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li>
+          <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <div class="nav__menu">
+            <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="advocacy-blueprint.html">OEM &amp; Insurance Advocacy <small>03</small></a>
+          </div>
+        </li>
+        <li><a href="advocacy-blueprint.html">The Blueprint</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
+      <a class="btn btn--primary" href="contact.html">Get a Quote</a>
+      <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Auto Body · Chico, California</p>
+      <h1 class="display display--xl hero__title">
+        Driven by Perfection.<br />
+        Backed by a <em>Lifetime Warranty.</em>
+      </h1>
+      <p class="lede">
+        We don't cut corners, we don't install cheap aftermarket parts, and we
+        don't let insurance companies dictate your safety. Every repair is built
+        to protect your family, your investment, and your peace of mind.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="contact.html">Get a Free Quote <span class="arrow">→</span></a>
+        <a class="btn btn--ghost" href="tel:+15302149949">Call (530) 214-9949</a>
+      </div>
+
+      <!-- border-scoped metadata points, not icon boxes -->
+      <dl class="hero__meta" aria-label="Shop credentials">
+        <div class="meta-point">
+          <dt class="meta-point__idx">A/01</dt>
+          <dd class="meta-point__label">Yelp Certified Rating</dd>
+          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
+        </div>
+        <div class="meta-point">
+          <dt class="meta-point__idx">A/02</dt>
+          <dd class="meta-point__label">Repair Standard</dd>
+          <dd class="meta-point__value">Strictly Factory OEM Spec</dd>
+        </div>
+        <div class="meta-point">
+          <dt class="meta-point__idx">A/03</dt>
+          <dd class="meta-point__label">Workmanship Coverage</dd>
+          <dd class="meta-point__value">Lifetime · Ownership Term</dd>
+        </div>
+        <div class="meta-point">
+          <dt class="meta-point__idx">A/04</dt>
+          <dd class="meta-point__label">Operation</dd>
+          <dd class="meta-point__value">Family-Owned · 20+ Yrs Craft</dd>
+        </div>
+      </dl>
+    </div>
+
+    <figure class="hero__visual">
+      <img src="https://static.wixstatic.com/media/e557bf_bd6c394dc4014698ad1b8c7cad3e3036~mv2.jpg/v1/fill/w_1200,h_1500,al_c,q_85,enc_avif,quality_auto/e557bf_bd6c394dc4014698ad1b8c7cad3e3036~mv2.jpg"
+           alt="Completed structural restoration and factory-finish rebuild at Mike Knight Customs" />
+    </figure>
+  </div>
+</section>
+
+<!-- ================= CARRIERS STRIP ================= -->
+<section class="carriers" aria-label="Insurance carriers accepted">
+  <div class="wrap carriers__inner">
+    <span class="data data--white">Claims Accepted:</span>
+    <span class="data">State Farm</span><span class="sep">/</span>
+    <span class="data">Allstate</span><span class="sep">/</span>
+    <span class="data">GEICO</span><span class="sep">/</span>
+    <span class="data">Progressive</span><span class="sep">/</span>
+    <span class="data">+ Every Major Carrier</span>
+    <span class="data data--live" style="margin-left:auto">Your shop. Your choice. CA Ins. Code §758.5</span>
+  </div>
+</section>
+
+<!-- ================= DIFFERENCE LEDGER ================= -->
+<section class="section">
+  <div class="wrap ledger">
+    <div class="ledger__intro reveal">
+      <p class="eyebrow">The MKC Difference</p>
+      <h2 class="display display--lg">Why Drivers Choose Knight</h2>
+      <p class="body-max">We're not the fastest shop in town. We're the shop that
+      does it right. Every vehicle leaves to one standard: indistinguishable from
+      the day it left the factory.</p>
+      <a class="btn btn--ghost" href="advocacy-blueprint.html">Read the Blueprint <span class="arrow">→</span></a>
+    </div>
+
+    <div class="ledger__rows">
+      <article class="ledger__row reveal">
+        <span class="data">D/01</span>
+        <h3>100% OEM Parts Policy</h3>
+        <p>Original Equipment Manufacturer parts only, never aftermarket
+        alternatives that compromise crumple zones, ADAS sensors, and resale
+        value to cut costs.</p>
+      </article>
+      <article class="ledger__row reveal">
+        <span class="data">D/02</span>
+        <h3>Insurance Advocacy</h3>
+        <p>We handle the paperwork and negotiate directly with claims adjusters
+        so your policy covers premium parts and proper labor, not the bare
+        minimum they'd prefer to pay.</p>
+      </article>
+      <article class="ledger__row reveal">
+        <span class="data">D/03</span>
+        <h3>Marine &amp; Aviation Craft</h3>
+        <p>Local pilots and boat owners trust MKC for custom paint matching and
+        ceramic protection, proof of a finishing standard well beyond everyday
+        collision work.</p>
+      </article>
+      <article class="ledger__row reveal">
+        <span class="data">D/04</span>
+        <h3>Transparent Communication</h3>
+        <p>Scheduled updates through every phase of the repair. You always know
+        where your vehicle stands, what's next, and when you'll drive it home.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROOF CENTERS ================= -->
+<section class="proof" aria-label="Before and after project documentation">
+  <div class="wrap">
+    <div style="padding-top: var(--space-5);" class="reveal">
+      <p class="eyebrow">Proof Centers</p>
+      <h2 class="display display--lg" style="margin-top: 0.5rem;">Documented. Measured. Delivered.</h2>
+    </div>
+
+    <!-- UNIT 01 · GMC SIERRA -->
+    <article class="proof__unit">
+      <div class="proof__media reveal">
+        <div class="spec-frame">
+          <span class="tick" aria-hidden="true"></span>
+          <div class="compare" data-compare>
+            <img src="https://static.wixstatic.com/media/e557bf_59b895ca7c6941cc8a37f2cff9192ece~mv2.jpg/v1/crop/x_0,y_140,w_1512,h_1718/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/2011%20GMC%20Sierra%202500.jpg"
+                 alt="2011 GMC Sierra 2500 with severe front-end structural damage, before repair" />
+            <img class="compare__after"
+                 src="https://static.wixstatic.com/media/e557bf_bd6c394dc4014698ad1b8c7cad3e3036~mv2.jpg/v1/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/e557bf_bd6c394dc4014698ad1b8c7cad3e3036~mv2.jpg"
+                 alt="2011 GMC Sierra 2500 after full structural rebuild to factory specification" />
+            <span class="compare__flag compare__flag--before">Before</span>
+            <span class="compare__flag compare__flag--after">After</span>
+            <span class="compare__handle" aria-hidden="true"></span>
+            <input type="range" min="0" max="100" value="55" aria-label="Drag to compare before and after" />
+          </div>
+        </div>
+      </div>
+      <div class="proof__spec reveal">
+        <p class="data data--live">Case File · MKC/0114</p>
+        <h3 class="display display--md">2011 GMC Sierra 2500<br />Structural Rebuild</h3>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Severe · Front Structural</dd></div>
+          <div class="readout__row"><dt>Refinish Spec</dt><dd>Full Front Clip · Factory Match</dd></div>
+          <div class="readout__row"><dt>Frame Tolerance</dt><dd>±1 mm · Laser Verified</dd></div>
+          <div class="readout__row"><dt>OEM Parts Utilized</dt><dd class="is-live">100% · Zero Aftermarket</dd></div>
+        </dl>
+        <p>Frame rack correction, multi-panel reconstruction, and a complete
+        front-end rebuild, with every measurement returned to GM's published
+        structural datum before a drop of paint was sprayed.</p>
+      </div>
+    </article>
+
+    <!-- UNIT 02 · AMG GLE53 -->
+    <article class="proof__unit">
+      <div class="proof__media reveal">
+        <div class="spec-frame">
+          <span class="tick" aria-hidden="true"></span>
+          <div class="compare" data-compare>
+            <img src="https://static.wixstatic.com/media/e557bf_59b895ca7c6941cc8a37f2cff9192ece~mv2.jpg/v1/crop/x_0,y_140,w_1512,h_1718/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/2011%20GMC%20Sierra%202500.jpg"
+                 alt="Damaged panels before refinishing" />
+            <img class="compare__after"
+                 src="https://static.wixstatic.com/media/e557bf_a8af05e76c75473cb8b2b968d8115c11~mv2.jpg/v1/crop/x_31,y_125,w_849,h_993/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/2022%20Mercedes%20Benz%20AMG%20GLE53.jpg"
+                 alt="2022 Mercedes-AMG GLE53 with invisible factory-match paint blend after refinishing" />
+            <span class="compare__flag compare__flag--before">Before</span>
+            <span class="compare__flag compare__flag--after">After</span>
+            <span class="compare__handle" aria-hidden="true"></span>
+            <input type="range" min="0" max="100" value="55" aria-label="Drag to compare before and after" />
+          </div>
+        </div>
+      </div>
+      <div class="proof__spec reveal">
+        <p class="data data--live">Case File · MKC/0127</p>
+        <h3 class="display display--md">2022 Mercedes-AMG GLE53<br />Invisible Paint Match</h3>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Cosmetic · Multi-Panel</dd></div>
+          <div class="readout__row"><dt>Refinish Spec</dt><dd>Spectro Match · Blended Transition</dd></div>
+          <div class="readout__row"><dt>Finish Standard</dt><dd>Mercedes-Benz Factory Gloss</dd></div>
+          <div class="readout__row"><dt>OEM Parts Utilized</dt><dd class="is-live">100% · Zero Aftermarket</dd></div>
+        </dl>
+        <p>Spectrophotometer-verified color formulation blended across adjacent
+        panels, a transition you can't find in direct sunlight, protected under
+        the same lifetime warranty as our structural work.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= SERVICES INDEX ================= -->
+<section class="section section--rule">
+  <div class="wrap">
+    <p class="eyebrow reveal">Core Services</p>
+    <h2 class="display display--lg reveal" style="margin: 0.5rem 0 var(--space-4);">Precision Repair.<br />Flawless Finish.</h2>
+
+    <a class="svc-row reveal" href="services/collision-frame-repair.html">
+      <span class="data">S/01</span>
+      <h3>Collision &amp; Frame Repair</h3>
+      <p>Structural frame straightening, multi-panel reconstruction, unibody
+      alignment, and ADAS recalibration, all to exact factory specification.</p>
+      <span class="arrow">→</span>
+    </a>
+    <a class="svc-row reveal" href="services/paint-coating-detailing.html">
+      <span class="data">S/02</span>
+      <h3>Paint · Ceramic · Detailing</h3>
+      <p>Spectro-matched blending for invisible transitions, elite ceramic UV
+      and scratch protection, and concours-level finishing.</p>
+      <span class="arrow">→</span>
+    </a>
+    <a class="svc-row reveal" href="advocacy-blueprint.html">
+      <span class="data">S/03</span>
+      <h3>OEM &amp; Insurance Advocacy</h3>
+      <p>We stand between you and the insurer, handling paperwork, negotiating
+      adjusters, and mandating OEM parts and proper blend procedures.</p>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section class="section section--rule">
+  <div class="wrap review">
+    <div class="review__score reveal">
+      <p class="eyebrow">Ratings &amp; Reviews</p>
+      <p class="display display--lg" style="line-height:1;">5.0<span style="color:var(--silver-dim); font-size:0.4em;"> / 5.0</span></p>
+      <p class="review__stars" aria-label="Five out of five stars">★★★★★</p>
+      <p class="data">Verified Yelp Rating · Chico, CA</p>
+    </div>
+    <figure class="reveal">
+      <blockquote>
+        “Mike and his team did a fantastic job on my 2019 GMC Sierra 1500.
+        Excellent service, perfect paint match. My pickup came back better
+        than new.”
+      </blockquote>
+      <figcaption class="data">Zane G. · Google Review</figcaption>
+      <blockquote style="margin-top: var(--space-4);">
+        “Communication was outstanding, and they handled the entire insurance
+        process for us.”
+      </blockquote>
+      <figcaption class="data">Verified Yelp Review</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta-final">
+  <div class="wrap cta-final__inner reveal">
+    <p class="eyebrow">Get Back on the Road</p>
+    <h2 class="display display--lg">Don't let a collision<br />disrupt your life.</h2>
+    <p class="lede">Let our family take care of yours. Free estimates, direct
+    insurance handling, and a warranty that lasts as long as you own the vehicle.</p>
+    <div style="display:flex; gap: var(--space-2); flex-wrap: wrap;">
+      <a class="btn btn--primary" href="contact.html">Request a Quote <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="tel:+15302149949">Call (530) 214-9949</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
+      <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
+      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
+        <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
+        <li><a href="advocacy-blueprint.html">Advocacy Blueprint</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
+        <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
+        <li><a href="https://instagram.com/mikeyknight456/">Instagram</a></li>
+        <li><a href="https://www.yelp.com/biz/mike-knight-customs-chico">Yelp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
+        <li><a href="tel:+15302149949">(530) 214-9949</a></li>
+        <li><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
+    <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+  </div>
+</footer>
+
+<script>
+/* MKC shared behaviors: nav, reveals, proof-center comparators */
+
+// Mobile nav
+const nav = document.querySelector('.nav');
+const burger = document.querySelector('.nav__burger');
+if (burger) {
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+}
+
+// Scroll reveals (respects reduced motion via CSS)
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// Before / After comparators
+document.querySelectorAll('[data-compare]').forEach((unit) => {
+  const range = unit.querySelector('input[type="range"]');
+  const afterPane = unit.querySelector('.compare__after');
+  const handle = unit.querySelector('.compare__handle');
+  const set = (v) => {
+    afterPane.style.clipPath = `inset(0 0 0 ${v}%)`;
+    handle.style.left = `${v}%`;
+  };
+  range.addEventListener('input', () => set(range.value));
+  set(range.value);
+});
+
+</script>
+</body>
+</html>

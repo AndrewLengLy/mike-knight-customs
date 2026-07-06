@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact · Free Estimates &amp; Insurance Claim Intake | Mike Knight Customs, Chico CA</title>
+<meta name="description" content="Request a free collision repair estimate from Mike Knight Customs in Chico, CA. We handle your insurance claim directly with every major carrier. OEM parts, lifetime warranty. (530) 214-9949." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/mkc.css" />
+<style>
+/* ============ CONTACT PAGE · INTAKE-FILE LAYOUT ============ */
+
+/* masthead */
+.mast { border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.mast__inner { padding-block: var(--space-5); position: relative; z-index: 1; }
+.mast__title { max-width: 16ch; margin-block: var(--space-2) var(--space-3); }
+.mast__title em { font-style: normal; color: var(--mkc-green); }
+.mast__bg {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.35;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+  -webkit-mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+}
+
+/* intake split: form 7 / shop info 5 */
+.intake { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-5); padding-block: var(--space-5); }
+.intake__info { display: flex; flex-direction: column; gap: var(--space-4); align-self: start; position: sticky; top: 6rem; }
+@media (max-width: 960px) { .intake { grid-template-columns: 1fr; } .intake__info { position: static; } }
+
+/* form styled to the system: 1px borders, mono labels, ink fields */
+.form { border-top: 1px solid var(--line); }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--space-3); }
+.form__row--full { grid-template-columns: 1fr; }
+.field { padding: var(--space-2) 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.5rem; }
+.field label {
+  font-family: var(--f-data); font-size: var(--step--1);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--silver-dim);
+  display: flex; justify-content: space-between; gap: var(--space-2);
+}
+.field label .req { color: var(--mkc-green); letter-spacing: 0.08em; }
+.field input, .field select, .field textarea {
+  font-family: var(--f-body); font-size: var(--step-0);
+  background: var(--ink-2); color: var(--white);
+  border: 1px solid var(--line);
+  padding: 0.8rem 0.9rem;
+  border-radius: 0;
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--silver-dim); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--mkc-green);
+}
+.field select {
+  appearance: none; -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 49%, var(--silver) 50%, transparent 51%),
+                    linear-gradient(135deg, transparent 49%, var(--silver) 50%, transparent 51%);
+  background-position: calc(100% - 1.3rem) 55%, calc(100% - 0.9rem) 55%;
+  background-size: 0.4rem 0.4rem;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.field textarea { resize: vertical; min-height: 8rem; }
+.form__note {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-2);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+.form__submit { padding-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+@media (max-width: 640px) { .form__row { grid-template-columns: 1fr; } }
+
+/* map frame */
+.map-frame { position: relative; }
+.map-frame iframe {
+  display: block; width: 100%; aspect-ratio: 4 / 3;
+  border: 0; filter: grayscale(1) invert(0.92) contrast(0.9);
+}
+
+/* what happens next: step rows */
+.frame-steps { border-top: 1px solid var(--line); }
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+.step__phase { display: flex; flex-direction: column; gap: 0.5rem; }
+.step__num { font-family: var(--f-display); font-size: var(--step-3); color: var(--ink); -webkit-text-stroke: 1px var(--line); line-height: 1; }
+.step:hover .step__num { -webkit-text-stroke: 1px var(--mkc-green); }
+.step h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-2); color: var(--white); line-height: 1.05; letter-spacing: 0.015em; margin-bottom: var(--space-1); }
+.step__aside { border-left: 1px solid var(--line); padding-left: var(--space-3); align-self: start; }
+.step__aside .data { display: block; margin-bottom: 0.5rem; }
+@media (max-width: 900px) {
+  .step { grid-template-columns: 1fr; gap: var(--space-2); }
+  .step__aside { border-left: 0; border-top: 1px solid var(--line-soft); padding: var(--space-2) 0 0; }
+}
+
+/* rights reassurance band */
+.rights { border-top: 1px solid var(--line); background: var(--ink-2); }
+.rights__inner { padding-block: var(--space-5); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-4); align-items: center; }
+.rights blockquote { font-family: var(--f-display); font-size: var(--step-3); color: var(--white); text-transform: uppercase; line-height: 1.02; letter-spacing: 0.01em; }
+.rights blockquote em { font-style: normal; color: var(--mkc-green); }
+@media (max-width: 900px) { .rights__inner { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
+      <span class="nav__mark">MK<span>C</span></span>
+      <span class="nav__tag">Chico · CA<br />Est. 2016</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <div class="nav__menu">
+            <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="advocacy-blueprint.html">OEM &amp; Insurance Advocacy <small>03</small></a>
+          </div>
+        </li>
+        <li><a href="advocacy-blueprint.html">The Blueprint</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
+      <a class="btn btn--primary" href="contact.html">Get a Quote</a>
+      <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= MASTHEAD ================= -->
+<section class="mast">
+  <div class="mast__bg" aria-hidden="true"></div>
+  <div class="wrap mast__inner">
+    <p class="eyebrow">Intake · MKC/Contact</p>
+    <h1 class="display display--xl mast__title">Open a case file.<br /><em>We take it from here.</em></h1>
+    <p class="lede">Free estimates, no appointment required to start. Send the
+    details below or call the shop. You provide the claim number, keys, and a
+    signature. We handle everything that follows.</p>
+  </div>
+</section>
+
+<!-- ================= INTAKE SPLIT ================= -->
+<section class="section section--flush" aria-labelledby="form-title">
+  <div class="wrap intake">
+
+    <!-- QUOTE FORM -->
+    <div class="reveal">
+      <p class="data data--live" style="margin-bottom: var(--space-2);">Form · MKC/INTAKE-01</p>
+      <h2 id="form-title" class="display display--md" style="margin-bottom: var(--space-3);">Request a Free Quote</h2>
+
+      <form class="form" action="#" method="post">
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Full Name <span class="req">Req</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone <span class="req">Req</span></label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(530) 555-0100" required />
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="f-vehicle">Vehicle · Year / Make / Model <span class="req">Req</span></label>
+            <input id="f-vehicle" name="vehicle" type="text" placeholder="e.g. 2022 Mercedes-AMG GLE53" required />
+          </div>
+        </div>
+
+        <div class="form__row form__row--full">
+          <div class="field">
+            <label for="f-carrier">Insurance Carrier</label>
+            <select id="f-carrier" name="carrier">
+              <option value="" selected>Select your carrier</option>
+              <option value="state-farm">State Farm</option>
+              <option value="allstate">Allstate</option>
+              <option value="geico">GEICO</option>
+              <option value="progressive">Progressive</option>
+              <option value="other">Other carrier</option>
+              <option value="self-pay">Paying out of pocket</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form__row form__row--full">
+          <div class="field">
+            <label for="f-damage">Description of Damage <span class="req">Req</span></label>
+            <textarea id="f-damage" name="damage" placeholder="What happened, and where is the damage? Include your claim number if you have one. We'll take it from there." required></textarea>
+          </div>
+        </div>
+
+        <div class="form__note">
+          <span class="data data--live">Photos</span>
+          <p>Photos speed up your estimate. After you submit, reply to our
+          confirmation with pictures of the damage, or text them straight to
+          <a href="tel:+15302149949" style="color: var(--mkc-green);">(530) 214-9949</a>.</p>
+        </div>
+
+        <div class="form__submit">
+          <button class="btn btn--primary" type="submit">Submit Intake <span class="arrow">→</span></button>
+          <span class="data">Response within one business day</span>
+        </div>
+      </form>
+    </div>
+
+    <!-- SHOP INFO -->
+    <aside class="intake__info reveal" aria-label="Shop location and hours">
+      <div>
+        <p class="eyebrow">The Shop</p>
+        <dl class="readout" style="margin-top: var(--space-2);">
+          <div class="readout__row"><dt>Address</dt><dd>2961 CA-32, Ste 54–56<br />Chico, CA 95973</dd></div>
+          <div class="readout__row"><dt>Phone</dt><dd><a href="tel:+15302149949" style="color: var(--mkc-green);">(530) 214-9949</a></dd></div>
+          <div class="readout__row"><dt>Email</dt><dd><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></dd></div>
+          <div class="readout__row"><dt>Hours</dt><dd>Mon–Fri · 8:00–17:00</dd></div>
+          <div class="readout__row"><dt>Estimates</dt><dd class="is-live">Free · No Obligation</dd></div>
+        </dl>
+      </div>
+
+      <div class="spec-frame">
+        <span class="tick" aria-hidden="true"></span>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps?q=2961+CA-32+Suite+54,+Chico,+CA+95973&output=embed"
+            title="Map to Mike Knight Customs, 2961 CA-32, Suite 54–56, Chico, CA 95973"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <a class="btn btn--ghost" href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Open in Google Maps <span class="arrow">→</span></a>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= WHAT HAPPENS NEXT ================= -->
+<section class="section section--rule" aria-labelledby="next-title">
+  <div class="wrap">
+    <p class="eyebrow reveal">After You Submit</p>
+    <h2 id="next-title" class="display display--lg reveal" style="margin: 0.5rem 0 var(--space-4);">What Happens Next</h2>
+
+    <div class="frame-steps">
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">01</span>
+          <span class="data">Estimate</span>
+        </div>
+        <div>
+          <h3>Free Estimate</h3>
+          <p>We inspect the damage, including what a drive-by estimate can't
+          see, and write the repair plan to the manufacturer's published
+          procedures. You get a plain-language walkthrough of exactly what the
+          vehicle needs.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Cost to You</span>
+          <p style="font-size: var(--step--1);">Zero. Estimates and second
+          opinions are always free.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">02</span>
+          <span class="data">Claim</span>
+        </div>
+        <div>
+          <h3>We Handle the Insurer</h3>
+          <p>Paperwork, documentation, and adjuster negotiation all run through
+          us. When an insurer pushes aftermarket parts or cut labor hours, that
+          conversation happens with our shop, never with you.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">You Provide</span>
+          <p style="font-size: var(--step--1);">Claim number, keys, and a
+          signature. That's the entire list.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">03</span>
+          <span class="data">Repair</span>
+        </div>
+        <div>
+          <h3>OEM Repair, Scheduled Updates</h3>
+          <p>100% OEM parts, factory weld and refinish procedures, and ADAS
+          recalibration where the manufacturer requires it. You receive
+          scheduled updates at every phase, so you always know where the vehicle
+          stands and when you'll drive it home.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Parts Standard</span>
+          <p style="font-size: var(--step--1);">Factory part numbers only. No
+          aftermarket, ever.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">04</span>
+          <span class="data">Delivery</span>
+        </div>
+        <div>
+          <h3>Delivered Under Lifetime Warranty</h3>
+          <p>You get the vehicle back indistinguishable from factory, along
+          with the complete repair file: parts invoices, measurements, and
+          calibration reports. The workmanship is warrantied for as long as you
+          own it.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Coverage</span>
+          <p style="font-size: var(--step--1);">Lifetime, covering the full ownership
+          term of the vehicle.</p>
+        </aside>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RIGHTS REASSURANCE ================= -->
+<section class="rights">
+  <div class="wrap rights__inner">
+    <blockquote class="reveal">
+      “Your insurer may recommend a shop.
+      <em>Under California law, the choice is yours.</em>”
+    </blockquote>
+    <div class="reveal">
+      <dl class="readout" aria-label="Your rights and accepted carriers">
+        <div class="readout__row"><dt>Your Right</dt><dd>Shop of Your Choice</dd></div>
+        <div class="readout__row"><dt>Reference</dt><dd>CA Insurance Code §758.5</dd></div>
+        <div class="readout__row"><dt>Claims</dt><dd class="is-live">Every Major Carrier · Direct</dd></div>
+      </dl>
+      <p style="margin-top: var(--space-2); font-size: var(--step--1);">State Farm,
+      Allstate, GEICO, Progressive, and every major carrier. We handle the
+      claim directly, so you never argue with an adjuster.
+      <a href="advocacy-blueprint.html" style="color: var(--mkc-green);">Read the Blueprint →</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
+      <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
+      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
+        <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
+        <li><a href="advocacy-blueprint.html">Advocacy Blueprint</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
+        <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
+        <li><a href="https://instagram.com/mikeyknight456/">Instagram</a></li>
+        <li><a href="https://www.yelp.com/biz/mike-knight-customs-chico">Yelp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
+        <li><a href="tel:+15302149949">(530) 214-9949</a></li>
+        <li><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
+    <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+  </div>
+</footer>
+
+<script src="js/mkc.js"></script>
+</body>
+</html>

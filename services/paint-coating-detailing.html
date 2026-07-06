@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paint Matching, Ceramic Coating &amp; Detailing · Invisible Factory Finish | Mike Knight Customs, Chico CA</title>
+<meta name="description" content="Spectrophotometer-matched paint blending, 9H ceramic coating, and concours-level detailing in Chico, CA. Finish standards trusted by local pilots and boat owners, backed by a lifetime warranty." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/mkc.css" />
+<style>
+/* ============ PAGE D · STAGGERED FINISH-STUDIO LAYOUT ============ */
+
+/* masthead */
+.mast { border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.mast__inner { padding-block: var(--space-6); position: relative; z-index: 1; }
+.mast__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-4); align-items: end; }
+.mast__title { max-width: 16ch; margin-block: var(--space-2) var(--space-3); }
+.mast__title em { font-style: normal; color: var(--mkc-green); }
+.mast__doc { justify-self: end; width: 100%; max-width: 24rem; }
+@media (max-width: 900px) { .mast__grid { grid-template-columns: 1fr; } .mast__doc { justify-self: start; } }
+
+/* section header band */
+.band {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-3);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding-block: var(--space-2);
+}
+.band .display { font-size: var(--step-2); }
+@media (max-width: 720px) { .band { grid-template-columns: 1fr; gap: 0.4rem; } }
+
+/* staggered rows: no two bands repeat */
+.stagger { padding-block: var(--space-5); display: grid; gap: var(--space-3); }
+.stagger__copy { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
+.stagger__copy h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-3); color: var(--white); line-height: 1.02; letter-spacing: 0.01em; }
+.stagger + .stagger { border-top: 1px solid var(--line); }
+
+/* row 1: 7/5, image left */
+.stagger--r1 { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-4); }
+
+/* row 2: 4/8, readout left, early break */
+.stagger--r2 { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-4); }
+.stagger--r2 .stagger__aside { align-self: start; position: sticky; top: 6rem; }
+
+/* row 3: 6/6 pushed right one column */
+.stagger--r3 { grid-template-columns: minmax(0, 1fr) minmax(0, 5.5fr) minmax(0, 5.5fr); gap: var(--space-4); }
+.stagger--r3 > .stagger__spacer { border-right: 1px solid var(--line-soft); }
+
+@media (max-width: 960px) {
+  .stagger--r1, .stagger--r2, .stagger--r3 { grid-template-columns: 1fr; }
+  .stagger--r2 .stagger__aside { position: static; }
+  .stagger--r3 > .stagger__spacer { display: none; }
+}
+
+/* stage list: detailing correction stages */
+.stage-list { border-top: 1px solid var(--line); }
+.stage-list__item {
+  display: grid; grid-template-columns: 5rem 1fr auto; gap: var(--space-2);
+  align-items: baseline;
+  padding: 1rem 0; border-bottom: 1px solid var(--line);
+}
+.stage-list__item h4 { color: var(--white); font-weight: 600; font-size: var(--step-0); letter-spacing: 0.01em; }
+.stage-list__item .data { text-align: right; }
+@media (max-width: 640px) { .stage-list__item { grid-template-columns: 3.5rem 1fr; } .stage-list__item .data:last-child { grid-column: 2; text-align: left; } }
+
+/* comparator (matches homepage) */
+.compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; background: var(--ink-2); }
+.compare img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; filter: saturate(0.9);
+}
+.compare__after { z-index: 2; }
+.compare__handle {
+  position: absolute; top: 0; bottom: 0; left: 55%;
+  width: 1px; background: var(--mkc-green); z-index: 3;
+  pointer-events: none;
+}
+.compare__handle::after {
+  content: "◂ ▸";
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--ink); background: var(--mkc-green);
+  padding: 0.35rem 0.5rem; white-space: nowrap;
+}
+.compare input[type="range"] {
+  position: absolute; inset: 0; z-index: 4;
+  width: 100%; height: 100%;
+  opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none;
+}
+.compare__flag {
+  position: absolute; top: var(--space-2); z-index: 3;
+  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
+  background: rgba(11,15,18,0.8);
+}
+.compare__flag--before { left: var(--space-2); color: var(--silver); }
+.compare__flag--after { right: var(--space-2); color: var(--mkc-green); border-color: var(--mkc-green); }
+
+/* marine & aviation band */
+.craft { border-left: 1px solid var(--line); padding-left: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); justify-content: center; }
+@media (max-width: 960px) { .craft { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: var(--space-4); } }
+
+/* final CTA */
+.cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
+.cta-final__inner { padding-block: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="../index.html" aria-label="Mike Knight Customs home">
+      <span class="nav__mark">MK<span>C</span></span>
+      <span class="nav__tag">Chico · CA<br />Est. 2016</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li>
+          <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <div class="nav__menu">
+            <a href="collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="paint-coating-detailing.html" aria-current="page">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="../advocacy-blueprint.html">OEM &amp; Insurance Advocacy <small>03</small></a>
+          </div>
+        </li>
+        <li><a href="../advocacy-blueprint.html">The Blueprint</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
+      <a class="btn btn--primary" href="../contact.html">Get a Quote</a>
+      <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= MASTHEAD ================= -->
+<section class="mast">
+  <div class="wrap mast__inner">
+    <div class="mast__grid">
+      <div>
+        <p class="eyebrow">Service File · MKC-SVC/02</p>
+        <h1 class="display display--xl mast__title">Finishes you cannot find in <em>direct sunlight.</em></h1>
+        <p class="lede">Color matching verified by instrument, ceramic protection
+        measured in years, and detailing held to a concours standard. Our
+        acceptance test is simple: if you can find the repair in direct
+        sunlight, it isn't finished.</p>
+      </div>
+      <dl class="mast__doc readout reveal" aria-label="Finish standards">
+        <div class="readout__row"><dt>Color Match</dt><dd class="is-live">Spectrophotometer Verified</dd></div>
+        <div class="readout__row"><dt>Blend Procedure</dt><dd>Adjacent-Panel Transition</dd></div>
+        <div class="readout__row"><dt>Ceramic Spec</dt><dd>9H · Multi-Year Film</dd></div>
+        <div class="readout__row"><dt>Coverage</dt><dd class="is-live">Lifetime Warranty</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROW 1 · 7/5 INVISIBLE COLOR MATCH ================= -->
+<section class="section section--flush" aria-labelledby="r1-title">
+  <div class="wrap">
+    <div class="band" style="margin-top: var(--space-5);">
+      <span class="data data--live">FIN / 01</span>
+      <h2 class="display">Three Disciplines. One Standard.</h2>
+      <span class="data">Finish Protocol</span>
+    </div>
+
+    <article class="stagger stagger--r1">
+      <div class="reveal">
+        <div class="spec-frame">
+          <span class="tick" aria-hidden="true"></span>
+          <div class="compare" data-compare>
+            <img src="https://static.wixstatic.com/media/e557bf_59b895ca7c6941cc8a37f2cff9192ece~mv2.jpg/v1/crop/x_0,y_140,w_1512,h_1718/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/2011%20GMC%20Sierra%202500.jpg"
+                 alt="Damaged panels before refinishing" />
+            <img class="compare__after"
+                 src="https://static.wixstatic.com/media/e557bf_a8af05e76c75473cb8b2b968d8115c11~mv2.jpg/v1/crop/x_31,y_125,w_849,h_993/fill/w_1100,h_1250,al_c,q_85,enc_avif,quality_auto/2022%20Mercedes%20Benz%20AMG%20GLE53.jpg"
+                 alt="2022 Mercedes-AMG GLE53 with invisible factory-match paint blend after refinishing" />
+            <span class="compare__flag compare__flag--before">Before</span>
+            <span class="compare__flag compare__flag--after">After</span>
+            <span class="compare__handle" aria-hidden="true"></span>
+            <input type="range" min="0" max="100" value="55" aria-label="Drag to compare before and after" />
+          </div>
+        </div>
+      </div>
+      <div class="stagger__copy reveal">
+        <p class="data data--live">Discipline 01 · Refinish</p>
+        <h3 id="r1-title">Invisible Color Match</h3>
+        <p>Factory paint codes get you close. They don't account for a decade
+        of California sun, or the batch variance the car left the plant with.
+        We read the vehicle's actual color with a spectrophotometer, formulate
+        to the instrument's numbers, and spray test cards until the match is
+        verified before a panel is touched.</p>
+        <p>Then the color is blended across adjacent panels, not stopped at the
+        repair line. Insurers often approve paint for the damaged panel alone,
+        a recipe for visible mismatch. We <a href="../advocacy-blueprint.html" style="color: var(--mkc-green);">fight
+        for the refinish hours</a> that make the transition disappear.</p>
+        <dl class="readout">
+          <div class="readout__row"><dt>Formulation</dt><dd>Instrument-Read · Batch Corrected</dd></div>
+          <div class="readout__row"><dt>Transition</dt><dd class="is-live">Blended · Undetectable in Sunlight</dd></div>
+          <div class="readout__row"><dt>Gloss Standard</dt><dd>Factory Spec</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <!-- ================= ROW 2 · 4/8 CERAMIC ================= -->
+    <article class="stagger stagger--r2">
+      <div class="stagger__aside reveal">
+        <p class="data data--live">Discipline 02 · Protection</p>
+        <dl class="readout" style="margin-top: var(--space-2);" aria-label="Ceramic coating specification">
+          <div class="readout__row"><dt>Hardness</dt><dd class="is-live">9H Pencil Scale</dd></div>
+          <div class="readout__row"><dt>UV Shield</dt><dd>Oxidation &amp; Fade Barrier</dd></div>
+          <div class="readout__row"><dt>Surface</dt><dd>Hydrophobic · Self-Beading</dd></div>
+          <div class="readout__row"><dt>Film Integrity</dt><dd class="is-live">Multi-Year Rated</dd></div>
+        </dl>
+      </div>
+      <div class="stagger__copy reveal">
+        <h3>Ceramic Protection</h3>
+        <p>A ceramic coating is a sacrificial glass layer bonded to the clear
+        coat: 9H surface hardness against wash marring and light scratches, a
+        UV shield against the Chico summers that dull paint by degrees, and a
+        hydrophobic surface that sheds water, road film, and bug residue
+        instead of letting them etch in.</p>
+        <p>We only coat paint we'd put our name on: every ceramic application
+        starts with paint correction and instrument-checked prep, because
+        sealing defects under glass preserves them forever. Maintenance is a
+        rinse, not a ritual, and the film integrity is rated in years, not
+        months.</p>
+      </div>
+    </article>
+
+    <!-- ================= ROW 3 · 6/6 OFFSET · CONCOURS + MARINE & AVIATION ================= -->
+    <article class="stagger stagger--r3">
+      <div class="stagger__spacer" aria-hidden="true"></div>
+      <div class="stagger__copy reveal">
+        <p class="data data--live">Discipline 03 · Detailing</p>
+        <h3>Concours Detailing</h3>
+        <p>Paint correction in measured stages (cut, polish, refine), with
+        gloss checked under inspection lighting between each pass. Interiors
+        get the same discipline: leather fed, not just wiped; trim detailed to
+        the seams.</p>
+        <div class="stage-list">
+          <div class="stage-list__item">
+            <span class="data">ST/01</span>
+            <h4>Wash &amp; Decontamination</h4>
+            <span class="data">Iron &amp; Tar Removal · Clay</span>
+          </div>
+          <div class="stage-list__item">
+            <span class="data">ST/02</span>
+            <h4>Compound Cut</h4>
+            <span class="data">Defect Removal Pass</span>
+          </div>
+          <div class="stage-list__item">
+            <span class="data">ST/03</span>
+            <h4>Polish &amp; Refine</h4>
+            <span class="data">Gloss Restoration</span>
+          </div>
+          <div class="stage-list__item">
+            <span class="data">ST/04</span>
+            <h4>Interior Specification</h4>
+            <span class="data">Leather · Trim · Glass</span>
+          </div>
+        </div>
+      </div>
+      <div class="craft reveal">
+        <p class="eyebrow">Beyond the Road</p>
+        <h3 class="display display--md" style="max-width: 14ch;">Marine &amp; Aviation Finishing</h3>
+        <p>Local pilots and boat owners bring MKC their aircraft and vessels,
+        work where finish failure isn't cosmetic. Gelcoat lives in constant UV
+        and water exposure; aircraft skins demand aerospace-grade surface
+        standards and exact color continuity across large, unforgiving panels.</p>
+        <p>That trust is the proof behind our automotive work. A shop held to
+        finishing standards for airframes and hulls doesn't lower the bar for
+        a quarter panel.</p>
+        <dl class="readout">
+          <div class="readout__row"><dt>Marine</dt><dd>Gelcoat Correction · Ceramic</dd></div>
+          <div class="readout__row"><dt>Aviation</dt><dd>Aerospace-Grade Finish Standard</dd></div>
+          <div class="readout__row"><dt>Clientele</dt><dd class="is-live">Local Pilots &amp; Boat Owners</dd></div>
+        </dl>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta-final">
+  <div class="wrap cta-final__inner reveal">
+    <p class="eyebrow">Finish Consultation</p>
+    <h2 class="display display--lg">Bring it in.<br />We'll read the paint.</h2>
+    <p class="lede">Free finish consultations: color match assessment, ceramic
+    coating specification, or a full detailing plan for your car, boat, or
+    aircraft.</p>
+    <div style="display:flex; gap: var(--space-2); flex-wrap: wrap;">
+      <a class="btn btn--primary" href="../contact.html">Book a Finish Consultation <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="tel:+15302149949">Call (530) 214-9949</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
+      <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
+      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="collision-frame-repair.html">Collision &amp; Frame</a></li>
+        <li><a href="paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
+        <li><a href="../advocacy-blueprint.html">Advocacy Blueprint</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
+        <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
+        <li><a href="https://instagram.com/mikeyknight456/">Instagram</a></li>
+        <li><a href="https://www.yelp.com/biz/mike-knight-customs-chico">Yelp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
+        <li><a href="tel:+15302149949">(530) 214-9949</a></li>
+        <li><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
+    <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+  </div>
+</footer>
+
+<script src="../js/mkc.js"></script>
+</body>
+</html>

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Consumer Advocacy Blueprint · OEM Parts &amp; Insurance Assistance | Mike Knight Customs</title>
+<meta name="description" content="Why 100% OEM parts protect your crumple zones, ADAS systems, and resale value, and how Mike Knight Customs stands between you and the insurance company. You have the legal right to choose your repair facility." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   MIKE KNIGHT CUSTOMS · GLOBAL DESIGN SYSTEM  v1.0
+   Direction: Luxury Minimalist / Mechanical Grit
+   Base #0B0F12 · 1px structural borders · mono data readouts
+   ============================================================ */
+
+/* ---------- 01 · TOKENS ---------- */
+:root {
+  /* surface */
+  --ink:        #0B0F12;   /* page base: deep ink slate      */
+  --ink-2:      #10151A;   /* raised panel                    */
+  --ink-3:      #161D24;   /* hover / inset field             */
+  --line:       #222B33;   /* 1px structural border           */
+  --line-soft:  #1A2229;   /* hairline dividers               */
+
+  /* type color */
+  --white:      #F4F7F9;   /* primary display + headings      */
+  --silver:     #98A2AB;   /* body copy                       */
+  --silver-dim: #5E6972;   /* captions / disabled             */
+
+  /* single industrial accent, used sparingly */
+  --mkc-green:      #A8F040;
+  --mkc-green-dim:  rgba(168, 240, 64, 0.14);
+
+  /* type stacks */
+  --f-display: "Anton", "Arial Narrow", sans-serif;          /* heavy mechanical display */
+  --f-body:    "Archivo", "Helvetica Neue", sans-serif;      /* geometric, hyper-legible */
+  --f-data:    "IBM Plex Mono", "Courier New", monospace;    /* data readouts            */
+
+  /* scale */
+  --step--1: clamp(0.78rem, 0.74rem + 0.2vw, 0.88rem);
+  --step-0:  clamp(0.95rem, 0.9rem + 0.25vw, 1.06rem);
+  --step-1:  clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem);
+  --step-2:  clamp(1.5rem, 1.3rem + 1vw, 2.2rem);
+  --step-3:  clamp(2.2rem, 1.7rem + 2.4vw, 3.6rem);
+  --step-4:  clamp(3rem, 2.1rem + 4.6vw, 6rem);
+
+  /* rhythm */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --space-6: 8rem;
+
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --max-w: 1440px;
+}
+
+/* tighter vertical rhythm on phones */
+@media (max-width: 640px) {
+  :root {
+    --space-4: 2.25rem;
+    --space-5: 3.5rem;
+    --space-6: 4.5rem;
+  }
+}
+
+/* ---------- 02 · RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  background: var(--ink);
+  color: var(--silver);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+::selection { background: var(--mkc-green); color: var(--ink); }
+
+:focus-visible {
+  outline: 1px solid var(--mkc-green);
+  outline-offset: 3px;
+}
+
+/* ---------- 03 · TYPE UTILITIES ---------- */
+.display {
+  font-family: var(--f-display);
+  font-weight: 400;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 0.96;
+  letter-spacing: 0.005em;
+}
+.display--xl { font-size: var(--step-4); }
+.display--lg { font-size: var(--step-3); }
+.display--md { font-size: var(--step-2); }
+
+.data {
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--silver-dim);
+}
+.data--live { color: var(--mkc-green); }
+.data--white { color: var(--white); }
+
+.eyebrow {
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--mkc-green);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem; height: 1px;
+  background: var(--mkc-green);
+}
+
+.lede {
+  font-size: var(--step-1);
+  font-weight: 400;
+  color: var(--silver);
+  max-width: 56ch;
+}
+
+.body-max { max-width: 62ch; }
+
+/* ---------- 04 · LAYOUT PRIMITIVES ---------- */
+.wrap {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--space-3);
+}
+
+.section { padding-block: var(--space-6); }
+.section--flush { padding-block: 0; }
+.section--rule { border-top: 1px solid var(--line); }
+
+/* ---------- 05 · STRUCTURAL BORDER COMPONENTS ---------- */
+
+/* metadata point: border-scoped spec row, replaces icon boxes */
+.meta-point {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+.meta-point:last-child { border-bottom: 1px solid var(--line); }
+.meta-point__idx { font-family: var(--f-data); font-size: var(--step--1); color: var(--silver-dim); letter-spacing: 0.1em; }
+.meta-point__label { font-weight: 600; color: var(--white); font-size: var(--step-0); letter-spacing: 0.01em; }
+.meta-point__value { font-family: var(--f-data); font-size: var(--step--1); color: var(--mkc-green); letter-spacing: 0.08em; text-transform: uppercase; text-align: right; }
+
+/* spec frame: 1px border with blueprint corner ticks */
+.spec-frame { position: relative; border: 1px solid var(--line); }
+.spec-frame::before, .spec-frame::after,
+.spec-frame > .tick::before, .spec-frame > .tick::after {
+  content: "";
+  position: absolute;
+  width: 9px; height: 9px;
+  border-color: var(--mkc-green);
+  border-style: solid;
+  border-width: 0;
+}
+.spec-frame::before        { top: -1px; left: -1px;   border-top-width: 1px; border-left-width: 1px; }
+.spec-frame::after         { top: -1px; right: -1px;  border-top-width: 1px; border-right-width: 1px; }
+.spec-frame > .tick::before{ bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+.spec-frame > .tick::after { bottom: -1px; right: -1px;border-bottom-width: 1px; border-right-width: 1px; }
+
+/* data readout: mono spec table overlay */
+.readout {
+  background: rgba(11, 15, 18, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+}
+.readout__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--line-soft);
+  letter-spacing: 0.06em;
+}
+.readout__row:first-child { border-top: 0; }
+.readout__row dt { color: var(--silver-dim); text-transform: uppercase; }
+.readout__row dd { color: var(--white); text-align: right; }
+.readout__row dd.is-live { color: var(--mkc-green); }
+
+/* ---------- 06 · CONTROLS ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 1.05rem 1.8rem;
+  border: 1px solid var(--line);
+  color: var(--white);
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.btn .arrow { transition: transform 0.25s ease; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+.btn--primary {
+  background: var(--mkc-green);
+  border-color: var(--mkc-green);
+  color: var(--ink);
+  font-weight: 600;
+}
+.btn--primary:hover { background: var(--white); border-color: var(--white); }
+
+.btn--ghost:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+
+/* ---------- 07 · NAVIGATION ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 15, 18, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav__inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 4.25rem;
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-right: var(--space-3);
+  border-right: 1px solid var(--line);
+}
+.nav__mark {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.nav__mark span { color: var(--mkc-green); }
+.nav__tag { font-family: var(--f-data); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-dim); }
+
+.nav__inner > nav { display: flex; align-items: stretch; }
+.nav__links { display: flex; align-items: stretch; }
+.nav__links > li { display: flex; position: relative; }
+.nav__links a, .nav__links .nav__toggle {
+  display: flex;
+  align-items: center;
+  padding: 0 1.4rem;
+  font-family: var(--f-data);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--silver);
+  border-left: 1px solid var(--line-soft);
+  transition: color 0.2s ease;
+}
+.nav__links a:hover, .nav__links a[aria-current="page"], .nav__links .nav__toggle:hover { color: var(--mkc-green); }
+
+.nav__menu {
+  position: absolute;
+  top: 100%; left: 0;
+  min-width: 17rem;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  display: none;
+  flex-direction: column;
+}
+.nav__links li:hover .nav__menu,
+.nav__links li:focus-within .nav__menu { display: flex; }
+.nav__menu a {
+  border-left: 0;
+  border-top: 1px solid var(--line-soft);
+  padding: 0.95rem 1.4rem;
+  justify-content: space-between;
+}
+.nav__menu a:first-child { border-top: 0; }
+.nav__menu a small { color: var(--silver-dim); letter-spacing: 0.06em; }
+
+.nav__cta { display: flex; align-items: center; gap: 0; }
+.nav__cta .btn { border-top: 0; border-bottom: 0; height: 100%; }
+
+.nav__burger { display: none; padding: 0 1rem; border-left: 1px solid var(--line); color: var(--white); font-family: var(--f-data); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+@media (max-width: 960px) {
+  .nav__links, .nav__cta .btn--ghost { display: none; }
+  .nav__burger { display: flex; align-items: center; }
+  .nav.is-open .nav__links {
+    display: flex;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--ink-2);
+    border-bottom: 1px solid var(--line);
+    align-items: stretch;
+  }
+  .nav.is-open .nav__links > li { display: block; }
+  .nav.is-open .nav__links a, .nav.is-open .nav__toggle { padding: 1rem var(--gutter); border-left: 0; border-top: 1px solid var(--line-soft); width: 100%; }
+  .nav__menu { position: static; border: 0; display: flex; background: var(--ink-3); }
+}
+@media (max-width: 640px) {
+  .nav__cta .btn { padding-inline: 1.1rem; }
+  .nav__tag { display: none; }
+  .nav__brand { padding-left: var(--gutter); }
+  .nav__inner { padding-inline: 0; }
+  .nav__burger { padding-inline: var(--gutter); }
+}
+
+/* ---------- 08 · FOOTER ---------- */
+.footer { border-top: 1px solid var(--line); }
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+}
+.footer h4 { font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-dim); margin-bottom: var(--space-2); font-weight: 400; }
+.footer li { padding: 0.4rem 0; border-bottom: 1px solid var(--line-soft); }
+.footer li a { font-size: var(--step--1); color: var(--silver); transition: color 0.2s; }
+.footer li a:hover { color: var(--mkc-green); }
+.footer__legal {
+  display: flex; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-block: var(--space-2);
+}
+@media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
+
+/* ---------- 09 · MOTION ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+</style>
+<style>
+/* ============ BLUEPRINT PAGE · SCOPED LAYOUT ============ */
+
+/* manifesto masthead */
+.mast { border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.mast__inner { padding-block: var(--space-6); position: relative; z-index: 1; }
+.mast__title { max-width: 14ch; margin-block: var(--space-2) var(--space-3); }
+.mast__title em { font-style: normal; color: var(--mkc-green); }
+.mast__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-4); align-items: end; }
+.mast__doc { justify-self: end; width: 100%; max-width: 24rem; }
+.mast__bg {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.35;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+  -webkit-mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+}
+@media (max-width: 900px) { .mast__grid { grid-template-columns: 1fr; } .mast__doc { justify-self: start; } }
+
+/* section header band */
+.band {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-3);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding-block: var(--space-2);
+}
+.band .display { font-size: var(--step-2); }
+@media (max-width: 720px) { .band { grid-template-columns: 1fr; gap: 0.4rem; } }
+
+/* protocol split */
+.protocol { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-5); padding-block: var(--space-5); }
+.protocol__sticky { position: sticky; top: 6rem; align-self: start; display: flex; flex-direction: column; gap: var(--space-3); }
+@media (max-width: 960px) { .protocol { grid-template-columns: 1fr; } .protocol__sticky { position: static; } }
+
+.risk-list { border-top: 1px solid var(--line); }
+.risk-list__item {
+  display: grid; grid-template-columns: 6rem 1fr; gap: var(--space-3);
+  padding: var(--space-3) 0; border-bottom: 1px solid var(--line);
+}
+.risk-list__item h4 { color: var(--white); font-weight: 600; font-size: var(--step-1); margin-bottom: 0.4rem; letter-spacing: 0.01em; }
+@media (max-width: 640px) { .risk-list__item { grid-template-columns: 1fr; gap: var(--space-1); } }
+
+/* contrast matrix */
+.matrix { border: 1px solid var(--line); margin-top: var(--space-4); }
+.matrix__row { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); }
+.matrix__row + .matrix__row { border-top: 1px solid var(--line); }
+.matrix__cell { padding: 1.1rem 1.25rem; border-left: 1px solid var(--line); font-size: var(--step--1); }
+.matrix__cell:first-child { border-left: 0; font-family: var(--f-data); text-transform: uppercase; letter-spacing: 0.1em; color: var(--silver-dim); display:flex; align-items:center; }
+.matrix__row--head .matrix__cell { font-family: var(--f-data); text-transform: uppercase; letter-spacing: 0.14em; padding-block: 0.8rem; }
+.matrix__row--head .matrix__cell.oem { color: var(--ink); background: var(--mkc-green); font-weight: 500; }
+.matrix__row--head .matrix__cell.aft { color: var(--silver); background: var(--ink-2); }
+.matrix__cell.oem { color: var(--white); background: var(--mkc-green-dim); }
+.matrix__cell.aft { color: var(--silver); }
+@media (max-width: 720px) {
+  .matrix__row { grid-template-columns: 1fr; }
+  .matrix__cell { border-left: 0; border-top: 1px solid var(--line-soft); }
+  .matrix__row .matrix__cell:first-child { border-top: 0; background: var(--ink-2); }
+}
+
+/* advocacy framework steps */
+.frame-steps { counter-reset: step; border-top: 1px solid var(--line); }
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.step__phase { display: flex; flex-direction: column; gap: 0.5rem; }
+.step__num { font-family: var(--f-display); font-size: var(--step-3); color: var(--ink); -webkit-text-stroke: 1px var(--line); line-height: 1; }
+.step:hover .step__num { -webkit-text-stroke: 1px var(--mkc-green); }
+.step h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: var(--step-2); color: var(--white); line-height: 1.05; letter-spacing: 0.015em; margin-bottom: var(--space-2); }
+.step__aside { border-left: 1px solid var(--line); padding-left: var(--space-3); align-self: start; }
+.step__aside .data { display: block; margin-bottom: 0.5rem; }
+@media (max-width: 900px) {
+  .step { grid-template-columns: 1fr; gap: var(--space-2); }
+  .step__aside { border-left: 0; border-top: 1px solid var(--line-soft); padding: var(--space-2) 0 0; }
+}
+
+/* rights banner */
+.rights { border-top: 1px solid var(--line); background: var(--ink-2); }
+.rights__inner { padding-block: var(--space-6); display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-4); align-items: center; }
+.rights blockquote { font-family: var(--f-display); font-size: var(--step-3); color: var(--white); text-transform: uppercase; line-height: 1.02; letter-spacing: 0.01em; }
+.rights blockquote em { font-style: normal; color: var(--mkc-green); }
+@media (max-width: 900px) { .rights__inner { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
+      <span class="nav__mark">MK<span>C</span></span>
+      <span class="nav__tag">Chico · CA<br />Est. 2016</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <div class="nav__menu">
+            <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="advocacy-blueprint.html">OEM &amp; Insurance Advocacy <small>03</small></a>
+          </div>
+        </li>
+        <li><a href="advocacy-blueprint.html" aria-current="page">The Blueprint</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
+      <a class="btn btn--primary" href="contact.html">Get a Quote</a>
+      <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= MASTHEAD ================= -->
+<section class="mast">
+  <div class="mast__bg" aria-hidden="true"></div>
+  <div class="wrap mast__inner">
+    <div class="mast__grid">
+      <div>
+        <p class="eyebrow">Pillar Document · MKC-ADV/01</p>
+        <h1 class="display display--xl mast__title">The Consumer <em>Advocacy</em> Blueprint</h1>
+        <p class="lede">When your vehicle is damaged, two negotiations begin: one
+        about metal, and one about money. This document explains how Mike Knight
+        Customs wins both on your behalf, with factory parts, factory
+        procedures, and zero tolerance for shortcuts.</p>
+      </div>
+      <dl class="mast__doc readout reveal">
+        <div class="readout__row"><dt>Doc Class</dt><dd>Consumer Protection</dd></div>
+        <div class="readout__row"><dt>Section 01</dt><dd>OEM Structural Protocol</dd></div>
+        <div class="readout__row"><dt>Section 02</dt><dd>Claims Advocacy Framework</dd></div>
+        <div class="readout__row"><dt>Governing Standard</dt><dd class="is-live">Factory Spec · No Exceptions</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION 01 · OEM PROTOCOL ================= -->
+<section class="section section--flush" aria-labelledby="s1-title">
+  <div class="wrap">
+    <div class="band" style="margin-top: var(--space-5);">
+      <span class="data data--live">SEC / 01</span>
+      <h2 id="s1-title" class="display">The 100% OEM Structural Integrity Protocol</h2>
+      <span class="data">Parts Standard</span>
+    </div>
+
+    <div class="protocol">
+      <div class="protocol__sticky reveal">
+        <p class="eyebrow">Why It Matters</p>
+        <h3 class="display display--md">Your car was engineered once. We don't re-engineer it with cheaper metal.</h3>
+        <p>Modern vehicles are single, integrated safety systems. Every panel
+        thickness, weld point, and bracket position was validated in factory
+        crash testing. Aftermarket and salvage parts, the LKQ and QRP line
+        items adjusters quietly write into estimates, were not part of that
+        test. At MKC, they are never part of the repair.</p>
+        <a class="btn btn--ghost" href="contact.html">Ask About Your Estimate <span class="arrow">→</span></a>
+      </div>
+
+      <div>
+        <div class="risk-list">
+          <article class="risk-list__item reveal">
+            <span class="data">R/01</span>
+            <div>
+              <h4>Compromised Crumple Zones</h4>
+              <p>Crumple zones are engineered to collapse in a precise sequence,
+              absorbing crash energy before it reaches the cabin. Aftermarket
+              structural parts routinely vary in alloy, gauge, and geometry:
+              small differences that change how force travels through the body
+              in the next collision. A part that's 90% right is 100% untested.</p>
+            </div>
+          </article>
+          <article class="risk-list__item reveal">
+            <span class="data">R/02</span>
+            <div>
+              <h4>Blinded ADAS Systems</h4>
+              <p>Automatic emergency braking, lane keeping, and adaptive cruise
+              depend on radar and camera units mounted to millimeter-accurate
+              datum points in bumpers, grilles, and windshields. Off-spec
+              brackets and imitation covers can skew sensor aim or attenuate
+              radar. The system may show no warning light while seeing the road
+              wrong. Every MKC structural repair concludes with OEM-procedure
+              ADAS recalibration.</p>
+            </div>
+          </article>
+          <article class="risk-list__item reveal">
+            <span class="data">R/03</span>
+            <div>
+              <h4>Eroded Resale &amp; Diminished Value</h4>
+              <p>A vehicle history showing non-OEM structural repair invites
+              lower appraisals, failed pre-purchase inspections, and diminished
+              value claims. Documented factory-part repair is the difference
+              between a car that sells and a car that gets negotiated down.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- CONTRAST MATRIX -->
+        <div class="spec-frame reveal" style="border: 0;">
+          <table role="presentation" style="display:none;"></table>
+          <div class="matrix" role="table" aria-label="OEM versus aftermarket comparison">
+            <div class="matrix__row matrix__row--head" role="row">
+              <div class="matrix__cell" role="columnheader">Criterion</div>
+              <div class="matrix__cell oem" role="columnheader">OEM · The MKC Standard</div>
+              <div class="matrix__cell aft" role="columnheader">Aftermarket / LKQ-QRP</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">Crash Validation</div>
+              <div class="matrix__cell oem" role="cell">Validated in the manufacturer's original crash-test program</div>
+              <div class="matrix__cell aft" role="cell">No obligation to match factory crash-test performance</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">Structural Tolerance</div>
+              <div class="matrix__cell oem" role="cell">Factory alloy, gauge, and geometry that fits datum points as designed</div>
+              <div class="matrix__cell aft" role="cell">Variable metallurgy and fitment; frequently requires forced alignment</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">ADAS Compatibility</div>
+              <div class="matrix__cell oem" role="cell">Sensor mounts and materials match calibration assumptions</div>
+              <div class="matrix__cell aft" role="cell">Can skew sensor aim or signal behavior with no dash warning</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">Corrosion Protection</div>
+              <div class="matrix__cell oem" role="cell">Factory e-coat and warranty-grade coatings</div>
+              <div class="matrix__cell aft" role="cell">Coating quality varies by producer; premature rust risk</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">Resale Value</div>
+              <div class="matrix__cell oem" role="cell">Documented OEM repair preserves appraisal and history report standing</div>
+              <div class="matrix__cell aft" role="cell">Non-OEM structural history invites markdowns and diminished value</div>
+            </div>
+            <div class="matrix__row" role="row">
+              <div class="matrix__cell" role="rowheader">Who It Serves</div>
+              <div class="matrix__cell oem" role="cell">You: your family, your safety systems, your investment</div>
+              <div class="matrix__cell aft" role="cell">The insurer's claim cost</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RIGHTS BANNER ================= -->
+<section class="rights">
+  <div class="wrap rights__inner">
+    <blockquote class="reveal">
+      “You have the legal right to choose your repair facility.
+      <em>We stand between you and the insurer.</em>”
+    </blockquote>
+    <div class="reveal">
+      <dl class="readout">
+        <div class="readout__row"><dt>Your Right</dt><dd>Shop of Your Choice</dd></div>
+        <div class="readout__row"><dt>Reference</dt><dd>CA Insurance Code §758.5</dd></div>
+        <div class="readout__row"><dt>Steering</dt><dd class="is-live">You Cannot Be Forced Elsewhere</dd></div>
+      </dl>
+      <p style="margin-top: var(--space-2); font-size: var(--step--1);">An insurer
+      may recommend a shop. Under California law, the choice is yours, and it
+      is protected.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECTION 02 · ADVOCACY FRAMEWORK ================= -->
+<section class="section section--flush" aria-labelledby="s2-title">
+  <div class="wrap">
+    <div class="band" style="margin-top: var(--space-5);">
+      <span class="data data--live">SEC / 02</span>
+      <h2 id="s2-title" class="display">The Insurance Claims Advocacy Framework</h2>
+      <span class="data">Claims Procedure</span>
+    </div>
+
+    <p class="lede reveal" style="padding-block: var(--space-4);">From first call to
+    final delivery, MKC operates as your protective shield. You hand us the
+    claim number; we handle everything that follows. Here is exactly how.</p>
+
+    <div class="frame-steps">
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">01</span>
+          <span class="data">Intake</span>
+        </div>
+        <div>
+          <h3>We Take the Paperwork Off Your Desk</h3>
+          <p>Claim filing, damage documentation, teardown photography, and the
+          full repair plan, assembled by us, submitted by us. You get a single
+          point of contact and plain-language updates. The adjuster gets a
+          professionally documented file that's difficult to dispute.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">You Provide</span>
+          <p style="font-size: var(--step--1);">Claim number, keys, and a
+          signature. That's the entire list.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">02</span>
+          <span class="data">Blueprint</span>
+        </div>
+        <div>
+          <h3>We Write the Repair to Factory Procedure</h3>
+          <p>Every line of our estimate is tied to the manufacturer's published
+          repair procedures: OEM part numbers, required welds, corrosion
+          protection steps, and mandatory ADAS calibrations. When the estimate
+          is anchored to the factory manual, "optional" stops being an argument
+          the insurer can make.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Standard</span>
+          <p style="font-size: var(--step--1);">OEM procedures only. No LKQ,
+          no QRP, no "quality equivalent" substitutions.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">03</span>
+          <span class="data">Negotiation</span>
+        </div>
+        <div>
+          <h3>We Push Back on Adjusters, So You Never Have To</h3>
+          <p>When an adjuster tries to force imitation parts, cut labor hours,
+          or skip refinish steps, that conversation happens with us, not with
+          you. We supplement the claim with documented evidence, cite the
+          factory procedure, and hold the line until the approved repair matches
+          the required repair. Cheap parts don't get installed because they
+          never get approved.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Our Position</span>
+          <p style="font-size: var(--step--1);">The insurer owes you a proper
+          repair, not the cheapest one they can close.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">04</span>
+          <span class="data">Refinish Mandate</span>
+        </div>
+        <div>
+          <h3>We Mandate Premium Paint Blending</h3>
+          <p>Insurers often approve paint for the damaged panel alone, a recipe
+          for visible color mismatch. We require proper blending into adjacent
+          panels, spectrophotometer-verified color formulation, and factory
+          gloss standards, and we fight for the refinish hours that make an
+          invisible transition possible.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Acceptance Test</span>
+          <p style="font-size: var(--step--1);">If you can find the repair in
+          direct sunlight, it isn't finished.</p>
+        </aside>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__phase">
+          <span class="step__num">05</span>
+          <span class="data">Delivery</span>
+        </div>
+        <div>
+          <h3>You Get the Vehicle, and the Proof</h3>
+          <p>Final delivery includes the complete repair file: OEM parts
+          invoices, structural measurements, calibration reports, and refinish
+          documentation. It protects your resale value, supports any diminished
+          value claim, and backs the lifetime warranty we put on the work.</p>
+        </div>
+        <aside class="step__aside">
+          <span class="data data--live">Warranty</span>
+          <p style="font-size: var(--step--1);">Lifetime, for as long as you
+          own the vehicle.</p>
+        </aside>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="section section--rule">
+  <div class="wrap reveal" style="display:flex; flex-direction:column; gap: var(--space-3); align-items:flex-start;">
+    <p class="eyebrow">Before You Sign Anything</p>
+    <h2 class="display display--lg">Bring us the estimate.<br />We'll read the fine print.</h2>
+    <p class="lede">Free second opinions on any insurance estimate. We'll flag
+    every aftermarket line item and show you what the factory procedure actually
+    requires.</p>
+    <div style="display:flex; gap: var(--space-2); flex-wrap:wrap;">
+      <a class="btn btn--primary" href="contact.html">Get a Free Estimate Review <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="tel:+15302149949">Call (530) 214-9949</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
+      <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
+      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
+        <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
+        <li><a href="advocacy-blueprint.html">Advocacy Blueprint</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
+        <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
+        <li><a href="https://instagram.com/mikeyknight456/">Instagram</a></li>
+        <li><a href="https://www.yelp.com/biz/mike-knight-customs-chico">Yelp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
+        <li><a href="tel:+15302149949">(530) 214-9949</a></li>
+        <li><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
+    <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+  </div>
+</footer>
+
+<script>
+/* MKC shared behaviors: nav, reveals, proof-center comparators */
+
+// Mobile nav
+const nav = document.querySelector('.nav');
+const burger = document.querySelector('.nav__burger');
+if (burger) {
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+}
+
+// Scroll reveals (respects reduced motion via CSS)
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// Before / After comparators
+document.querySelectorAll('[data-compare]').forEach((unit) => {
+  const range = unit.querySelector('input[type="range"]');
+  const afterPane = unit.querySelector('.compare__after');
+  const handle = unit.querySelector('.compare__handle');
+  const set = (v) => {
+    afterPane.style.clipPath = `inset(0 0 0 ${v}%)`;
+    handle.style.left = `${v}%`;
+  };
+  range.addEventListener('input', () => set(range.value));
+  set(range.value);
+});
+
+</script>
+</body>
+</html>
