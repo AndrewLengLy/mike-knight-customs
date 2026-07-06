@@ -66,17 +66,6 @@
   cursor: pointer;
 }
 .field textarea { resize: vertical; min-height: 8rem; }
-.field input[type="file"] { padding: 0.65rem 0.9rem; cursor: pointer; color: var(--silver); }
-.field input[type="file"]::file-selector-button {
-  font-family: var(--f-data); font-size: var(--step--1);
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--white); background: var(--ink-3);
-  border: 1px solid var(--line);
-  padding: 0.45rem 0.9rem; margin-right: 0.9rem;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-.field input[type="file"]::file-selector-button:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
 .form__botcheck { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .form__status { padding-top: var(--space-2); display: none; }
 .form__status.is-ok { display: block; color: var(--mkc-green); }
@@ -231,18 +220,12 @@
           </div>
         </div>
 
-        <div class="form__row form__row--full">
-          <div class="field">
-            <label for="f-photo">Damage Photo <span style="color: var(--silver-dim); letter-spacing: 0.08em;">JPG / PNG · Max 5 MB</span></label>
-            <input id="f-photo" name="attachment" type="file" accept="image/jpeg,image/png,image/heic,image/webp" />
-          </div>
-        </div>
-
         <div class="form__note">
-          <span class="data data--live">More Photos</span>
-          <p>Have more angles? Text additional pictures straight to
-          <a href="tel:+15302149949" style="color: var(--mkc-green);">(530) 214-9949</a>.
-          The more we see, the faster your estimate.</p>
+          <span class="data data--live">Photos</span>
+          <p>Photos speed up your estimate. After you submit, please send
+          pictures of the damage to
+          <a href="mailto:mikeknightcustoms@hotmail.com?subject=Damage%20Photos%20-%20Quote%20Request" style="color: var(--mkc-green);">mikeknightcustoms@hotmail.com</a>.
+          Include your name and vehicle in the email so we can match it to your intake.</p>
         </div>
 
         <div class="form__submit">
@@ -438,7 +421,6 @@
 (function () {
   var form = document.getElementById('intake-form');
   var status = document.getElementById('form-status');
-  var photo = document.getElementById('f-photo');
 
   function show(msg, ok) {
     status.textContent = msg;
@@ -449,11 +431,6 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    if (photo.files.length && photo.files[0].size > 5 * 1024 * 1024) {
-      show('Photo is over 5 MB. Please choose a smaller image or text it to (530) 214-9949.', false);
-      return;
-    }
-
     var btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
     show('Sending…', true);
@@ -463,7 +440,7 @@
       .then(function (r) {
         if (r.ok) {
           form.reset();
-          show('Received. We\'ll get back to you within one business day.', true);
+          show('Received. We\'ll get back to you within one business day. Send damage photos to mikeknightcustoms@hotmail.com when you can.', true);
         } else {
           show((r.json && r.json.message) || 'Something went wrong. Please call (530) 214-9949.', false);
         }
