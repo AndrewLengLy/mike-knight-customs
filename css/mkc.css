@@ -262,6 +262,8 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
   text-transform: uppercase;
 }
 .nav__mark span { color: var(--mkc-green); }
+.nav__logo { height: 2.7rem; width: auto; display: block; }
+@media (max-width: 640px) { .nav__logo { height: 2.3rem; } }
 .nav__tag { font-family: var(--f-data); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver-dim); }
 
 .nav__inner > nav { display: flex; align-items: stretch; }

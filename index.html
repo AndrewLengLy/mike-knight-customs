@@ -66,6 +66,16 @@
   flex-wrap: wrap;
 }
 .carriers__inner .sep { color: var(--line); }
+.carriers__logo {
+  height: 1.4rem; width: auto; display: block;
+  filter: brightness(0) invert(0.66);
+  opacity: 0.9;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.carriers__logo:hover { filter: none; opacity: 1; }
+.carriers__note { margin-left: auto; }
+.carriers__cta { padding: 0.6rem 1.1rem; }
+@media (max-width: 640px) { .carriers__note { margin-left: 0; } }
 
 /* --- DIFFERENCE LEDGER (no card grid) --- */
 .ledger { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-4); }
@@ -186,7 +196,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
-      <span class="nav__mark">MK<span>C</span></span>
+      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
 
@@ -271,12 +281,13 @@
 <section class="carriers" aria-label="Insurance carriers accepted">
   <div class="wrap carriers__inner">
     <span class="data data--white">Claims Accepted:</span>
-    <span class="data">State Farm</span><span class="sep">/</span>
-    <span class="data">Allstate</span><span class="sep">/</span>
-    <span class="data">GEICO</span><span class="sep">/</span>
-    <span class="data">Progressive</span><span class="sep">/</span>
-    <span class="data">+ Every Major Carrier</span>
-    <span class="data data--live" style="margin-left:auto">Your shop. Your choice. CA Ins. Code §758.5</span>
+    <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
+    <img class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
+    <img class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
+    <img class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
+    <span class="data">+ Many More</span>
+    <span class="data data--live carriers__note">Your shop. Your choice. CA Ins. Code §758.5</span>
+    <a class="btn btn--primary carriers__cta" href="contact.html">Get a Quote <span class="arrow">→</span></a>
   </div>
 </section>
 
