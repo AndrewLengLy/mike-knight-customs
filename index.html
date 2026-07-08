@@ -179,10 +179,22 @@
   font-size: var(--step-2); line-height: 1.35; color: var(--white);
   border-left: 1px solid var(--mkc-green);
   padding-left: var(--space-3);
+  transition: opacity 0.55s ease;
 }
-.review figcaption { margin-top: var(--space-2); }
+.review blockquote.is-fading { opacity: 0; }
+.review figcaption { margin-top: var(--space-2); transition: opacity 0.55s ease; }
+.review figcaption.is-fading { opacity: 0; }
 .review__score { display: flex; flex-direction: column; gap: var(--space-2); }
 .review__stars { font-size: var(--step-2); color: var(--mkc-green); letter-spacing: 0.3rem; }
+.review__carousel { display: flex; flex-direction: column; gap: var(--space-3); min-height: 11rem; }
+.review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.review__dot {
+  width: 1.6rem; height: 1px; padding: 0.55rem 0;
+  background: var(--line); border: 0; cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
+}
+.review__dot.is-active { background: var(--mkc-green); width: 2.4rem; }
+.review__dot:hover { background: var(--mkc-green); }
 @media (max-width: 820px) { .review { grid-template-columns: 1fr; } }
 
 /* --- FINAL CTA --- */
@@ -208,10 +220,10 @@
           <div class="nav__menu">
             <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
             <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
-            <a href="advocacy-blueprint.html">OEM &amp; Insurance Advocacy <small>03</small></a>
+            <a href="advocacy-blueprint.html">OEM Advocacy <small>03</small></a>
           </div>
         </li>
-        <li><a href="advocacy-blueprint.html">The Blueprint</a></li>
+        <li><a href="advocacy-blueprint.html">OEM Advocacy</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -300,7 +312,7 @@
       <p class="body-max">We're not the fastest shop in town. We're the shop that
       does it right. Every vehicle leaves to one standard: indistinguishable from
       the day it left the factory.</p>
-      <a class="btn btn--ghost" href="advocacy-blueprint.html">Read the Blueprint <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="advocacy-blueprint.html">Read OEM Advocacy <span class="arrow">→</span></a>
     </div>
 
     <div class="ledger__rows">
@@ -433,7 +445,7 @@
     </a>
     <a class="svc-row reveal" href="advocacy-blueprint.html">
       <span class="data">S/03</span>
-      <h3>OEM &amp; Insurance Advocacy</h3>
+      <h3>OEM Advocacy</h3>
       <p>We stand between you and the insurer, handling paperwork, negotiating
       adjusters, and mandating OEM parts and proper blend procedures.</p>
       <span class="arrow">→</span>
@@ -450,26 +462,15 @@
       <p class="review__stars" aria-label="Five out of five stars">★★★★★</p>
       <p class="data">By hundreds of customers through Google and Yelp</p>
     </div>
-    <figure class="reveal">
-      <blockquote>
+    <div class="review__carousel reveal" data-review-carousel aria-live="polite">
+      <blockquote id="review-quote">
         “Mike and his team did a fantastic job on my 2019 GMC Sierra 1500.
         Excellent service, perfect paint match. My pickup came back better
         than new.”
       </blockquote>
-      <figcaption class="data">Zane G. · Google Review</figcaption>
-      <blockquote style="margin-top: var(--space-4);">
-        “I couldn't have asked for a better experience. The whole rig looks
-        better than brand new. 100% recommend.”
-      </blockquote>
-      <figcaption class="data">Aaron B. · Google Review</figcaption>
-      <blockquote style="margin-top: var(--space-4);">
-        “I would highly reccomend MKC to anyone in need of body work or
-        insurance repairs. They were able to get my car in and repaired within
-        days of the estimate, cost was exactly what was estimated and job took
-        him less than an hour.”
-      </blockquote>
-      <figcaption class="data">Natalie K. · Yelp Review</figcaption>
-    </figure>
+      <figcaption class="data" id="review-author">Zane G. · Google Review</figcaption>
+      <div class="review__dots" id="review-dots" aria-label="Review navigation"></div>
+    </div>
   </div>
 </section>
 
@@ -503,7 +504,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
         <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
-        <li><a href="advocacy-blueprint.html">Advocacy Blueprint</a></li>
+        <li><a href="advocacy-blueprint.html">OEM Advocacy</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>

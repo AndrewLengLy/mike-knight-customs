@@ -23,7 +23,7 @@ MKC (root)
 │   └── /advocacy-blueprint.html ·················· PAGE B (built)
 │         ← elevates baseline: /services/insurance-assistance.html
 │
-├── /advocacy-blueprint.html ····· "The Blueprint" (top-level pillar link)
+├── /advocacy-blueprint.html ····· "OEM Advocacy" (top-level pillar link)
 ├── /contact.html ················ Quote form + map + carriers
 │
 └── Footer utility: Google Maps · Facebook · Instagram · Yelp
