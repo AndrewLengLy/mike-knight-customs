@@ -64,41 +64,6 @@
 .stage-list__item .data { text-align: right; }
 @media (max-width: 640px) { .stage-list__item { grid-template-columns: 3.5rem 1fr; } .stage-list__item .data:last-child { grid-column: 2; text-align: left; } }
 
-/* comparator (matches homepage) */
-.compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; background: var(--ink-2); }
-.compare img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; filter: saturate(0.9);
-}
-.compare__after { z-index: 2; }
-.compare__handle {
-  position: absolute; top: 0; bottom: 0; left: 55%;
-  width: 1px; background: var(--mkc-green); z-index: 3;
-  pointer-events: none;
-}
-.compare__handle::after {
-  content: "◂ ▸";
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
-  color: var(--ink); background: var(--mkc-green);
-  padding: 0.35rem 0.5rem; white-space: nowrap;
-}
-.compare input[type="range"] {
-  position: absolute; inset: 0; z-index: 4;
-  width: 100%; height: 100%;
-  opacity: 0; cursor: ew-resize;
-  -webkit-appearance: none; appearance: none;
-}
-.compare__flag {
-  position: absolute; top: var(--space-2); z-index: 3;
-  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
-  background: rgba(11,15,18,0.8);
-}
-.compare__flag--before { left: var(--space-2); color: var(--silver); }
-.compare__flag--after { right: var(--space-2); color: var(--mkc-green); border-color: var(--mkc-green); }
-
 /* marine & aviation band */
 .craft { border-left: 1px solid var(--line); padding-left: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); justify-content: center; }
 @media (max-width: 960px) { .craft { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: var(--space-4); } }
@@ -125,10 +90,10 @@
           <div class="nav__menu">
             <a href="collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
             <a href="paint-coating-detailing.html" aria-current="page">Paint · Ceramic · Detailing <small>02</small></a>
-            <a href="../advocacy-blueprint.html">OEM Advocacy <small>03</small></a>
+            <a href="../oem-advocacy.html">OEM Advocacy <small>03</small></a>
           </div>
         </li>
-        <li><a href="../advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="../oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -200,7 +165,7 @@
         verified before a panel is touched.</p>
         <p>Then the color is blended across adjacent panels, not stopped at the
         repair line. Insurers often approve paint for the damaged panel alone,
-        a recipe for visible mismatch. We <a href="../advocacy-blueprint.html" style="color: var(--mkc-green);">fight
+        a recipe for visible mismatch. We <a href="../oem-advocacy.html" style="color: var(--mkc-green);">fight
         for the refinish hours</a> that make the transition disappear.</p>
         <dl class="readout">
           <div class="readout__row"><dt>Formulation</dt><dd>Instrument-Read · Batch Corrected</dd></div>
@@ -320,7 +285,7 @@
         <li><a href="../index.html">Home</a></li>
         <li><a href="collision-frame-repair.html">Collision &amp; Frame</a></li>
         <li><a href="paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
-        <li><a href="../advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="../oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
     </div>
@@ -349,5 +314,12 @@
 </footer>
 
 <script src="../js/mkc.js"></script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

@@ -80,41 +80,6 @@
 .proof__spec .readout { background: var(--ink-2); }
 @media (max-width: 960px) { .proof__unit { grid-template-columns: 1fr; } }
 
-/* comparator (matches homepage) */
-.compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; background: var(--ink-2); }
-.compare img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; filter: saturate(0.9);
-}
-.compare__after { z-index: 2; }
-.compare__handle {
-  position: absolute; top: 0; bottom: 0; left: 55%;
-  width: 1px; background: var(--mkc-green); z-index: 3;
-  pointer-events: none;
-}
-.compare__handle::after {
-  content: "◂ ▸";
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
-  color: var(--ink); background: var(--mkc-green);
-  padding: 0.35rem 0.5rem; white-space: nowrap;
-}
-.compare input[type="range"] {
-  position: absolute; inset: 0; z-index: 4;
-  width: 100%; height: 100%;
-  opacity: 0; cursor: ew-resize;
-  -webkit-appearance: none; appearance: none;
-}
-.compare__flag {
-  position: absolute; top: var(--space-2); z-index: 3;
-  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
-  background: rgba(11,15,18,0.8);
-}
-.compare__flag--before { left: var(--space-2); color: var(--silver); }
-.compare__flag--after { right: var(--space-2); color: var(--mkc-green); border-color: var(--mkc-green); }
-
 /* final CTA */
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
 .cta-final__inner { padding-block: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
@@ -137,10 +102,10 @@
           <div class="nav__menu">
             <a href="collision-frame-repair.html" aria-current="page">Collision &amp; Frame Repair <small>01</small></a>
             <a href="paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
-            <a href="../advocacy-blueprint.html">OEM Advocacy <small>03</small></a>
+            <a href="../oem-advocacy.html">OEM Advocacy <small>03</small></a>
           </div>
         </li>
-        <li><a href="../advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="../oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -232,7 +197,7 @@
           in the manufacturer's crash-test program. Aftermarket rails, aprons,
           and reinforcements were not in that test, so they never go in your
           vehicle. If an insurer writes an imitation part into the estimate, we
-          <a href="../advocacy-blueprint.html" style="color: var(--mkc-green);">negotiate it back out</a> before a wrench turns.</p>
+          <a href="../oem-advocacy.html" style="color: var(--mkc-green);">negotiate it back out</a> before a wrench turns.</p>
           <span class="spec-item__metric">Parts Standard: Factory Part Numbers · No LKQ · No QRP</span>
         </article>
       </div>
@@ -306,7 +271,7 @@
       </dl>
       <p style="margin-top: var(--space-2); font-size: var(--step--1);">We write
       the repair plan to factory procedure and negotiate directly with the
-      adjuster. <a href="../advocacy-blueprint.html" style="color: var(--mkc-green);">Read
+      adjuster. <a href="../oem-advocacy.html" style="color: var(--mkc-green);">Read
       OEM Advocacy →</a></p>
     </div>
   </div>
@@ -386,7 +351,7 @@
         <li><a href="../index.html">Home</a></li>
         <li><a href="collision-frame-repair.html">Collision &amp; Frame</a></li>
         <li><a href="paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
-        <li><a href="../advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="../oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
     </div>
@@ -415,5 +380,12 @@
 </footer>
 
 <script src="../js/mkc.js"></script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

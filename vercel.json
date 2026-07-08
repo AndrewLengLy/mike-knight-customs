@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/advocacy-blueprint.html",
+      "destination": "/oem-advocacy.html",
+      "permanent": true
+    }
+  ]
+}

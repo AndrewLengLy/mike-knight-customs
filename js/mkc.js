@@ -19,8 +19,7 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
 // Before / After comparators
-// Flags: click Before/After to slide fully to that photo; the photo
-// occupying the majority of the frame gets the green-highlighted flag.
+// Flags: tap Before/After to reveal the full photo; active side highlights green.
 document.querySelectorAll('[data-compare]').forEach((unit) => {
   const range = unit.querySelector('input[type="range"]');
   const afterPane = unit.querySelector('.compare__after');
@@ -36,7 +35,19 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
       afterFlag.classList.toggle('is-major', v < 50);
     }
   };
-  range.addEventListener('input', () => set(parseFloat(range.value)));
+
+  const updateFromX = (clientX) => {
+    const rect = unit.getBoundingClientRect();
+    const usable = Math.max(rect.width, 1);
+    const x = Math.max(0, Math.min(clientX - rect.left, usable));
+    const v = (x / usable) * 100;
+    range.value = v;
+    set(v);
+  };
+
+  const onInput = () => set(parseFloat(range.value));
+  range.addEventListener('input', onInput);
+  range.addEventListener('change', onInput);
   set(parseFloat(range.value));
 
   let anim;
@@ -56,7 +67,27 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     anim = requestAnimationFrame(step);
   };
 
-  if (afterFlag) afterFlag.addEventListener('click', () => slideTo(0));
+  if (beforeFlag) {
+    beforeFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(100); });
+  }
+  if (afterFlag) {
+    afterFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(0); });
+  }
+
+  let dragging = false;
+  unit.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.compare__flag')) return;
+    dragging = true;
+    unit.setPointerCapture(e.pointerId);
+    updateFromX(e.clientX);
+  });
+  unit.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    updateFromX(e.clientX);
+  });
+  const endDrag = () => { dragging = false; };
+  unit.addEventListener('pointerup', endDrag);
+  unit.addEventListener('pointercancel', endDrag);
 });
 
 // Review carousel — auto-rotates verified customer quotes

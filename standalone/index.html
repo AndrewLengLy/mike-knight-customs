@@ -363,19 +363,98 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
 @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
 
-/* ---------- 09 · COMPARATOR FLAGS ---------- */
-/* button. prefix outranks the page-scoped .compare__flag rules */
+/* ---------- 09 · COMPARATOR ---------- */
+.compare {
+  position: relative;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  background: var(--ink-2);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.compare img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9);
+  pointer-events: none;
+}
+.compare__after { z-index: 2; }
+.compare__handle {
+  position: absolute; top: 0; bottom: 0; left: 55%;
+  width: 1px; background: var(--mkc-green); z-index: 3;
+  pointer-events: none;
+}
+.compare__handle::after {
+  content: "◂ ▸";
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--ink); background: var(--mkc-green);
+  padding: 0.35rem 0.5rem; white-space: nowrap;
+}
+.compare input[type="range"] {
+  position: absolute; inset: 0; z-index: 4;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0;
+  opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none;
+  background: transparent;
+}
+.compare__flag {
+  position: absolute; top: var(--space-2); z-index: 6;
+  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
+  background: rgba(11,15,18,0.8);
+}
+.compare__flag--before { left: var(--space-2); color: var(--silver); }
+.compare__flag--after { right: var(--space-2); color: var(--silver); border-color: var(--line); }
 button.compare__flag {
-  z-index: 5;
   cursor: pointer;
-  color: var(--silver);
-  border-color: var(--line);
-  transition: color 0.25s ease, border-color 0.25s ease;
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 button.compare__flag:hover { border-color: var(--mkc-green); }
 button.compare__flag.is-major {
   color: var(--mkc-green);
   border-color: var(--mkc-green);
+}
+
+@media (max-width: 640px) {
+  .compare {
+    aspect-ratio: 4 / 3;
+    padding-bottom: 3.25rem;
+  }
+  .compare input[type="range"] {
+    bottom: 3.25rem;
+  }
+  button.compare__flag {
+    top: auto;
+    bottom: 0;
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 0.5rem;
+    font-size: 0.62rem;
+    background: var(--ink-2);
+  }
+  .compare__flag--before {
+    left: 0;
+    right: 50%;
+    border-right: 0;
+    border-radius: 0;
+  }
+  .compare__flag--after {
+    right: 0;
+    left: 50%;
+    border-left: 1px solid var(--line);
+  }
+  .compare__handle::after {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.72rem;
+  }
 }
 
 /* ---------- 10 · MOTION ---------- */
@@ -490,40 +569,6 @@ button.compare__flag.is-major {
   .proof__unit:nth-child(even) .proof__media { order: 0; }
 }
 
-/* comparator */
-.compare { position: relative; aspect-ratio: 4 / 3.4; overflow: hidden; background: var(--ink-2); }
-.compare img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; filter: saturate(0.9);
-}
-.compare__after { z-index: 2; }
-.compare__handle {
-  position: absolute; top: 0; bottom: 0; left: 55%;
-  width: 1px; background: var(--mkc-green); z-index: 3;
-  pointer-events: none;
-}
-.compare__handle::after {
-  content: "◂ ▸";
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--f-data); font-size: 0.65rem; letter-spacing: 0.1em;
-  color: var(--ink); background: var(--mkc-green);
-  padding: 0.35rem 0.5rem; white-space: nowrap;
-}
-.compare input[type="range"] {
-  position: absolute; inset: 0; z-index: 4;
-  width: 100%; height: 100%;
-  opacity: 0; cursor: ew-resize;
-  -webkit-appearance: none; appearance: none;
-}
-.compare__flag {
-  position: absolute; top: var(--space-2); z-index: 3;
-  font-family: var(--f-data); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0.35rem 0.7rem; border: 1px solid var(--line);
-  background: rgba(11,15,18,0.8);
-}
-.compare__flag--before { left: var(--space-2); color: var(--silver); }
-.compare__flag--after { right: var(--space-2); color: var(--mkc-green); border-color: var(--mkc-green); }
 
 /* --- SERVICES INDEX: editorial rows --- */
 .svc-row {
@@ -595,10 +640,10 @@ button.compare__flag.is-major {
           <div class="nav__menu">
             <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
             <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
-            <a href="advocacy-blueprint.html">OEM Advocacy <small>03</small></a>
+            <a href="oem-advocacy.html">OEM Advocacy <small>03</small></a>
           </div>
         </li>
-        <li><a href="advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -687,7 +732,7 @@ button.compare__flag.is-major {
       <p class="body-max">We're not the fastest shop in town. We're the shop that
       does it right. Every vehicle leaves to one standard: indistinguishable from
       the day it left the factory.</p>
-      <a class="btn btn--ghost" href="advocacy-blueprint.html">Read OEM Advocacy <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="oem-advocacy.html">Read OEM Advocacy <span class="arrow">→</span></a>
     </div>
 
     <div class="ledger__rows">
@@ -818,7 +863,7 @@ button.compare__flag.is-major {
       and scratch protection, and concours-level finishing.</p>
       <span class="arrow">→</span>
     </a>
-    <a class="svc-row reveal" href="advocacy-blueprint.html">
+    <a class="svc-row reveal" href="oem-advocacy.html">
       <span class="data">S/03</span>
       <h3>OEM Advocacy</h3>
       <p>We stand between you and the insurer, handling paperwork, negotiating
@@ -879,7 +924,7 @@ button.compare__flag.is-major {
         <li><a href="index.html">Home</a></li>
         <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
         <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
-        <li><a href="advocacy-blueprint.html">OEM Advocacy</a></li>
+        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -929,8 +974,7 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
 // Before / After comparators
-// Flags: click Before/After to slide fully to that photo; the photo
-// occupying the majority of the frame gets the green-highlighted flag.
+// Flags: tap Before/After to reveal the full photo; active side highlights green.
 document.querySelectorAll('[data-compare]').forEach((unit) => {
   const range = unit.querySelector('input[type="range"]');
   const afterPane = unit.querySelector('.compare__after');
@@ -946,7 +990,19 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
       afterFlag.classList.toggle('is-major', v < 50);
     }
   };
-  range.addEventListener('input', () => set(parseFloat(range.value)));
+
+  const updateFromX = (clientX) => {
+    const rect = unit.getBoundingClientRect();
+    const usable = Math.max(rect.width, 1);
+    const x = Math.max(0, Math.min(clientX - rect.left, usable));
+    const v = (x / usable) * 100;
+    range.value = v;
+    set(v);
+  };
+
+  const onInput = () => set(parseFloat(range.value));
+  range.addEventListener('input', onInput);
+  range.addEventListener('change', onInput);
   set(parseFloat(range.value));
 
   let anim;
@@ -966,8 +1022,27 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     anim = requestAnimationFrame(step);
   };
 
-  if (beforeFlag) beforeFlag.addEventListener('click', () => slideTo(100));
-  if (afterFlag) afterFlag.addEventListener('click', () => slideTo(0));
+  if (beforeFlag) {
+    beforeFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(100); });
+  }
+  if (afterFlag) {
+    afterFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(0); });
+  }
+
+  let dragging = false;
+  unit.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.compare__flag')) return;
+    dragging = true;
+    unit.setPointerCapture(e.pointerId);
+    updateFromX(e.clientX);
+  });
+  unit.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    updateFromX(e.clientX);
+  });
+  const endDrag = () => { dragging = false; };
+  unit.addEventListener('pointerup', endDrag);
+  unit.addEventListener('pointercancel', endDrag);
 });
 
 // Review carousel — auto-rotates verified customer quotes
@@ -1036,5 +1111,12 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
 })();
 
 </script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

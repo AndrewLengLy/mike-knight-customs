@@ -20,10 +20,10 @@ MKC (root)
 │   │     ← absorbs baseline: /services/custom-paint.html
 │   │                         /services/ceramic-coating.html
 │   │                         /services/detailing.html
-│   └── /advocacy-blueprint.html ·················· PAGE B (built)
+│   └── /oem-advocacy.html ·················· PAGE B (built)
 │         ← elevates baseline: /services/insurance-assistance.html
 │
-├── /advocacy-blueprint.html ····· "OEM Advocacy" (top-level pillar link)
+├── /oem-advocacy.html ····· "OEM Advocacy" (top-level pillar link)
 ├── /contact.html ················ Quote form + map + carriers
 │
 └── Footer utility: Google Maps · Facebook · Instagram · Yelp
@@ -122,5 +122,5 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 - `css/mkc.css` — global design system (tokens, type, grid, nav, footer, components)
 - `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
 - `index.html` — PAGE A, complete
-- `advocacy-blueprint.html` — PAGE B, complete
+- `oem-advocacy.html` — PAGE B, complete
 - `standalone/` — self-contained single-file versions for instant preview
