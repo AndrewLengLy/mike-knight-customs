@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/advocacy-blueprint.html",
       "destination": "/oem-advocacy.html",
       "permanent": true

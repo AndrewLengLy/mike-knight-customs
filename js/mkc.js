@@ -111,6 +111,8 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   const quote = document.getElementById('review-quote');
   const author = document.getElementById('review-author');
   const dots = document.getElementById('review-dots');
+  const prevBtn = document.getElementById('review-prev');
+  const nextBtn = document.getElementById('review-next');
   let idx = 0;
   let timer;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -142,7 +144,11 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     }, reduced ? 0 : 280);
   };
 
+  const prev = () => show((idx - 1 + reviews.length) % reviews.length);
   const next = () => show((idx + 1) % reviews.length);
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restart(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); restart(); });
   const restart = () => {
     clearInterval(timer);
     if (interval) timer = setInterval(next, interval);

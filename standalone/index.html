@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="../images/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
 <title>Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA</title>
 <meta name="description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -607,7 +611,17 @@ button.compare__flag.is-major {
 .review__score { display: flex; flex-direction: column; gap: var(--space-2); }
 .review__stars { font-size: var(--step-2); color: var(--mkc-green); letter-spacing: 0.3rem; }
 .review__carousel { display: flex; flex-direction: column; gap: var(--space-3); min-height: 11rem; }
-.review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.review__nav { display: flex; align-items: center; gap: var(--space-2); }
+.review__arrow {
+  flex-shrink: 0;
+  font-family: var(--f-data); font-size: var(--step-1);
+  border: 1px solid var(--line); background: var(--ink-2);
+  color: var(--white); padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.review__arrow:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+.review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; flex: 1; }
 .review__dot {
   width: 1.6rem; height: 1px; padding: 0.55rem 0;
   background: var(--line); border: 0; cursor: pointer;
@@ -889,7 +903,11 @@ button.compare__flag.is-major {
         than new.”
       </blockquote>
       <figcaption class="data" id="review-author">Zane G. · Google Review</figcaption>
-      <div class="review__dots" id="review-dots" aria-label="Review navigation"></div>
+      <div class="review__nav">
+        <button type="button" class="review__arrow review__arrow--prev" id="review-prev" aria-label="Previous review">←</button>
+        <div class="review__dots" id="review-dots" aria-label="Review navigation"></div>
+        <button type="button" class="review__arrow review__arrow--next" id="review-next" aria-label="Next review">→</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1066,6 +1084,8 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   const quote = document.getElementById('review-quote');
   const author = document.getElementById('review-author');
   const dots = document.getElementById('review-dots');
+  const prevBtn = document.getElementById('review-prev');
+  const nextBtn = document.getElementById('review-next');
   let idx = 0;
   let timer;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1097,7 +1117,11 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     }, reduced ? 0 : 280);
   };
 
+  const prev = () => show((idx - 1 + reviews.length) % reviews.length);
   const next = () => show((idx + 1) % reviews.length);
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restart(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); restart(); });
   const restart = () => {
     clearInterval(timer);
     if (interval) timer = setInterval(next, interval);

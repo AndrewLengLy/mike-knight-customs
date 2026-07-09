@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="images/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+<link rel="canonical" href="https://mikeknightcustoms.com/" />
 <title>Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA</title>
 <meta name="description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -153,7 +158,17 @@
 .review__score { display: flex; flex-direction: column; gap: var(--space-2); }
 .review__stars { font-size: var(--step-2); color: var(--mkc-green); letter-spacing: 0.3rem; }
 .review__carousel { display: flex; flex-direction: column; gap: var(--space-3); min-height: 11rem; }
-.review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.review__nav { display: flex; align-items: center; gap: var(--space-2); }
+.review__arrow {
+  flex-shrink: 0;
+  font-family: var(--f-data); font-size: var(--step-1);
+  border: 1px solid var(--line); background: var(--ink-2);
+  color: var(--white); padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.review__arrow:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+.review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; flex: 1; }
 .review__dot {
   width: 1.6rem; height: 1px; padding: 0.55rem 0;
   background: var(--line); border: 0; cursor: pointer;
@@ -173,14 +188,14 @@
 <!-- ================= NAV ================= -->
 <header class="nav" id="top">
   <div class="wrap nav__inner">
-    <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
+    <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
       <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
 
     <nav aria-label="Primary">
       <ul class="nav__links">
-        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="/" aria-current="page">Home</a></li>
         <li>
           <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
           <div class="nav__menu">
@@ -435,7 +450,11 @@
         than new.”
       </blockquote>
       <figcaption class="data" id="review-author">Zane G. · Google Review</figcaption>
-      <div class="review__dots" id="review-dots" aria-label="Review navigation"></div>
+      <div class="review__nav">
+        <button type="button" class="review__arrow review__arrow--prev" id="review-prev" aria-label="Previous review">←</button>
+        <div class="review__dots" id="review-dots" aria-label="Review navigation"></div>
+        <button type="button" class="review__arrow review__arrow--next" id="review-next" aria-label="Next review">→</button>
+      </div>
     </div>
   </div>
 </section>
@@ -467,7 +486,7 @@
     <div>
       <h4>Pages</h4>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
         <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
         <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
