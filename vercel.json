@@ -1,13 +1,14 @@
 {
+  "cleanUrls": true,
   "redirects": [
     {
-      "source": "/index.html",
-      "destination": "/",
+      "source": "/advocacy-blueprint",
+      "destination": "/oem-advocacy",
       "permanent": true
     },
     {
       "source": "/advocacy-blueprint.html",
-      "destination": "/oem-advocacy.html",
+      "destination": "/oem-advocacy",
       "permanent": true
     }
   ]
