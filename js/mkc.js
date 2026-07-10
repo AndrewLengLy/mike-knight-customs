@@ -97,6 +97,7 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
 
   const reviews = [
     { quote: 'Mike and his team did a fantastic job on my 2019 GMC Sierra 1500. Excellent service, perfect paint match. My pickup came back better than new.', author: 'Zane G. · Google Review' },
+    { quote: 'My car has custom "Frozen" factory paint from BMW. I was worried the paint wouldn\'t match. Mike promised he could do the job which he did! Knocked it out of the park, car is back together and you can\'t tell at all.', author: 'Robert A. · Google Review' },
     { quote: 'I couldn\'t have asked for a better experience. The whole rig looks better than brand new. 100% recommend.', author: 'Aaron B. · Google Review' },
     { quote: 'I would highly reccomend MKC to anyone in need of body work or insurance repairs. They got my car in and repaired within days of the estimate, and the cost was exactly what was quoted.', author: 'Natalie K. · Yelp Review' },
     { quote: 'Amazing shop! Would give ten stars if I could. Mike and his team took the best care of me and my car. He was reassuring from the start and kept constant communication throughout.', author: 'Alex L. · Yelp Review' },

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="images/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+<title>Recent Work · Collision Repair Case Files | Mike Knight Customs</title>
+<meta name="description" content="Recent collision repair, refinish, and customization work from Mike Knight Customs in Chico, CA. Real vehicles, real case files: OEM parts, factory paint matching, and lifetime warranties." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/mkc.css" />
+<style>
+/* ============ RECENT WORK PAGE · SCOPED LAYOUT ============ */
+
+/* masthead */
+.mast { border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.mast__inner { padding-block: var(--space-6); position: relative; z-index: 1; }
+.mast__title { max-width: 14ch; margin-block: var(--space-2) var(--space-3); }
+.mast__title em { font-style: normal; color: var(--mkc-green); }
+.mast__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-4); align-items: end; }
+.mast__doc { justify-self: end; width: 100%; max-width: 24rem; }
+.mast__bg {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.35;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+  -webkit-mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
+}
+@media (max-width: 900px) { .mast__grid { grid-template-columns: 1fr; } .mast__doc { justify-self: start; } }
+
+/* case files */
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+}
+.case + .case { border-top: 1px solid var(--line); }
+.case:nth-of-type(even) .case__media { order: 2; }
+.case__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
+.case__spec .readout { background: var(--ink-2); }
+.case__spec h2 { margin: 0; }
+
+.case__media {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-2);
+  align-self: start;
+}
+.case__side { display: grid; gap: var(--space-2); align-content: start; }
+.case__photo { position: relative; }
+.case__photo img {
+  display: block; width: 100%; height: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  filter: saturate(0.92);
+}
+.case__photo--wide img { aspect-ratio: 4 / 3; }
+.ptag {
+  position: absolute; left: 0.6rem; bottom: 0.6rem; z-index: 1;
+  font-family: var(--f-data); font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--silver); background: rgba(11, 15, 18, 0.82);
+  border: 1px solid var(--line);
+  padding: 0.3rem 0.55rem;
+}
+.ptag--live { color: var(--mkc-green); border-color: var(--mkc-green); }
+
+.case__quote {
+  border-left: 1px solid var(--mkc-green);
+  padding-left: var(--space-3);
+  font-weight: 500; color: var(--white);
+}
+.case__quote .data { display: block; margin-top: 0.6rem; }
+
+@media (max-width: 960px) {
+  .case { grid-template-columns: 1fr; }
+  .case:nth-of-type(even) .case__media { order: 0; }
+}
+@media (max-width: 560px) {
+  .case__media { grid-template-columns: 1fr; }
+  .case__side { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
+      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
+      <span class="nav__tag">Chico · CA<br />Est. 2016</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="/">Home</a></li>
+        <li>
+          <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
+          <div class="nav__menu">
+            <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="oem-advocacy.html">OEM Advocacy <small>03</small></a>
+          </div>
+        </li>
+        <li><a href="recent-work.html" aria-current="page">Recent Work</a></li>
+        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
+      <a class="btn btn--primary" href="contact.html">Get a Quote</a>
+      <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= MASTHEAD ================= -->
+<section class="mast">
+  <div class="mast__bg" aria-hidden="true"></div>
+  <div class="wrap mast__inner">
+    <div class="mast__grid">
+      <div>
+        <p class="eyebrow">Recent Work · MKC-WRK/01</p>
+        <h1 class="display display--xl mast__title">Recent <em>Work.</em></h1>
+        <p class="lede">Every vehicle that leaves this shop is a case file: what
+        came in, what it took, and what rolled out. No stock photos, no stagecraft,
+        just documented repairs from the floor at Chico.</p>
+      </div>
+      <dl class="readout mast__doc" aria-label="Shop standards">
+        <div class="readout__row"><dt>Parts Standard</dt><dd class="is-live">100% OEM</dd></div>
+        <div class="readout__row"><dt>Paint Standard</dt><dd>Factory Match · Verified</dd></div>
+        <div class="readout__row"><dt>Workmanship</dt><dd class="is-live">Lifetime Warranty</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CASE FILES ================= -->
+<section class="section section--flush" aria-label="Recent project case files">
+  <div class="wrap">
+
+    <!-- 01 · BMW 750i -->
+    <article class="case" id="bmw-750i">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/bmw-750i/bmw-04.jpg"
+               alt="2023 BMW 750i in Frozen matte gray, front three-quarter view after completed collision repair" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/bmw-750i/bmw-13.jpg"
+                 alt="The same BMW 750i in the shop before repair, with collision damage marked on the front end" />
+            <span class="ptag">Intake</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/bmw-750i/bmw-10.jpg"
+                 alt="New OEM front bumper on a stand in the spray booth during refinishing" />
+            <span class="ptag">Refinish</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0231</p>
+        <h2 class="display display--md">2023 BMW 750i<br />Frozen Paint · Full OEM Recovery</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Collision · Front</dd></div>
+          <div class="readout__row"><dt>Insurer Estimate</dt><dd>Used &amp; Aftermarket Parts</dd></div>
+          <div class="readout__row"><dt>MKC Delivered</dt><dd class="is-live">100% New OEM</dd></div>
+          <div class="readout__row"><dt>Refinish Spec</dt><dd>BMW Individual Frozen Match</dd></div>
+          <div class="readout__row"><dt>Coverage</dt><dd class="is-live">Factory Preserved + MKC Lifetime</dd></div>
+        </dl>
+        <p>The insurance estimate called for a reconditioned wheel, a used
+        headlight, and an aftermarket front bumper. We renegotiated the claim
+        line by line and repaired the car with all-new OEM parts, preserving the
+        factory warranty, then matched BMW's satin Frozen finish so the repair
+        disappears.</p>
+        <blockquote class="case__quote">
+          &ldquo;My car has custom &lsquo;Frozen&rsquo; factory paint from BMW. I was
+          worried the paint wouldn&rsquo;t match. Mike promised he could do the job
+          which he did! Knocked it out of the park, car is back together and you
+          can&rsquo;t tell at all.&rdquo;
+          <span class="data">Robert A. · Google Review · ★★★★★</span>
+        </blockquote>
+      </div>
+    </article>
+
+    <!-- 02 · RANGE ROVER -->
+    <article class="case" id="range-rover">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/range-rover/rr-01.jpg"
+               alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/range-rover/rr-02.jpg"
+                 alt="2024 Range Rover side profile after repair, freshly detailed" />
+            <span class="ptag">Detail</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/range-rover/rr-03.jpg"
+                 alt="Close view of the repaired rear bumper panel gaps on the 2024 Range Rover" />
+            <span class="ptag">Panel Fit</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0244</p>
+        <h2 class="display display--md">2024 Range Rover<br />Three-Day Bumper Turnaround</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Impact · Rear Bumper</dd></div>
+          <div class="readout__row"><dt>Cause</dt><dd>Garage Door Strike</dd></div>
+          <div class="readout__row"><dt>Turnaround</dt><dd class="is-live">3 Days · In &amp; Out</dd></div>
+          <div class="readout__row"><dt>Delivered With</dt><dd>Seamless Repair + Full Detail</dd></div>
+        </dl>
+        <p>The owner's garage door came down on the rear bumper. We had the
+        vehicle in, repaired, refinished, and back in the driveway in three days,
+        with a seamless factory-match repair and a complete detail before
+        handoff.</p>
+      </div>
+    </article>
+
+    <!-- 03 · TOYOTA VENZA -->
+    <article class="case" id="toyota-venza">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/venza/venza-01.jpg"
+               alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/venza/venza-03.jpg"
+                 alt="The Venza masked and staged in the spray booth mid-refinish" />
+            <span class="ptag">In Booth</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/venza/venza-02.jpg"
+                 alt="Body panels and the Venza under booth lighting during the candy red paint process" />
+            <span class="ptag">Stage Work</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0219</p>
+        <h2 class="display display--md">2024 Toyota Venza<br />Four-Stage Candy Red</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Refinish Spec</dt><dd class="is-live">4-Stage Candy Red</dd></div>
+          <div class="readout__row"><dt>Process</dt><dd>Full Mask · Staged Layering</dd></div>
+          <div class="readout__row"><dt>Paint Coverage</dt><dd class="is-live">Lifetime Warranty</dd></div>
+        </dl>
+        <p>A lifetime warranty on paint is not an accident, it's a process. This
+        Venza received a four-stage candy red refinish: groundcoat, tinted mid
+        coats, and clear, each layer laid down and cured under controlled booth
+        conditions. Depth you can see from across the lot.</p>
+      </div>
+    </article>
+
+    <!-- 04 · CHEVY SILVERADO -->
+    <article class="case" id="chevy-silverado">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/silverado/silv-01.jpg"
+               alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/silverado/silv-04.jpg"
+                 alt="The Silverado's crushed rear bumper and damaged tailgate corner before repair" />
+            <span class="ptag">Intake</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/silverado/silv-05.jpg"
+                 alt="Rear three-quarter view of the finished Silverado at the shop" />
+            <span class="ptag">Final Check</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0207</p>
+        <h2 class="display display--md">2022 Chevy Silverado<br />Rear Impact · All-OEM Rebuild</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Impact · Rear</dd></div>
+          <div class="readout__row"><dt>Parts Utilized</dt><dd class="is-live">100% New OEM</dd></div>
+          <div class="readout__row"><dt>Coverage</dt><dd class="is-live">Lifetime Warranty</dd></div>
+        </dl>
+        <p>Rear-end hits look simple until the panel gaps are wrong and the
+        sensors misread. This Silverado was rebuilt with all-new OEM parts,
+        every fit verified against factory dimensions, and the entire job is
+        backed by our lifetime warranty.</p>
+      </div>
+    </article>
+
+    <!-- 05 · FORD F350 -->
+    <article class="case" id="ford-f350">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/f350/f350-02.jpg"
+               alt="2019 Ford Super Duty F350 front view after repair and refinish" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/f350/f350-05.jpg"
+                 alt="The F350 as it arrived at the shop before repair" />
+            <span class="ptag">Intake</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/f350/f350-03.jpg"
+                 alt="Side profile of the repaired F350 outside the shop" />
+            <span class="ptag">Panel Fit</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0193</p>
+        <h2 class="display display--md">2019 Ford F350<br />Claim Handled · Back to Work</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Multi-Panel · Barbed Wire</dd></div>
+          <div class="readout__row"><dt>Claim Handling</dt><dd class="is-live">Negotiated Direct w/ GEICO</dd></div>
+          <div class="readout__row"><dt>Status</dt><dd class="is-live">Returned to Service</dd></div>
+        </dl>
+        <p>This Super Duty tangled with a barbed-wire fence. The owner made one
+        phone call; we handled every insurance negotiation with GEICO from
+        estimate to final supplement, restored the panels, and put the truck
+        back to work.</p>
+      </div>
+    </article>
+
+    <!-- 06 · GMC SIERRA -->
+    <article class="case" id="gmc-sierra">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/gmc-sierra/gmc-02.jpg"
+               alt="2011 GMC Sierra rear three-quarter view after repair, refinished to factory color" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/gmc-sierra/gmc-06.jpg"
+                 alt="Rear quarter and bumper damage on the Sierra before repair" />
+            <span class="ptag">Intake</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/gmc-sierra/gmc-03.jpg"
+                 alt="The Sierra's bed masked and refinished in the spray booth" />
+            <span class="ptag">In Booth</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Case File · MKC/0114</p>
+        <h2 class="display display--md">2011 GMC Sierra<br />Rear Collision Restoration</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Damage Class</dt><dd>Impact · Rear Quarter</dd></div>
+          <div class="readout__row"><dt>Refinish Spec</dt><dd>Factory Color Match</dd></div>
+          <div class="readout__row"><dt>Vehicle Age</dt><dd class="is-live">Matched at 15 Years</dd></div>
+        </dl>
+        <p>Matching fresh paint to a work truck's fifteen-year-old finish is
+        harder than painting a new one. The bed and rear quarter were repaired,
+        refinished in the booth, and blended so the repair reads as original
+        panel, not new paint.</p>
+      </div>
+    </article>
+
+    <!-- 07 · ALUMINUM REPAIR -->
+    <article class="case" id="aluminum-repair">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/aluminum/alu-09.jpg"
+               alt="Aluminum-bodied Ford F-150 outside Mike Knight Customs after completed repair" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/aluminum/alu-07.jpg"
+                 alt="Dented aluminum door skin on an F-150 before repair" />
+            <span class="ptag">Intake</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/aluminum/alu-05.jpg"
+                 alt="Aluminum door panel on a stand in the spray booth during refinishing" />
+            <span class="ptag">Refinish</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Capability File · MKC-CAP/01</p>
+        <h2 class="display display--md">Aluminum Structural<br />Repair Program</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Substrate</dt><dd>Aluminum Body &amp; Structure</dd></div>
+          <div class="readout__row"><dt>Joining Equipment</dt><dd class="is-live">OEM-Approved Welders + SPR</dd></div>
+          <div class="readout__row"><dt>Procedure</dt><dd>Manufacturer Repair Spec</dd></div>
+        </dl>
+        <p>Aluminum does not repair like steel, and treating it like steel is how
+        trucks get ruined. We join aluminum exclusively with manufacturer-approved
+        welders and self-piercing rivet systems, following the OEM procedure for
+        every panel. Much of that work ends up hidden under moldings and trim,
+        and we hold it to the same standard as the paint you can see.</p>
+      </div>
+    </article>
+
+    <!-- 08 · BOOM TRUCKS -->
+    <article class="case" id="commercial-boom-trucks">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo case__photo--wide">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/boom-trucks/boom-01.jpg"
+               alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/boom-trucks/boom-02.jpg"
+                 alt="The boom truck cab stripped to structure during repair" />
+            <span class="ptag">Teardown</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/boom-trucks/boom-03.jpg"
+                 alt="Front view of the completed boom truck ready to return to the fleet" />
+            <span class="ptag">Return to Fleet</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Capability File · MKC-CAP/02</p>
+        <h2 class="display display--md">Commercial &amp;<br />Boom Truck Repair</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Vehicle Class</dt><dd>Commercial · Boom / Utility</dd></div>
+          <div class="readout__row"><dt>Scope</dt><dd class="is-live">Full Teardown to Delivery</dd></div>
+          <div class="readout__row"><dt>Facility</dt><dd>Heavy-Vehicle Capable</dd></div>
+        </dl>
+        <p>Our facility is equipped to repair boom trucks and heavy commercial
+        equipment, from full cab teardown through structural repair and
+        refinish. For a working truck, every day in the shop costs money, so we
+        plan the repair around getting it back on the job.</p>
+      </div>
+    </article>
+
+    <!-- 09 · NEW-VEHICLE CUSTOMIZATION -->
+    <article class="case" id="customization">
+      <div class="case__media reveal">
+        <figure class="spec-frame case__photo">
+          <span class="tick" aria-hidden="true"></span>
+          <img src="images/work/new-ride/ride-05.jpg"
+               alt="Blue Cadillac CT5-V Blackwing with customized accents, front three-quarter view" />
+          <span class="ptag ptag--live">Delivered</span>
+        </figure>
+        <div class="case__side">
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/new-ride/ride-09.jpg"
+                 alt="Red Corvette convertible personalized at Mike Knight Customs" />
+            <span class="ptag">Client Build</span>
+          </figure>
+          <figure class="spec-frame case__photo">
+            <span class="tick" aria-hidden="true"></span>
+            <img src="images/work/new-ride/ride-03.jpg"
+                 alt="Rear view of the Cadillac CT5-V showing finished custom details" />
+            <span class="ptag">Detail Work</span>
+          </figure>
+        </div>
+      </div>
+      <div class="case__spec reveal">
+        <p class="data data--live">Program File · MKC-CSTM/01</p>
+        <h2 class="display display--md">New-Vehicle<br />Personalization</h2>
+        <dl class="readout">
+          <div class="readout__row"><dt>Program</dt><dd>Factory-Fresh Customization</dd></div>
+          <div class="readout__row"><dt>Preparation</dt><dd class="is-live">Model-Specific Research</dd></div>
+          <div class="readout__row"><dt>Workmanship</dt><dd class="is-live">Lifetime Warranty</dd></div>
+        </dl>
+        <p>Handing over a brand-new vehicle to be taken apart takes trust, and we
+        treat it that way. Before we touch a panel, we research the platform,
+        train on its procedures, and add the extra steps that protect the
+        vehicle, so the personal touches go on without compromising what you
+        just bought.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="cta-final">
+  <div class="wrap cta-final__inner reveal">
+    <p class="eyebrow">Your Vehicle Next</p>
+    <h2 class="display display--lg">Ready to open<br />your own case file?</h2>
+    <p class="lede">Free estimates, direct insurance handling, and a lifetime
+    warranty on every repair that leaves the shop.</p>
+    <div style="display:flex; gap: var(--space-2); flex-wrap: wrap;">
+      <a class="btn btn--primary" href="contact.html">Request a Quote <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="tel:+15302149949">Call (530) 214-9949</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
+      <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
+      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
+        <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
+        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
+        <li><a href="recent-work.html">Recent Work</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
+        <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
+        <li><a href="https://instagram.com/mikeyknight456/">Instagram</a></li>
+        <li><a href="https://www.yelp.com/biz/mike-knight-customs-chico">Yelp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
+        <li><a href="tel:+15302149949">(530) 214-9949</a></li>
+        <li><a href="mailto:mikeknightcustoms@hotmail.com">mikeknightcustoms@hotmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
+    <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+  </div>
+</footer>
+
+<script src="js/mkc.js"></script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>

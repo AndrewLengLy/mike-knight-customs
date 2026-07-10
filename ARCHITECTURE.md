@@ -24,6 +24,8 @@ MKC (root)
 │         ← elevates baseline: /services/insurance-assistance.html
 │
 ├── /oem-advocacy.html ····· "OEM Advocacy" (top-level pillar link)
+├── /recent-work.html ······ "Recent Work" — case-file gallery of real projects
+│                            (photos live in images/work/<project>/)
 ├── /contact.html ················ Quote form + map + carriers
 │
 └── Footer utility: Google Maps · Facebook · Instagram · Yelp
