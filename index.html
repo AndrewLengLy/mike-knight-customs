@@ -121,6 +121,34 @@
 }
 
 
+/* --- RECENT WORK GALLERY --- */
+.wgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.wgrid__item { margin: 0; }
+.wgrid__item img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: saturate(0.9);
+}
+.wgrid__cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: 0.7rem 0.9rem;
+  border-top: 1px solid var(--line);
+}
+.wgrid__link { transition: color 0.25s ease; }
+.wgrid__link:hover { color: var(--mkc-green); }
+@media (max-width: 960px) { .wgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
+
 /* --- SERVICES INDEX: editorial rows --- */
 .svc-row {
   display: grid;
@@ -404,7 +432,78 @@
       </div>
     </article>
 
-    <div class="reveal" style="padding-block: 0 var(--space-5);">
+  </div>
+</section>
+
+<!-- ================= RECENT WORK GALLERY ================= -->
+<section class="section section--rule" id="recent-work" aria-label="Recent work gallery">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Recent Work</p>
+      <h2 class="display display--lg" style="margin: 0.5rem 0 var(--space-2);">Fresh From the Booth</h2>
+      <p class="body-max">A sample of vehicles recently delivered back to their
+      owners. Click any photo to open it full-screen, then click again to zoom
+      in and inspect the finish up close.</p>
+    </div>
+
+    <div class="wgrid">
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/range-rover/rr-01.jpg" loading="lazy" data-zoom
+             alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">2024 Range Rover</span>
+          <a class="data wgrid__link" href="recent-work#range-rover">Case File →</a>
+        </figcaption>
+      </figure>
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/venza/venza-01.jpg" loading="lazy" data-zoom
+             alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">2024 Toyota Venza</span>
+          <a class="data wgrid__link" href="recent-work#toyota-venza">Case File →</a>
+        </figcaption>
+      </figure>
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/silverado/silv-01.jpg" loading="lazy" data-zoom
+             alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">2022 Chevy Silverado</span>
+          <a class="data wgrid__link" href="recent-work#chevy-silverado">Case File →</a>
+        </figcaption>
+      </figure>
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/f350/f350-02.jpg" loading="lazy" data-zoom
+             alt="2019 Ford Super Duty F350 front view after repair and refinish" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">2019 Ford F350</span>
+          <a class="data wgrid__link" href="recent-work#ford-f350">Case File →</a>
+        </figcaption>
+      </figure>
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/aluminum/alu-08.jpg" loading="lazy" data-zoom
+             alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">Aluminum F-150</span>
+          <a class="data wgrid__link" href="recent-work#aluminum-repair">Case File →</a>
+        </figcaption>
+      </figure>
+      <figure class="wgrid__item spec-frame reveal">
+        <span class="tick" aria-hidden="true"></span>
+        <img src="images/work/boom-trucks/boom-01.jpg" loading="lazy" data-zoom
+             alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
+        <figcaption class="wgrid__cap">
+          <span class="data data--white">Commercial Boom Truck</span>
+          <a class="data wgrid__link" href="recent-work#commercial-boom-trucks">Case File →</a>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="reveal" style="margin-top: var(--space-4);">
       <a class="btn btn--ghost" href="recent-work">View All Case Files <span class="arrow">→</span></a>
     </div>
   </div>

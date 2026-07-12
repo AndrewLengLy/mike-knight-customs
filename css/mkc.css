@@ -450,7 +450,67 @@ button.compare__flag.is-major {
   }
 }
 
-/* ---------- 10 · MOTION ---------- */
+/* ---------- 10 · PHOTO LIGHTBOX ---------- */
+img.is-zoomable { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column;
+  background: rgba(11, 15, 18, 0.96);
+  backdrop-filter: blur(8px);
+}
+.lightbox[hidden] { display: none; }
+.lightbox__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.8rem var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+.lightbox__bar--foot { border-bottom: 0; border-top: 1px solid var(--line); }
+.lightbox__caption {
+  color: var(--silver);
+  letter-spacing: 0.08em;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lightbox__hint { flex: 1; text-align: center; }
+.lightbox__close, .lightbox__arrow {
+  font-family: var(--f-data); font-size: var(--step--1);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  border: 1px solid var(--line); background: var(--ink-2);
+  color: var(--white);
+  padding: 0.55rem 1rem;
+  flex-shrink: 0;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.lightbox__close:hover, .lightbox__arrow:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
+.lightbox__stage {
+  flex: 1; min-height: 0;
+  overflow: auto;
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-2);
+}
+.lightbox__img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  cursor: zoom-in;
+}
+.lightbox.is-zoomed .lightbox__stage { align-items: flex-start; justify-content: flex-start; }
+.lightbox.is-zoomed .lightbox__img {
+  max-width: none; max-height: none;
+  width: 170vmin;
+  cursor: zoom-out;
+}
+@media (max-width: 640px) {
+  .lightbox__hint { display: none; }
+  .lightbox__bar--foot { justify-content: space-between; }
+}
+
+/* ---------- 11 · MOTION ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
