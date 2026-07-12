@@ -1,4 +1,4 @@
-/* MKC shared behaviors: nav, reveals, proof-center comparators */
+/* MKC shared behaviors: nav, reveals, proof-center comparators, photo lightbox */
 
 // Mobile nav
 const nav = document.querySelector('.nav');
@@ -160,4 +160,99 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   root.addEventListener('focusin', () => clearInterval(timer));
   root.addEventListener('focusout', restart);
   restart();
+})();
+
+// Photo lightbox — click any case or gallery photo to inspect it up close.
+// Click the enlarged photo to zoom in further and pan by scrolling.
+(() => {
+  const photos = Array.from(document.querySelectorAll('.case__photo img, img[data-zoom]'));
+  if (!photos.length) return;
+
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('aria-label', 'Photo viewer');
+  lb.hidden = true;
+  lb.innerHTML = [
+    '<div class="lightbox__bar">',
+    '  <p class="data lightbox__caption"></p>',
+    '  <button type="button" class="lightbox__close" aria-label="Close photo viewer">Close ✕</button>',
+    '</div>',
+    '<div class="lightbox__stage">',
+    '  <img class="lightbox__img" alt="" />',
+    '</div>',
+    '<div class="lightbox__bar lightbox__bar--foot">',
+    '  <button type="button" class="lightbox__arrow" data-dir="-1" aria-label="Previous photo">← Prev</button>',
+    '  <p class="data lightbox__hint">Click photo to zoom · Esc to close</p>',
+    '  <button type="button" class="lightbox__arrow" data-dir="1" aria-label="Next photo">Next →</button>',
+    '</div>'
+  ].join('\n');
+  document.body.appendChild(lb);
+
+  const stage = lb.querySelector('.lightbox__stage');
+  const img = lb.querySelector('.lightbox__img');
+  const caption = lb.querySelector('.lightbox__caption');
+  const closeBtn = lb.querySelector('.lightbox__close');
+  let idx = 0;
+  let lastFocus = null;
+
+  const show = (i) => {
+    idx = (i + photos.length) % photos.length;
+    lb.classList.remove('is-zoomed');
+    img.src = photos[idx].currentSrc || photos[idx].src;
+    img.alt = photos[idx].alt;
+    caption.textContent = `${idx + 1} / ${photos.length} · ${photos[idx].alt}`;
+  };
+
+  const open = (i) => {
+    lastFocus = document.activeElement;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    show(i);
+    closeBtn.focus();
+  };
+
+  const close = () => {
+    lb.hidden = true;
+    lb.classList.remove('is-zoomed');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  };
+
+  closeBtn.addEventListener('click', close);
+  stage.addEventListener('click', (e) => { if (e.target === stage) close(); });
+  lb.querySelectorAll('.lightbox__arrow').forEach((btn) => {
+    btn.addEventListener('click', () => show(idx + parseInt(btn.dataset.dir, 10)));
+  });
+
+  img.addEventListener('click', (e) => {
+    const rect = img.getBoundingClientRect();
+    const fx = (e.clientX - rect.left) / rect.width;
+    const fy = (e.clientY - rect.top) / rect.height;
+    const zoomed = lb.classList.toggle('is-zoomed');
+    if (zoomed) {
+      // keep the clicked detail centered in the zoomed view
+      stage.scrollLeft = fx * img.clientWidth - stage.clientWidth / 2;
+      stage.scrollTop = fy * img.clientHeight - stage.clientHeight / 2;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(idx - 1);
+    else if (e.key === 'ArrowRight') show(idx + 1);
+  });
+
+  photos.forEach((el, i) => {
+    el.classList.add('is-zoomable');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', `View larger photo: ${el.alt}`);
+    el.addEventListener('click', () => open(i));
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
 })();
