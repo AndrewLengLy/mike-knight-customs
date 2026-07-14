@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /standalone/
+
+Sitemap: https://mikeknightcustoms.com/sitemap.xml

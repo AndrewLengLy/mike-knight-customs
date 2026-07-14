@@ -10,6 +10,50 @@
 <link rel="canonical" href="https://mikeknightcustoms.com/" />
 <title>Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA</title>
 <meta name="description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Mike Knight Customs" />
+<meta property="og:title" content="Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA" />
+<meta property="og:description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
+<meta property="og:url" content="https://mikeknightcustoms.com/" />
+<meta property="og:image" content="https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg" />
+<meta property="og:image:alt" content="A repaired vehicle outside the Mike Knight Customs shop in Chico, CA" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Mike Knight Customs · OEM Collision Repair &amp; Restoration | Chico, CA" />
+<meta name="twitter:description" content="Mike Knight Customs: 100% OEM collision repair, insurance claims advocacy, flawless paint matching, and ceramic protection in Chico, California. Lifetime warranty." />
+<meta name="twitter:image" content="https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoBodyShop",
+  "name": "Mike Knight Customs",
+  "url": "https://mikeknightcustoms.com/",
+  "image": "https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg",
+  "logo": "https://mikeknightcustoms.com/images/mkc-logo.png",
+  "telephone": "+1-530-214-9949",
+  "email": "mikeknightcustoms@hotmail.com",
+  "foundingDate": "2016",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2961 CA-32, Suite 54-56",
+    "addressLocality": "Chico",
+    "addressRegion": "CA",
+    "postalCode": "95973",
+    "addressCountry": "US"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
+  "sameAs": [
+    "https://www.facebook.com/MKCchico/",
+    "https://instagram.com/mikeyknight456/",
+    "https://www.yelp.com/biz/mike-knight-customs-chico"
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -63,14 +107,38 @@
   .hero__visual { border-left: 0; border-top: 1px solid var(--line); }
 }
 
-/* --- INSURANCE TICKER STRIP --- */
+/* --- INSURANCE TICKER STRIP (auto-scrolling marquee) --- */
 .carriers { border-bottom: 1px solid var(--line); background: var(--ink-2); }
 .carriers__inner {
-  display: flex; align-items: center; gap: var(--space-3);
+  display: flex; flex-direction: column; gap: 0.9rem;
   padding-block: 1.1rem;
-  flex-wrap: wrap;
 }
+.carriers__row { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.carriers__row--meta { justify-content: space-between; flex-wrap: wrap; gap: var(--space-2) var(--space-3); }
 .carriers__inner .sep { color: var(--line); }
+.carriers__marquee {
+  flex: 1 1 0; min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+}
+.carriers__track {
+  display: flex; width: max-content;
+  animation: carriers-scroll 45s linear infinite;
+}
+.carriers__marquee:hover .carriers__track { animation-play-state: paused; }
+.carriers__group {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding-right: var(--space-3);
+  flex: 0 0 auto;
+}
+@keyframes carriers-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carriers__track { animation: none; }
+}
 .carriers__logo {
   height: 1.4rem; width: auto; display: block;
   filter: brightness(0) invert(0.66);
@@ -78,9 +146,11 @@
   transition: filter 0.25s ease, opacity 0.25s ease;
 }
 .carriers__logo:hover { filter: none; opacity: 1; }
-.carriers__note { margin-left: auto; }
 .carriers__cta { padding: 0.6rem 1.1rem; }
-@media (max-width: 640px) { .carriers__note { margin-left: 0; } }
+@media (max-width: 720px) {
+  .carriers__row--ticker { flex-wrap: wrap; }
+  .carriers__marquee { flex-basis: 100%; }
+}
 
 /* --- DIFFERENCE LEDGER (no card grid) --- */
 .ledger { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-4); }
@@ -103,7 +173,7 @@
   .ledger__row p { grid-column: 2; }
 }
 
-/* --- PROOF CENTERS --- */
+/* --- PREVIOUS WORK --- */
 .proof { border-top: 1px solid var(--line); }
 .proof__unit {
   display: grid;
@@ -227,7 +297,7 @@
         <li>
           <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
           <div class="nav__menu">
-            <a href="services/collision-frame-repair">Collision &amp; Frame Repair <small>01</small></a>
+            <a href="services/collision-frame-repair">Collision Repair <small>01</small></a>
             <a href="services/paint-coating-detailing">Paint · Ceramic · Detailing <small>02</small></a>
             <a href="oem-advocacy">OEM Advocacy <small>03</small></a>
           </div>
@@ -258,9 +328,11 @@
         Backed by a <em>Lifetime Warranty.</em>
       </h1>
       <p class="lede">
-        We don't cut corners, we don't install cheap aftermarket parts, and we
-        don't let insurance companies dictate your safety. Every repair is built
-        to protect your family, your investment, and your peace of mind.
+        Vehicles are more complex than ever. It is our job to inform the
+        insurance companies on how to properly repair these vehicles to
+        manufacturer specifications. We don't let insurance dictate your
+        safety. Every repair is done to protect your family, your investment,
+        and your peace of mind.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="contact">Get a Free Quote <span class="arrow">→</span></a>
@@ -271,18 +343,18 @@
       <dl class="hero__meta" aria-label="Shop credentials">
         <div class="meta-point">
           <dt class="meta-point__idx">A/01</dt>
-          <dd class="meta-point__label">Yelp Certified Rating</dd>
+          <dd class="meta-point__label">Google Rating</dd>
           <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
         </div>
         <div class="meta-point">
           <dt class="meta-point__idx">A/02</dt>
-          <dd class="meta-point__label">Repair Standard</dd>
-          <dd class="meta-point__value">Strictly Factory OEM Spec</dd>
+          <dd class="meta-point__label">Yelp Rating</dd>
+          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
         </div>
         <div class="meta-point">
           <dt class="meta-point__idx">A/03</dt>
-          <dd class="meta-point__label">Workmanship Coverage</dd>
-          <dd class="meta-point__value">Lifetime · Ownership Term</dd>
+          <dd class="meta-point__label">Warranty</dd>
+          <dd class="meta-point__value">Lifetime</dd>
         </div>
         <div class="meta-point">
           <dt class="meta-point__idx">A/04</dt>
@@ -302,14 +374,43 @@
 <!-- ================= CARRIERS STRIP ================= -->
 <section class="carriers" aria-label="Insurance carriers accepted">
   <div class="wrap carriers__inner">
-    <span class="data data--white">Claims Accepted:</span>
-    <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
-    <img class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
-    <img class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
-    <img class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
-    <span class="data">+ Many More</span>
-    <span class="data data--live carriers__note">Your shop. Your choice. CA Ins. Code §758.5</span>
-    <a class="btn btn--primary carriers__cta" href="contact">Get a Quote <span class="arrow">→</span></a>
+    <div class="carriers__row carriers__row--ticker">
+    <span class="data data--white">We Accept All Insurance Companies:</span>
+    <div class="carriers__marquee">
+      <div class="carriers__track">
+        <div class="carriers__group">
+          <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/the-hartford.svg" alt="The Hartford" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/aspire.png" alt="Aspire General Insurance" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/national-general.png" alt="National General" /><span class="sep">/</span>
+          <span class="data">+ Many More</span><span class="sep">/</span>
+        </div>
+        <div class="carriers__group" aria-hidden="true">
+          <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/allstate.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/geico.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/progressive.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/the-hartford.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/intact.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/travelers.svg" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/aspire.png" alt="" /><span class="sep">/</span>
+          <img class="carriers__logo" src="images/carriers/national-general.png" alt="" /><span class="sep">/</span>
+          <span class="data">+ Many More</span><span class="sep">/</span>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="carriers__row carriers__row--meta">
+      <span class="data data--live carriers__note">Your shop. Your choice. CA Ins. Code §758.5</span>
+      <a class="btn btn--primary carriers__cta" href="contact">Get a Quote <span class="arrow">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -318,10 +419,10 @@
   <div class="wrap ledger">
     <div class="ledger__intro reveal">
       <p class="eyebrow">The MKC Difference</p>
-      <h2 class="display display--lg">Why Drivers Choose Knight</h2>
-      <p class="body-max">We're not the fastest shop in town. We're the shop that
-      does it right. Every vehicle leaves to one standard: indistinguishable from
-      the day it left the factory.</p>
+      <h2 class="display display--lg">Why Drivers Choose MKC</h2>
+      <p class="body-max">We handle every repair like we are packing parachutes,
+      because you are giving us the same trust: the car we fix is the one that
+      carries your loved ones.</p>
       <a class="btn btn--ghost" href="oem-advocacy">Read OEM Advocacy <span class="arrow">→</span></a>
     </div>
 
@@ -357,12 +458,12 @@
   </div>
 </section>
 
-<!-- ================= PROOF CENTERS ================= -->
-<section class="proof" aria-label="Before and after project documentation">
+<!-- ================= PREVIOUS WORK ================= -->
+<section class="proof" aria-label="Before and after project photos">
   <div class="wrap">
     <div style="padding-top: var(--space-5);" class="reveal">
-      <p class="eyebrow">Proof Centers</p>
-      <h2 class="display display--lg" style="margin-top: 0.5rem;">Documented. Measured. Delivered.</h2>
+      <p class="eyebrow">Previous Work</p>
+      <h2 class="display display--lg" style="margin-top: 0.5rem;">Before &amp; After.</h2>
     </div>
 
     <!-- UNIT 01 · GMC SIERRA -->
@@ -384,17 +485,8 @@
         </div>
       </div>
       <div class="proof__spec reveal">
-        <p class="data data--live">Case File · MKC/0114</p>
-        <h3 class="display display--md">2011 GMC Sierra<br />Rear Collision Restoration</h3>
-        <dl class="readout">
-          <div class="readout__row"><dt>Damage Class</dt><dd>Impact · Rear Quarter</dd></div>
-          <div class="readout__row"><dt>Refinish Spec</dt><dd>Booth Refinish · Factory Match</dd></div>
-          <div class="readout__row"><dt>Blend Standard</dt><dd>Matched at 15 Years of Wear</dd></div>
-          <div class="readout__row"><dt>OEM Parts Utilized</dt><dd class="is-live">100% · Zero Aftermarket</dd></div>
-        </dl>
-        <p>Rear quarter and bed repair on a working truck, refinished in the
-        booth and blended into fifteen-year-old factory paint so the repair
-        reads as original panel, not new paint.</p>
+        <p class="data data--live">Previous Work</p>
+        <h3 class="display display--md">2011 GMC Sierra</h3>
       </div>
     </article>
 
@@ -417,18 +509,8 @@
         </div>
       </div>
       <div class="proof__spec reveal">
-        <p class="data data--live">Case File · MKC/0231</p>
-        <h3 class="display display--md">2023 BMW 750i<br />Frozen Paint · Full OEM Recovery</h3>
-        <dl class="readout">
-          <div class="readout__row"><dt>Damage Class</dt><dd>Collision · Front</dd></div>
-          <div class="readout__row"><dt>Insurer Estimate</dt><dd>Used &amp; Aftermarket Parts</dd></div>
-          <div class="readout__row"><dt>MKC Delivered</dt><dd class="is-live">100% New OEM</dd></div>
-          <div class="readout__row"><dt>Refinish Spec</dt><dd>BMW Individual Frozen Match</dd></div>
-        </dl>
-        <p>Insurance specified a used headlight, reconditioned wheel, and an
-        aftermarket bumper. We renegotiated the claim, repaired the car with
-        all-new OEM parts to preserve its factory warranty, and matched BMW's
-        satin Frozen finish so the repair disappears.</p>
+        <p class="data data--live">Previous Work</p>
+        <h3 class="display display--md">2023 BMW 750i</h3>
       </div>
     </article>
 
@@ -504,7 +586,7 @@
     </div>
 
     <div class="reveal" style="margin-top: var(--space-4);">
-      <a class="btn btn--ghost" href="recent-work">View All Case Files <span class="arrow">→</span></a>
+      <a class="btn btn--ghost" href="recent-work">View More Previous Work <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -517,8 +599,8 @@
 
     <a class="svc-row reveal" href="services/collision-frame-repair">
       <span class="data">S/01</span>
-      <h3>Collision &amp; Frame Repair</h3>
-      <p>Structural frame straightening, multi-panel reconstruction, unibody
+      <h3>Collision Repair</h3>
+      <p>Precision structural repair, multi-panel reconstruction, unibody
       alignment, and ADAS recalibration, all to exact factory specification.</p>
       <span class="arrow">→</span>
     </a>
@@ -592,7 +674,7 @@
       <h4>Pages</h4>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="services/collision-frame-repair">Collision &amp; Frame</a></li>
+        <li><a href="services/collision-frame-repair">Collision Repair</a></li>
         <li><a href="services/paint-coating-detailing">Paint · Ceramic · Detailing</a></li>
         <li><a href="oem-advocacy">OEM Advocacy</a></li>
         <li><a href="recent-work">Recent Work</a></li>
