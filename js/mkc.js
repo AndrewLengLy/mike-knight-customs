@@ -10,6 +10,16 @@ if (burger) {
   });
 }
 
+// Services submenu toggle — CSS scopes the collapsed state to <=960px,
+// so on desktop this only sets aria state and hover still governs.
+document.querySelectorAll('.nav__toggle').forEach((tog) => {
+  const li = tog.closest('li');
+  tog.addEventListener('click', () => {
+    const open = li.classList.toggle('is-open');
+    tog.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+
 // Scroll reveals (respects reduced motion via CSS)
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
@@ -74,18 +84,38 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     afterFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(0); });
   }
 
+  // Touch gestures stay ambiguous until they move: a vertical swipe belongs to
+  // the page, a horizontal one to the slider. Mouse keeps click-to-jump.
   let dragging = false;
+  let pending = null;
+  const SLOP = 6;
+
   unit.addEventListener('pointerdown', (e) => {
     if (e.target.closest('.compare__flag')) return;
-    dragging = true;
-    unit.setPointerCapture(e.pointerId);
-    updateFromX(e.clientX);
+    if (e.pointerType === 'mouse') {
+      dragging = true;
+      unit.setPointerCapture(e.pointerId);
+      updateFromX(e.clientX);
+    } else {
+      pending = { id: e.pointerId, x: e.clientX, y: e.clientY };
+    }
   });
+
   unit.addEventListener('pointermove', (e) => {
+    if (pending && e.pointerId === pending.id) {
+      const dx = Math.abs(e.clientX - pending.x);
+      const dy = Math.abs(e.clientY - pending.y);
+      if (dx < SLOP && dy < SLOP) return;
+      pending = null;
+      if (dy >= dx) return;            // vertical: let the page scroll
+      dragging = true;
+      unit.setPointerCapture(e.pointerId);
+    }
     if (!dragging) return;
     updateFromX(e.clientX);
   });
-  const endDrag = () => { dragging = false; };
+
+  const endDrag = () => { dragging = false; pending = null; };
   unit.addEventListener('pointerup', endDrag);
   unit.addEventListener('pointercancel', endDrag);
 });
@@ -205,9 +235,17 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     caption.textContent = `${idx + 1} / ${photos.length} · ${photos[idx].alt}`;
   };
 
+  let lockedY = 0;
+
   const open = (i) => {
     lastFocus = document.activeElement;
+    lockedY = window.scrollY;
     lb.hidden = false;
+    // iOS Safari ignores overflow:hidden on body, so pin it instead
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${lockedY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
     document.body.style.overflow = 'hidden';
     show(i);
     closeBtn.focus();
@@ -216,7 +254,15 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   const close = () => {
     lb.hidden = true;
     lb.classList.remove('is-zoomed');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.overflow = '';
+    const behavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, lockedY);
+    document.documentElement.style.scrollBehavior = behavior;
     if (lastFocus) lastFocus.focus();
   };
 
@@ -226,7 +272,28 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     btn.addEventListener('click', () => show(idx + parseInt(btn.dataset.dir, 10)));
   });
 
+  let swipeX = 0, swipeY = 0, swipeLive = false, swiped = false;
+  stage.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1 || lb.classList.contains('is-zoomed')) { swipeLive = false; return; }
+    swipeX = e.touches[0].clientX;
+    swipeY = e.touches[0].clientY;
+    swipeLive = true;
+    swiped = false;
+  }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (!swipeLive) return;
+    swipeLive = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - swipeX;
+    const dy = t.clientY - swipeY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      swiped = true;
+      show(idx + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
   img.addEventListener('click', (e) => {
+    if (swiped) { swiped = false; return; }   // a swipe is not a zoom tap
     const rect = img.getBoundingClientRect();
     const fx = (e.clientX - rect.left) / rect.width;
     const fy = (e.clientY - rect.top) / rect.height;
