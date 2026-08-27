@@ -1,0 +1,3 @@
+# Local image tooling. Never needs to reach the CDN.
+tools/
+node_modules/

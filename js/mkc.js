@@ -210,7 +210,7 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     '  <button type="button" class="lightbox__close" aria-label="Close photo viewer">Close ✕</button>',
     '</div>',
     '<div class="lightbox__stage">',
-    '  <img class="lightbox__img" alt="" />',
+    '  <picture class="lightbox__pic"><img class="lightbox__img" alt="" /></picture>',
     '</div>',
     '<div class="lightbox__bar lightbox__bar--foot">',
     '  <button type="button" class="lightbox__arrow" data-dir="-1" aria-label="Previous photo">← Prev</button>',
@@ -221,16 +221,31 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   document.body.appendChild(lb);
 
   const stage = lb.querySelector('.lightbox__stage');
+  const lbPicture = lb.querySelector('.lightbox__pic');
   const img = lb.querySelector('.lightbox__img');
   const caption = lb.querySelector('.lightbox__caption');
   const closeBtn = lb.querySelector('.lightbox__close');
   let idx = 0;
   let lastFocus = null;
 
+  // A thumbnail inside <picture> only reports currentSrc once it has loaded, so
+  // a photo opened before its lazy load would fall back to the JPEG. Copy the
+  // thumbnail's own <source> list onto the viewer instead and let the browser
+  // negotiate the format, exactly as it does for the thumbnail.
+  const stageSources = (el) => {
+    lbPicture.querySelectorAll('source').forEach((s) => s.remove());
+    const pic = el.closest('picture');
+    if (!pic) return;
+    pic.querySelectorAll('source').forEach((s) => {
+      lbPicture.insertBefore(s.cloneNode(false), img);
+    });
+  };
+
   const show = (i) => {
     idx = (i + photos.length) % photos.length;
     lb.classList.remove('is-zoomed');
-    img.src = photos[idx].currentSrc || photos[idx].src;
+    stageSources(photos[idx]);
+    img.src = photos[idx].getAttribute('src');
     img.alt = photos[idx].alt;
     caption.textContent = `${idx + 1} / ${photos.length} · ${photos[idx].alt}`;
   };
@@ -307,9 +322,19 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
 
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowLeft') show(idx - 1);
-    else if (e.key === 'ArrowRight') show(idx + 1);
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowLeft') { show(idx - 1); return; }
+    if (e.key === 'ArrowRight') { show(idx + 1); return; }
+    // aria-modal promises focus stays inside the dialog, so Tab has to wrap
+    // instead of walking off into the page behind it.
+    if (e.key === 'Tab') {
+      const stops = lb.querySelectorAll('button');
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!lb.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
   });
 
   photos.forEach((el, i) => {

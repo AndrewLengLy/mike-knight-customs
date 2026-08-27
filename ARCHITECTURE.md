@@ -126,8 +126,10 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 
 ## 5. Files in this build
 
-- `css/mkc.css` — global design system (tokens, type, grid, nav, footer, components)
-- `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
+- `css/mkc.css` — global design system (`@font-face` block, tokens, type, grid, nav, footer, components)
+- `js/mkc.js` — nav toggle, scroll reveals, before/after comparators, review carousel, photo lightbox
+- `fonts/` — self-hosted latin `woff2` subsets (Anton, Archivo variable, IBM Plex Mono 400/500)
+- `tools/` — local image tooling, not deployed and not part of any build (see §7)
 - `index.html` — PAGE A, complete
 - `oem-advocacy.html` — PAGE B, complete
 - `standalone/` — self-contained single-file versions for instant preview (`noindex`)
@@ -141,10 +143,14 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 
 ## 6. SEO conventions
 
-Every indexable page carries, in this order after the favicon links:
-`theme-color` · `title` · `description` · `canonical` · `robots` · Open Graph
-(with `og:image:width/height/alt`) · Twitter card · one `application/ld+json`
-`@graph`.
+The head opens with the render-critical links: stylesheet, font preloads, and on
+the homepage the hero image preload. The favicons follow, then the metadata, in
+this order: `theme-color` · `title` · `description` · `canonical` · `robots` ·
+Open Graph (with `og:image:width/height/alt`) · Twitter card · one
+`application/ld+json` `@graph`.
+
+The JSON-LD block runs to roughly 150 lines, so it sits last. Anything the
+browser needs to start fetching belongs above it.
 
 Structured data uses a single canonical business node, `#business`
 (`AutoBodyShop` + `AutoRepair`), declared on the homepage. Every other page
@@ -158,7 +164,63 @@ pages, so the 5.0 ratings stay as on-page copy only.
 
 Images all carry intrinsic `width`/`height` (CLS), `decoding="async"`, and
 `loading="lazy"` except the nav logo and the homepage hero, which are
-`fetchpriority="high"`. The hero is also `<link rel="preload">`ed.
+`fetchpriority="high"`. The hero is also `<link rel="preload">`ed, as
+`type="image/avif"` so the preload matches what `<picture>` actually picks.
 
 Copy rules in force: no em dashes, no two-beat antithesis, no aphorism
 formulas, no generic openers, no padded triads. Written for skimmers.
+
+---
+
+## 7. Asset delivery
+
+Every photo ships three ways. The `.jpg`/`.png` in `src` is the untouched
+original and the fallback; alongside it sit `.avif` (q65) and `.webp` (q80)
+generated from that original, offered through `<picture>`:
+
+```html
+<picture>
+  <source type="image/avif" srcset="images/work/venza/venza-01.avif" />
+  <source type="image/webp" srcset="images/work/venza/venza-01.webp" />
+  <img src="images/work/venza/venza-01.jpg" width="480" height="640" ... />
+</picture>
+```
+
+`picture { display: contents }` in the CSS keeps the wrapper out of the box
+tree, so the `<img>` stays the grid/flex item and wrapping an image never
+changes layout.
+
+**Do not hand-write any of this.** `tools/optimize-images.mjs` generates the
+variants and rewrites the markup:
+
+```bash
+cd tools && npm install     # once
+node tools/optimize-images.mjs          # from the repo root
+node tools/optimize-images.mjs --check  # report only, changes nothing
+```
+
+Run it after adding photos or publishing a case file. It is idempotent, so
+running it twice is harmless. It writes a plain `<img>` into a `<picture>`,
+skips images already wrapped, ignores SVG and the single-format assets above,
+and drops a variant that comes out no smaller than the original it would
+replace. It always encodes from the original `.jpg`/`.png` and never from an
+existing variant, because a variant of a variant carries two generations of
+loss.
+
+`images/work/<project>/` holds more photos than the site currently shows; the
+extras are staged for future case files. They deliberately have no variants
+yet. Reference one from a page, run the tool, and it picks them up.
+
+Exceptions that stay single-format: the favicons, the apple-touch icon, and
+`images/og/mkc-og.jpg`. Social crawlers and OS icon fetchers do not content-
+negotiate, so those keep their original format.
+
+Fonts are self-hosted from `/fonts` rather than Google Fonts, which removes two
+render-blocking third-party origins from the critical path. Archivo is one
+variable file covering 400-600; the Google Fonts link fetched the same file once
+per weight. The stylesheet link sits directly after the viewport meta, ahead of
+the JSON-LD block, so the parser reaches it immediately.
+
+**Known limit:** the source photos are 480×640. That is fine for the gallery
+grid but means the lightbox upscales on a retina phone. Higher-resolution
+originals are the only fix; re-encoding cannot recover detail that is not there.

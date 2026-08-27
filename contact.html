@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/mkc.css" />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-var.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-mono-400.woff2" crossorigin />
 <link rel="icon" href="images/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
@@ -84,10 +88,6 @@
   ]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/mkc.css" />
 <style>
 /* ============ CONTACT PAGE · INTAKE-FILE LAYOUT ============ */
 
@@ -204,7 +204,11 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" width="474" height="240" decoding="async" fetchpriority="high" />
+      <picture>
+        <source type="image/avif" srcset="images/mkc-logo.avif" />
+        <source type="image/webp" srcset="images/mkc-logo.webp" />
+        <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" width="474" height="240" decoding="async" fetchpriority="high" />
+      </picture>
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
