@@ -156,4 +156,3 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 - `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
 - `index.html` — PAGE A, complete
 - `oem-advocacy.html` — PAGE B, complete
-- `standalone/` — self-contained single-file versions for instant preview
