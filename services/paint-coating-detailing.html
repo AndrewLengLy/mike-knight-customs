@@ -95,7 +95,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" />
+      <img decoding="async" width="474" height="240" class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -160,9 +160,9 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img src="../images/work/bmw-750i/bmw-13.jpg"
+            <img fetchpriority="high" decoding="async" src="../images/work/bmw-750i/bmw-13.jpg"
                  alt="2023 BMW 750i with front collision damage before refinishing, Frozen factory paint at risk" />
-            <img class="compare__after"
+            <img loading="lazy" decoding="async" class="compare__after"
                  src="../images/work/bmw-750i/bmw-04.jpg"
                  alt="2023 BMW 750i after repair with an invisible match to BMW's Frozen factory finish" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
@@ -331,7 +331,7 @@
   </div>
 </footer>
 
-<script src="../js/mkc.js"></script>
+<script defer src="../js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

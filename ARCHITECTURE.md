@@ -48,9 +48,25 @@ MKC (root)
 | `--mkc-green` | `#A8F040` | Single industrial accent — focus points only |
 
 **Typography**
-- Display — `Anton`: heavy condensed mechanical sans, uppercase, 0.96 line-height. Headlines only.
-- Body — `Archivo`: geometric, hyper-legible, 400/500/600.
+- Display — `Anton`: heavy condensed mechanical sans, uppercase, 1.0 line-height. Headlines only.
+- Body — `Archivo`: geometric, hyper-legible, 400/500/600. 1.6 line-height.
 - Data — `IBM Plex Mono`: uppercase, 0.14em tracking. All metrics, indices, readouts, buttons, eyebrows.
+
+**Fluid scale** — type (`--step--1` … `--step-4`) and rhythm (`--space-2` … `--space-6`)
+are `clamp()` ramps with hard upper bounds, so a 1920px display gets the same
+capped sizes as a 1440px one rather than continuing to grow. Content container
+is `--max-w: 1320px`. There is no phone-only spacing override: the clamps handle it.
+
+| Token | 375px | 1440px+ |
+|---|---|---|
+| `--step-4` display | 38px | 70px |
+| `--step-3` | 29px | 45px |
+| `--step-0` body | 15px | 16px |
+| `--space-6` section pad | 52px | 88px |
+
+**Touch targets** — every control clears 44px. Sizing that exists only to hit
+that minimum (footer links, gallery captions, readout links) is scoped to
+`@media (hover: none)` so pointer devices keep the tighter desktop rhythm.
 
 **Signature components**
 - `.meta-point` — border-scoped spec rows (replaces icon boxes)

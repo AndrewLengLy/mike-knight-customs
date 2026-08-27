@@ -92,9 +92,13 @@
   gap: var(--space-4);
   padding-block: var(--space-5);
 }
+.proof__media { width: 100%; max-width: 38rem; }
 .proof__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
 .proof__spec .readout { background: var(--ink-2); }
-@media (max-width: 960px) { .proof__unit { grid-template-columns: 1fr; } }
+@media (max-width: 960px) {
+  .proof__unit { grid-template-columns: 1fr; }
+  .proof__media { max-width: 34rem; }
+}
 
 /* final CTA */
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
@@ -107,7 +111,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" />
+      <img decoding="async" width="474" height="240" class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -306,9 +310,9 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img src="../images/work/gmc-sierra/gmc-06.jpg"
+            <img fetchpriority="high" decoding="async" src="../images/work/gmc-sierra/gmc-06.jpg"
                  alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
-            <img class="compare__after"
+            <img loading="lazy" decoding="async" class="compare__after"
                  src="../images/work/gmc-sierra/gmc-02.jpg"
                  alt="2011 GMC Sierra after rear collision repair and factory color match" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
@@ -385,7 +389,7 @@
   </div>
 </footer>
 
-<script src="../js/mkc.js"></script>
+<script defer src="../js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>
