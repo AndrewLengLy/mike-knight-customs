@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
 <link rel="icon" href="../images/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
@@ -60,6 +61,9 @@
 
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --max-w: 1440px;
+
+  /* sticky nav height — hero uses it to size itself to the first screen */
+  --nav-h: calc(4.25rem + 1px);
 }
 
 /* tighter vertical rhythm on phones */
@@ -474,23 +478,33 @@ button.compare__flag.is-major {
 .hero { border-bottom: 1px solid var(--line); position: relative; }
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  min-height: min(88vh, 60rem);
+  grid-template-columns: minmax(0, 7.4fr) minmax(0, 4.6fr);
+  /* exactly one screen, minus the sticky nav: everything stays above the fold */
+  min-height: calc(100svh - var(--nav-h));
 }
 .hero__copy {
-  padding: var(--space-5) var(--gutter) var(--space-4) var(--gutter);
+  padding: clamp(1rem, 3.2vh, 3.25rem) var(--gutter) clamp(1rem, 3.2vh, 3.25rem) 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-3);
-  max-width: calc((var(--max-w) / 12) * 7);
+  gap: clamp(0.5rem, 1.3vh, 1.4rem);
+  max-width: calc((var(--max-w) / 12) * 7.4);
   margin-left: max(var(--gutter), calc((100vw - var(--max-w)) / 2));
-  padding-left: 0;
 }
-.hero__title { margin: 0.5rem 0 0.25rem; }
+/* type scales with viewport height as well as width so short windows still fit */
+.hero__title {
+  margin: 0;
+  font-size: clamp(2.25rem, min(4.2vw, 7.8vh), 4rem);
+}
 .hero__title em { font-style: normal; color: var(--mkc-green); }
-.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
-.hero__meta { margin-top: var(--space-3); }
+.hero__copy .lede {
+  font-size: clamp(1rem, min(1.35vw, 2.3vh), 1.2rem);
+  line-height: 1.5;
+  max-width: 54ch;
+}
+.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: clamp(0.25rem, 1vh, 0.75rem); }
+.hero__meta { margin-top: clamp(0.25rem, 1.2vh, 1rem); }
+.hero__meta .meta-point { padding-block: clamp(0.35rem, 0.95vh, 0.9rem); }
 
 /* right rail: immersive edge-to-edge frame */
 .hero__visual {
@@ -511,9 +525,14 @@ button.compare__flag.is-major {
   background: linear-gradient(90deg, rgba(11,15,18,0.55), transparent 32%);
 }
 @media (max-width: 960px) {
-  .hero__grid { grid-template-columns: 1fr; }
-  .hero__copy { margin-left: 0; padding: var(--space-5) var(--gutter); max-width: none; }
-  .hero__visual { border-left: 0; border-top: 1px solid var(--line); }
+  /* stacked: size to content so the copy block stays tight to the top of the screen */
+  .hero__grid { grid-template-columns: 1fr; min-height: 0; }
+  .hero__copy {
+    margin-left: 0;
+    max-width: none;
+    padding: clamp(1.25rem, 3vh, 2.5rem) var(--gutter);
+  }
+  .hero__visual { border-left: 0; border-top: 1px solid var(--line); min-height: 18rem; }
 }
 
 /* --- INSURANCE TICKER STRIP --- */

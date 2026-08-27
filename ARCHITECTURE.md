@@ -28,7 +28,12 @@ MKC (root)
 │                            (photos live in images/work/<project>/)
 ├── /contact.html ················ Quote form + map + carriers
 │
+├── /privacy.html ··············· Privacy policy (CCPA/CPRA)
+├── /terms.html ················· Terms of use
+├── /404.html ··················· Not-found page (noindex, Vercel auto-serves)
+│
 └── Footer utility: Google Maps · Facebook · Instagram · Yelp
+    Footer legal bar: Privacy · Terms · Sitemap
 ```
 
 **Redirect map (SEO preservation):** 301 each old baseline URL to its new destination above.
@@ -125,4 +130,35 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 - `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
 - `index.html` — PAGE A, complete
 - `oem-advocacy.html` — PAGE B, complete
-- `standalone/` — self-contained single-file versions for instant preview
+- `standalone/` — self-contained single-file versions for instant preview (`noindex`)
+- `privacy.html` / `terms.html` — legal pages on the shared `.legal` prose layout
+- `404.html` — not-found page, served automatically by Vercel
+- `sitemap.xml` — all 8 indexable URLs with `lastmod` + image entries for the work gallery
+- `robots.txt` — allows all, disallows `/standalone/`
+- `images/og/mkc-og.jpg` — 1200×630 social card used by every page
+
+---
+
+## 6. SEO conventions
+
+Every indexable page carries, in this order after the favicon links:
+`theme-color` · `title` · `description` · `canonical` · `robots` · Open Graph
+(with `og:image:width/height/alt`) · Twitter card · one `application/ld+json`
+`@graph`.
+
+Structured data uses a single canonical business node, `#business`
+(`AutoBodyShop` + `AutoRepair`), declared on the homepage. Every other page
+references it by `@id` rather than redeclaring it, and adds its own `WebPage`,
+`BreadcrumbList`, and where relevant a `Service`, `ContactPage`,
+`CollectionPage`, or `FAQPage` node.
+
+**Deliberate omission:** no `aggregateRating` / `Review` markup. Google's
+structured-data policy disallows self-serving review markup on a business's own
+pages, so the 5.0 ratings stay as on-page copy only.
+
+Images all carry intrinsic `width`/`height` (CLS), `decoding="async"`, and
+`loading="lazy"` except the nav logo and the homepage hero, which are
+`fetchpriority="high"`. The hero is also `<link rel="preload">`ed.
+
+Copy rules in force: no em dashes, no two-beat antithesis, no aphorism
+formulas, no generic openers, no padded triads. Written for skimmers.

@@ -1,27 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://mikeknightcustoms.com/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg</image:loc>
+      <image:title>2023 BMW 750i after collision repair at Mike Knight Customs</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://mikeknightcustoms.com/services/collision-frame-repair</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
     <loc>https://mikeknightcustoms.com/services/paint-coating-detailing</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
     <loc>https://mikeknightcustoms.com/oem-advocacy</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://mikeknightcustoms.com/recent-work</loc>
-    <priority>0.7</priority>
-  </url>
+
   <url>
     <loc>https://mikeknightcustoms.com/contact</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://mikeknightcustoms.com/recent-work</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/bmw-750i/bmw-10.jpg</image:loc>
+      <image:title>2023 BMW 750i Frozen paint, full OEM recovery</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/range-rover/rr-01.jpg</image:loc>
+      <image:title>2024 Range Rover after bumper repair and detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/venza/venza-01.jpg</image:loc>
+      <image:title>2024 Toyota Venza in four-stage candy red</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/silverado/silv-01.jpg</image:loc>
+      <image:title>2022 Chevy Silverado rear impact, all-OEM rebuild</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/f350/f350-02.jpg</image:loc>
+      <image:title>2019 Ford F350 Super Duty after repair and refinish</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/gmc-sierra/gmc-02.jpg</image:loc>
+      <image:title>2011 GMC Sierra after rear collision restoration</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/aluminum/alu-08.jpg</image:loc>
+      <image:title>Aluminum-bodied Ford F-150 structural repair</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mikeknightcustoms.com/images/work/boom-trucks/boom-01.jpg</image:loc>
+      <image:title>Commercial boom truck repaired at Mike Knight Customs</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://mikeknightcustoms.com/privacy</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+  <url>
+    <loc>https://mikeknightcustoms.com/terms</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
 </urlset>
