@@ -54,10 +54,12 @@
   ]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
+<link rel="preload" as="image" href="images/work/bmw-750i/bmw-08.webp" fetchpriority="high" />
 <style>
 /* ============ HOMEPAGE-SCOPED LAYOUT ============ */
 
@@ -66,28 +68,28 @@
 .hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  min-height: min(88vh, 60rem);
+  min-height: min(76vh, 42rem);
 }
 .hero__copy {
-  padding: var(--space-5) var(--gutter) var(--space-4) var(--gutter);
+  padding: var(--space-4) var(--gutter) var(--space-4) var(--gutter);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   max-width: calc((var(--max-w) / 12) * 7);
   margin-left: max(var(--gutter), calc((100vw - var(--max-w)) / 2));
   padding-left: 0;
 }
 .hero__title { margin: 0.5rem 0 0.25rem; }
 .hero__title em { font-style: normal; color: var(--mkc-green); }
-.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-1); }
 .hero__meta { margin-top: var(--space-3); }
 
 /* right rail: immersive edge-to-edge frame */
 .hero__visual {
   position: relative;
   border-left: 1px solid var(--line);
-  min-height: 24rem;
+  min-height: clamp(15rem, 42vw, 24rem);
   overflow: hidden;
 }
 .hero__visual img {
@@ -103,8 +105,25 @@
 }
 @media (max-width: 960px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__copy { margin-left: 0; padding: var(--space-5) var(--gutter); max-width: none; }
+  .hero__copy { margin-left: 0; padding: var(--space-4) var(--gutter); max-width: none; }
   .hero__visual { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 480px) {
+  .hero__actions { gap: var(--space-1); }
+  .hero__actions .btn { flex: 1 1 100%; }
+}
+@media (max-width: 560px) {
+  .hero__meta .meta-point { grid-template-columns: auto 1fr auto; padding: 0.6rem 0; row-gap: 0; }
+  .hero__meta .meta-point__value { grid-column: auto; text-align: right; }
+}
+
+/* short viewports (compact phones, laptops with heavy browser chrome):
+   shrink the display type and rhythm so both CTAs stay above the fold */
+@media (max-height: 700px) {
+  .hero__grid { min-height: 0; }
+  .hero__copy { gap: var(--space-1); padding-block: var(--space-3); }
+  .hero__title { font-size: clamp(2rem, 1.6rem + 2vw, 3.4rem); }
+  .hero__meta { margin-top: var(--space-2); }
 }
 
 /* --- INSURANCE TICKER STRIP (auto-scrolling marquee) --- */
@@ -150,6 +169,7 @@
 @media (max-width: 720px) {
   .carriers__row--ticker { flex-wrap: wrap; }
   .carriers__marquee { flex-basis: 100%; }
+  .carriers__cta { width: 100%; }
 }
 
 /* --- DIFFERENCE LEDGER (no card grid) --- */
@@ -172,22 +192,37 @@
   .ledger__row { grid-template-columns: 3.5rem 1fr; }
   .ledger__row p { grid-column: 2; }
 }
+@media (max-width: 560px) {
+  .ledger__row { grid-template-columns: 1fr; gap: var(--space-1); }
+  .ledger__row p { grid-column: 1; }
+  .ledger__row .data { order: -1; }
+}
 
 /* --- PREVIOUS WORK --- */
 .proof { border-top: 1px solid var(--line); }
 .proof__unit {
   display: grid;
-  grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--space-4);
   padding-block: var(--space-5);
 }
 .proof__unit + .proof__unit { border-top: 1px solid var(--line); }
-.proof__unit:nth-child(even) .proof__media { order: 2; }
+/* alternate which side the photo sits on, but keep it in the WIDE track:
+   the old nth-child(even) order swap left the 7.5fr column nearly empty */
+.proof__media { grid-row: 1; grid-column: 1; width: 100%; max-width: 38rem; justify-self: start; }
+.proof__spec { grid-row: 1; grid-column: 2; }
+.proof__unit:nth-of-type(even) { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.proof__unit:nth-of-type(even) .proof__media { grid-column: 2; justify-self: end; }
+.proof__unit:nth-of-type(even) .proof__spec { grid-column: 1; }
 .proof__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
 .proof__spec .readout { background: var(--ink-2); }
 @media (max-width: 960px) {
-  .proof__unit { grid-template-columns: 1fr; }
-  .proof__unit:nth-child(even) .proof__media { order: 0; }
+  .proof__unit,
+  .proof__unit:nth-of-type(even) { grid-template-columns: 1fr; }
+  .proof__media, .proof__spec,
+  .proof__unit:nth-of-type(even) .proof__media,
+  .proof__unit:nth-of-type(even) .proof__spec { grid-column: 1; grid-row: auto; }
+  .proof__media, .proof__unit:nth-of-type(even) .proof__media { max-width: 34rem; justify-self: start; }
 }
 
 
@@ -215,8 +250,13 @@
   border-top: 1px solid var(--line);
 }
 .wgrid__link { transition: color 0.25s ease; }
+.wgrid__item img { cursor: zoom-in; }
 .wgrid__link:hover { color: var(--mkc-green); }
 @media (max-width: 960px) { .wgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (hover: none) {
+  .wgrid__cap { padding: 0.25rem 0.9rem; }
+  .wgrid__link { display: inline-flex; align-items: center; min-height: 2.75rem; }
+}
 @media (max-width: 560px) { .wgrid { grid-template-columns: 1fr; } }
 
 /* --- SERVICES INDEX: editorial rows --- */
@@ -239,6 +279,11 @@
 @media (max-width: 820px) {
   .svc-row { grid-template-columns: 3.5rem 1fr auto; }
   .svc-row p { display: none; }
+}
+@media (max-width: 560px) {
+  .svc-row { grid-template-columns: 1fr auto; gap: var(--space-1) var(--space-2); padding: var(--space-2) 0; }
+  .svc-row .data { grid-column: 1; }
+  .svc-row .arrow { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
 }
 
 /* --- REVIEW WALL --- */
@@ -267,14 +312,31 @@
 }
 .review__arrow:hover { border-color: var(--mkc-green); color: var(--mkc-green); }
 .review__dots { display: flex; gap: 0.45rem; flex-wrap: wrap; flex: 1; }
+/* the visible mark is a 1px rule, but the button itself is a 44px target */
 .review__dot {
-  width: 1.6rem; height: 1px; padding: 0.55rem 0;
-  background: var(--line); border: 0; cursor: pointer;
-  transition: background 0.25s ease, width 0.25s ease;
+  width: 1.6rem; min-height: 2.75rem; padding: 0;
+  background: none; border: 0; cursor: pointer;
+  display: flex; align-items: center;
+  transition: width 0.25s ease;
 }
-.review__dot.is-active { background: var(--mkc-green); width: 2.4rem; }
-.review__dot:hover { background: var(--mkc-green); }
+.review__dot::before {
+  content: ""; display: block; width: 100%; height: 1px;
+  background: var(--line);
+  transition: background 0.25s ease;
+}
+.review__dot.is-active { width: 2.4rem; }
+.review__dot.is-active::before { background: var(--mkc-green); }
+.review__dot:hover::before { background: var(--mkc-green); }
 @media (max-width: 820px) { .review { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .review blockquote { font-size: var(--step-1); }
+  .review__carousel { min-height: 0; }
+  .review__arrow { min-height: 2.75rem; min-width: 2.75rem; }
+  /* keep the dots on one line instead of wrapping into a ragged block */
+  .review__dots { flex-wrap: nowrap; gap: 0.35rem; }
+  .review__dot { width: auto; flex: 1 1 0; min-width: 0; }
+  .review__dot.is-active { width: auto; flex-grow: 1.6; }
+}
 
 /* --- FINAL CTA --- */
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
@@ -287,7 +349,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
+      <img decoding="async" width="474" height="240" class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
 
@@ -328,11 +390,8 @@
         Backed by a <em>Lifetime Warranty.</em>
       </h1>
       <p class="lede">
-        Vehicles are more complex than ever. It is our job to inform the
-        insurance companies on how to properly repair these vehicles to
-        manufacturer specifications. We don't let insurance dictate your
-        safety. Every repair is done to protect your family, your investment,
-        and your peace of mind.
+        Factory-spec collision repair. We handle the insurance company for
+        you and never let an adjuster dictate your safety.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="contact">Get a Free Quote <span class="arrow">→</span></a>
@@ -343,29 +402,24 @@
       <dl class="hero__meta" aria-label="Shop credentials">
         <div class="meta-point">
           <dt class="meta-point__idx">A/01</dt>
-          <dd class="meta-point__label">Google Rating</dd>
-          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
+          <dd class="meta-point__label">Google · Yelp Rating</dd>
+          <dd class="meta-point__value">5.0 Verified</dd>
         </div>
         <div class="meta-point">
           <dt class="meta-point__idx">A/02</dt>
-          <dd class="meta-point__label">Yelp Rating</dd>
-          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
-        </div>
-        <div class="meta-point">
-          <dt class="meta-point__idx">A/03</dt>
           <dd class="meta-point__label">Warranty</dd>
           <dd class="meta-point__value">Lifetime</dd>
         </div>
         <div class="meta-point">
-          <dt class="meta-point__idx">A/04</dt>
+          <dt class="meta-point__idx">A/03</dt>
           <dd class="meta-point__label">Operation</dd>
-          <dd class="meta-point__value">Family-Owned · 20+ Yrs Craft</dd>
+          <dd class="meta-point__value">Family-Owned · 20+ Yrs</dd>
         </div>
       </dl>
     </div>
 
     <figure class="hero__visual">
-      <img src="images/work/bmw-750i/bmw-08.jpg"
+      <img fetchpriority="high" decoding="async" src="images/work/bmw-750i/bmw-08.webp"
            alt="2023 BMW 750i in Frozen matte paint outside Mike Knight Customs after completed collision repair" />
     </figure>
   </div>
@@ -379,29 +433,29 @@
     <div class="carriers__marquee">
       <div class="carriers__track">
         <div class="carriers__group">
-          <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/the-hartford.svg" alt="The Hartford" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/aspire.png" alt="Aspire General Insurance" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/national-general.png" alt="National General" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="The Hartford" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="Aspire General Insurance" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="National General" /><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
         <div class="carriers__group" aria-hidden="true">
-          <img class="carriers__logo" src="images/carriers/state-farm.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/allstate.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/geico.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/progressive.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/the-hartford.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/intact.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/travelers.svg" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/aspire.png" alt="" /><span class="sep">/</span>
-          <img class="carriers__logo" src="images/carriers/national-general.png" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="" /><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
       </div>
@@ -472,10 +526,10 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img src="images/work/gmc-sierra/gmc-06.jpg"
+            <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-06.webp"
                  alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
-            <img class="compare__after"
-                 src="images/work/gmc-sierra/gmc-02.jpg"
+            <img loading="lazy" decoding="async" class="compare__after"
+                 src="images/work/gmc-sierra/gmc-02.webp"
                  alt="2011 GMC Sierra after rear collision repair and factory color match" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -496,10 +550,10 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img src="images/work/bmw-750i/bmw-13.jpg"
+            <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-13.webp"
                  alt="2023 BMW 750i in the shop with front collision damage marked for repair" />
-            <img class="compare__after"
-                 src="images/work/bmw-750i/bmw-04.jpg"
+            <img loading="lazy" decoding="async" class="compare__after"
+                 src="images/work/bmw-750i/bmw-04.webp"
                  alt="2023 BMW 750i after repair with all-new OEM parts and matched Frozen factory paint" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -531,7 +585,7 @@
     <div class="wgrid">
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/range-rover/rr-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/range-rover/rr-01.webp" loading="lazy" data-zoom
              alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Range Rover</span>
@@ -540,7 +594,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/venza/venza-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/venza/venza-01.webp" loading="lazy" data-zoom
              alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Toyota Venza</span>
@@ -549,7 +603,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/silverado/silv-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/silverado/silv-01.webp" loading="lazy" data-zoom
              alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2022 Chevy Silverado</span>
@@ -558,7 +612,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/f350/f350-02.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/f350/f350-02.webp" loading="lazy" data-zoom
              alt="2019 Ford Super Duty F350 front view after repair and refinish" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2019 Ford F350</span>
@@ -567,7 +621,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/aluminum/alu-08.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/aluminum/alu-08.webp" loading="lazy" data-zoom
              alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">Aluminum F-150</span>
@@ -576,7 +630,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img src="images/work/boom-trucks/boom-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/boom-trucks/boom-01.webp" loading="lazy" data-zoom
              alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">Commercial Boom Truck</span>
@@ -705,7 +759,7 @@
   </div>
 </footer>
 
-<script src="js/mkc.js"></script>
+<script defer src="js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

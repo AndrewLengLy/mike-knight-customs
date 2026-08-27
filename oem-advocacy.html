@@ -21,9 +21,10 @@
 <meta name="twitter:title" content="OEM Advocacy · OEM Parts &amp; Insurance Assistance | Mike Knight Customs" />
 <meta name="twitter:description" content="Why 100% OEM parts protect your crumple zones, ADAS systems, and resale value, and how Mike Knight Customs stands between you and the insurance company. You have the legal right to choose your repair facility." />
 <meta name="twitter:image" content="https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
 <style>
 /* ============ OEM ADVOCACY PAGE · SCOPED LAYOUT ============ */
@@ -119,7 +120,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
+      <img decoding="async" width="474" height="240" class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -470,7 +471,7 @@
   </div>
 </footer>
 
-<script src="js/mkc.js"></script>
+<script defer src="js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>
