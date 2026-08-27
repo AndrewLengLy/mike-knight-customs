@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-var.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-mono-400.woff2" crossorigin />
 <link rel="icon" href="images/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
@@ -171,7 +172,13 @@
   padding-block: var(--space-5);
 }
 .case + .case { border-top: 1px solid var(--line); }
-.case:nth-of-type(even) .case__media { order: 2; }
+/* alternate the photo side, but keep photos in the WIDE track: the plain
+   order swap handed the 7fr column to a short spec block */
+.case__media { grid-row: 1; grid-column: 1; }
+.case__spec { grid-row: 1; grid-column: 2; }
+.case:nth-of-type(even) { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.case:nth-of-type(even) .case__media { grid-column: 2; }
+.case:nth-of-type(even) .case__spec { grid-column: 1; }
 .case__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
 .case__spec .readout { background: var(--ink-2); }
 .case__spec h2 { margin: 0; }
@@ -210,8 +217,12 @@
 .case__quote .data { display: block; margin-top: 0.6rem; }
 
 @media (max-width: 960px) {
-  .case { grid-template-columns: 1fr; }
-  .case:nth-of-type(even) .case__media { order: 0; }
+  .case,
+  .case:nth-of-type(even) { grid-template-columns: 1fr; }
+  .case__media { max-width: 34rem; }
+  .case__media, .case__spec,
+  .case:nth-of-type(even) .case__media,
+  .case:nth-of-type(even) .case__spec { grid-column: 1; grid-row: auto; }
 }
 @media (max-width: 560px) {
   .case__media { grid-template-columns: 1fr; }
@@ -225,11 +236,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <picture>
-        <source type="image/avif" srcset="images/mkc-logo.avif" />
-        <source type="image/webp" srcset="images/mkc-logo.webp" />
-        <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" width="474" height="240" decoding="async" fetchpriority="high" />
-      </picture>
+      <img decoding="async" width="474" height="240" class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -291,9 +298,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/bmw-750i/bmw-04.avif" />
-            <source type="image/webp" srcset="images/work/bmw-750i/bmw-04.webp" />
-            <img src="images/work/bmw-750i/bmw-04.jpg"
-                 alt="2023 BMW 750i in Frozen matte gray, front three-quarter view after completed collision repair" width="480" height="640" decoding="async" loading="lazy" />
+            <img fetchpriority="high" decoding="async" src="images/work/bmw-750i/bmw-04.webp"
+               alt="2023 BMW 750i in Frozen matte gray, front three-quarter view after completed collision repair" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -302,9 +308,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/bmw-750i/bmw-13.avif" />
-              <source type="image/webp" srcset="images/work/bmw-750i/bmw-13.webp" />
-              <img src="images/work/bmw-750i/bmw-13.jpg"
-                   alt="The same BMW 750i in the shop before repair, with collision damage marked on the front end" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-13.webp"
+                 alt="The same BMW 750i in the shop before repair, with collision damage marked on the front end" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -312,9 +317,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/bmw-750i/bmw-10.avif" />
-              <source type="image/webp" srcset="images/work/bmw-750i/bmw-10.webp" />
-              <img src="images/work/bmw-750i/bmw-10.jpg"
-                   alt="New OEM front bumper on a stand in the spray booth during refinishing" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-10.webp"
+                 alt="New OEM front bumper on a stand in the spray booth during refinishing" />
             </picture>
             <span class="ptag">Refinish</span>
           </figure>
@@ -350,9 +354,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/range-rover/rr-01.avif" />
-            <source type="image/webp" srcset="images/work/range-rover/rr-01.webp" />
-            <img src="images/work/range-rover/rr-01.jpg"
-                 alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/range-rover/rr-01.webp"
+               alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -361,9 +364,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/range-rover/rr-02.avif" />
-              <source type="image/webp" srcset="images/work/range-rover/rr-02.webp" />
-              <img src="images/work/range-rover/rr-02.jpg"
-                   alt="2024 Range Rover side profile after repair, freshly detailed" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/range-rover/rr-02.webp"
+                 alt="2024 Range Rover side profile after repair, freshly detailed" />
             </picture>
             <span class="ptag">Detail</span>
           </figure>
@@ -371,9 +373,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/range-rover/rr-03.avif" />
-              <source type="image/webp" srcset="images/work/range-rover/rr-03.webp" />
-              <img src="images/work/range-rover/rr-03.jpg"
-                   alt="Close view of the repaired rear bumper panel gaps on the 2024 Range Rover" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/range-rover/rr-03.webp"
+                 alt="Close view of the repaired rear bumper panel gaps on the 2024 Range Rover" />
             </picture>
             <span class="ptag">Panel Fit</span>
           </figure>
@@ -402,9 +403,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/venza/venza-01.avif" />
-            <source type="image/webp" srcset="images/work/venza/venza-01.webp" />
-            <img src="images/work/venza/venza-01.jpg"
-                 alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/venza/venza-01.webp"
+               alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -413,9 +413,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/venza/venza-03.avif" />
-              <source type="image/webp" srcset="images/work/venza/venza-03.webp" />
-              <img src="images/work/venza/venza-03.jpg"
-                   alt="The Venza masked and staged in the spray booth mid-refinish" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/venza/venza-03.webp"
+                 alt="The Venza masked and staged in the spray booth mid-refinish" />
             </picture>
             <span class="ptag">In Booth</span>
           </figure>
@@ -423,9 +422,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/venza/venza-02.avif" />
-              <source type="image/webp" srcset="images/work/venza/venza-02.webp" />
-              <img src="images/work/venza/venza-02.jpg"
-                   alt="Body panels and the Venza under booth lighting during the candy red paint process" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/venza/venza-02.webp"
+                 alt="Body panels and the Venza under booth lighting during the candy red paint process" />
             </picture>
             <span class="ptag">Stage Work</span>
           </figure>
@@ -453,9 +451,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/silverado/silv-01.avif" />
-            <source type="image/webp" srcset="images/work/silverado/silv-01.webp" />
-            <img src="images/work/silverado/silv-01.jpg"
-                 alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/silverado/silv-01.webp"
+               alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -464,9 +461,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/silverado/silv-04.avif" />
-              <source type="image/webp" srcset="images/work/silverado/silv-04.webp" />
-              <img src="images/work/silverado/silv-04.jpg"
-                   alt="The Silverado's crushed rear bumper and damaged tailgate corner before repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/silverado/silv-04.webp"
+                 alt="The Silverado's crushed rear bumper and damaged tailgate corner before repair" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -474,9 +470,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/silverado/silv-05.avif" />
-              <source type="image/webp" srcset="images/work/silverado/silv-05.webp" />
-              <img src="images/work/silverado/silv-05.jpg"
-                   alt="Rear three-quarter view of the finished Silverado at the shop" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/silverado/silv-05.webp"
+                 alt="Rear three-quarter view of the finished Silverado at the shop" />
             </picture>
             <span class="ptag">Final Check</span>
           </figure>
@@ -504,9 +499,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/f350/f350-02.avif" />
-            <source type="image/webp" srcset="images/work/f350/f350-02.webp" />
-            <img src="images/work/f350/f350-02.jpg"
-                 alt="2019 Ford Super Duty F350 front view after repair and refinish" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/f350/f350-02.webp"
+               alt="2019 Ford Super Duty F350 front view after repair and refinish" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -515,9 +509,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/f350/f350-05.avif" />
-              <source type="image/webp" srcset="images/work/f350/f350-05.webp" />
-              <img src="images/work/f350/f350-05.jpg"
-                   alt="The F350 as it arrived at the shop before repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/f350/f350-05.webp"
+                 alt="The F350 as it arrived at the shop before repair" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -525,9 +518,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/f350/f350-03.avif" />
-              <source type="image/webp" srcset="images/work/f350/f350-03.webp" />
-              <img src="images/work/f350/f350-03.jpg"
-                   alt="Side profile of the repaired F350 outside the shop" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/f350/f350-03.webp"
+                 alt="Side profile of the repaired F350 outside the shop" />
             </picture>
             <span class="ptag">Panel Fit</span>
           </figure>
@@ -555,9 +547,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/gmc-sierra/gmc-02.avif" />
-            <source type="image/webp" srcset="images/work/gmc-sierra/gmc-02.webp" />
-            <img src="images/work/gmc-sierra/gmc-02.jpg"
-                 alt="2011 GMC Sierra rear three-quarter view after repair, refinished to factory color" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-02.webp"
+               alt="2011 GMC Sierra rear three-quarter view after repair, refinished to factory color" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -566,9 +557,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/gmc-sierra/gmc-06.avif" />
-              <source type="image/webp" srcset="images/work/gmc-sierra/gmc-06.webp" />
-              <img src="images/work/gmc-sierra/gmc-06.jpg"
-                   alt="Rear quarter and bumper damage on the Sierra before repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-06.webp"
+                 alt="Rear quarter and bumper damage on the Sierra before repair" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -576,9 +566,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/gmc-sierra/gmc-03.avif" />
-              <source type="image/webp" srcset="images/work/gmc-sierra/gmc-03.webp" />
-              <img src="images/work/gmc-sierra/gmc-03.jpg"
-                   alt="The Sierra's bed masked and refinished in the spray booth" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-03.webp"
+                 alt="The Sierra's bed masked and refinished in the spray booth" />
             </picture>
             <span class="ptag">In Booth</span>
           </figure>
@@ -606,9 +595,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/aluminum/alu-08.avif" />
-            <source type="image/webp" srcset="images/work/aluminum/alu-08.webp" />
-            <img src="images/work/aluminum/alu-08.jpg"
-                 alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/aluminum/alu-08.webp"
+               alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -617,9 +605,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/aluminum/alu-07.avif" />
-              <source type="image/webp" srcset="images/work/aluminum/alu-07.webp" />
-              <img src="images/work/aluminum/alu-07.jpg"
-                   alt="Dented aluminum door skin on an F-150 before repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/aluminum/alu-07.webp"
+                 alt="Dented aluminum door skin on an F-150 before repair" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -627,9 +614,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/aluminum/alu-05.avif" />
-              <source type="image/webp" srcset="images/work/aluminum/alu-05.webp" />
-              <img src="images/work/aluminum/alu-05.jpg"
-                   alt="Aluminum door panel on a stand in the spray booth during refinishing" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/aluminum/alu-05.webp"
+                 alt="Aluminum door panel on a stand in the spray booth during refinishing" />
             </picture>
             <span class="ptag">Refinish</span>
           </figure>
@@ -658,9 +644,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/boom-trucks/boom-01.avif" />
-            <source type="image/webp" srcset="images/work/boom-trucks/boom-01.webp" />
-            <img src="images/work/boom-trucks/boom-01.jpg"
-                 alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" width="640" height="480" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/boom-trucks/boom-01.webp"
+               alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -669,9 +654,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/boom-trucks/boom-03.avif" />
-              <source type="image/webp" srcset="images/work/boom-trucks/boom-03.webp" />
-              <img src="images/work/boom-trucks/boom-03.jpg"
-                   alt="Front view of the boom truck arriving with fleet stickers on the right front corner" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/boom-trucks/boom-03.webp"
+                 alt="Front view of the boom truck arriving with fleet stickers on the right front corner" />
             </picture>
             <span class="ptag">Intake</span>
           </figure>
@@ -679,9 +663,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/boom-trucks/boom-02.avif" />
-              <source type="image/webp" srcset="images/work/boom-trucks/boom-02.webp" />
-              <img src="images/work/boom-trucks/boom-02.jpg"
-                   alt="The boom truck cab stripped to structure during repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/boom-trucks/boom-02.webp"
+                 alt="The boom truck cab stripped to structure during repair" />
             </picture>
             <span class="ptag">Teardown</span>
           </figure>
@@ -709,9 +692,8 @@
           <span class="tick" aria-hidden="true"></span>
           <picture>
             <source type="image/avif" srcset="images/work/new-ride/ride-05.avif" />
-            <source type="image/webp" srcset="images/work/new-ride/ride-05.webp" />
-            <img src="images/work/new-ride/ride-05.jpg"
-                 alt="Blue Cadillac CT5-V Blackwing with customized accents, front three-quarter view" width="480" height="640" decoding="async" loading="lazy" />
+            <img loading="lazy" decoding="async" src="images/work/new-ride/ride-05.webp"
+               alt="Blue Cadillac CT5-V Blackwing with customized accents, front three-quarter view" />
           </picture>
           <span class="ptag ptag--live">Delivered</span>
         </figure>
@@ -720,9 +702,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/new-ride/ride-09.avif" />
-              <source type="image/webp" srcset="images/work/new-ride/ride-09.webp" />
-              <img src="images/work/new-ride/ride-09.jpg"
-                   alt="Red Corvette convertible personalized at Mike Knight Customs" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/new-ride/ride-09.webp"
+                 alt="Red Corvette convertible personalized at Mike Knight Customs" />
             </picture>
             <span class="ptag">Client Build</span>
           </figure>
@@ -730,9 +711,8 @@
             <span class="tick" aria-hidden="true"></span>
             <picture>
               <source type="image/avif" srcset="images/work/new-ride/ride-03.avif" />
-              <source type="image/webp" srcset="images/work/new-ride/ride-03.webp" />
-              <img src="images/work/new-ride/ride-03.jpg"
-                   alt="Rear view of the Cadillac CT5-V showing finished custom details" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" src="images/work/new-ride/ride-03.webp"
+                 alt="Rear view of the Cadillac CT5-V showing finished custom details" />
             </picture>
             <span class="ptag">Detail Work</span>
           </figure>
@@ -820,7 +800,7 @@
   </div>
 </footer>
 
-<script src="js/mkc.js"></script>
+<script defer src="js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

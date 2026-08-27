@@ -28,12 +28,7 @@ MKC (root)
 │                            (photos live in images/work/<project>/)
 ├── /contact.html ················ Quote form + map + carriers
 │
-├── /privacy.html ··············· Privacy policy (CCPA/CPRA)
-├── /terms.html ················· Terms of use
-├── /404.html ··················· Not-found page (noindex, Vercel auto-serves)
-│
 └── Footer utility: Google Maps · Facebook · Instagram · Yelp
-    Footer legal bar: Privacy · Terms · Sitemap
 ```
 
 **Redirect map (SEO preservation):** 301 each old baseline URL to its new destination above.
@@ -53,9 +48,86 @@ MKC (root)
 | `--mkc-green` | `#A8F040` | Single industrial accent — focus points only |
 
 **Typography**
-- Display — `Anton`: heavy condensed mechanical sans, uppercase, 0.96 line-height. Headlines only.
-- Body — `Archivo`: geometric, hyper-legible, 400/500/600.
+- Display — `Anton`: heavy condensed mechanical sans, uppercase, 1.0 line-height. Headlines only.
+- Body — `Archivo`: geometric, hyper-legible, 400/500/600. 1.6 line-height.
 - Data — `IBM Plex Mono`: uppercase, 0.14em tracking. All metrics, indices, readouts, buttons, eyebrows.
+
+**Fluid scale** — type (`--step--1` … `--step-4`) and rhythm (`--space-2` … `--space-6`)
+are `clamp()` ramps with hard upper bounds, so a 1920px display gets the same
+capped sizes as a 1440px one rather than continuing to grow. Content container
+is `--max-w: 1320px`. There is no phone-only spacing override: the clamps handle it.
+
+| Token | 375px | 1440px+ |
+|---|---|---|
+| `--step-4` display | 38px | 70px |
+| `--step-3` | 29px | 45px |
+| `--step-0` body | 15px | 16px |
+| `--space-6` section pad | 52px | 88px |
+
+**Touch targets** — every control clears 44px. Sizing that exists only to hit
+that minimum (footer links, gallery captions, readout links) is scoped to
+`@media (hover: none)` so pointer devices keep the tighter desktop rhythm.
+
+**Fonts** — Anton, Archivo and IBM Plex Mono are self-hosted from `fonts/`
+(SIL OFL 1.1, license text alongside the files). Same-origin, so no
+third-party DNS, TCP or TLS handshake sits on the critical path and the
+typography cannot silently fall back to system metrics when a CDN is
+unreachable. Only latin and latin-ext subsets ship; `unicode-range` means a
+browser fetches a file only when the page needs those codepoints, so an
+English page pulls just the four latin faces (~81 KB). The three faces that
+paint the first screen are preloaded.
+
+**Images** — photographs ship as WebP at quality 85 (~30 percent smaller than
+the JPEG sources, worst-case PSNR 38.5 dB), with an AVIF at quality 65 offered
+ahead of it through `<picture>`:
+
+```html
+<picture>
+  <source type="image/avif" srcset="images/work/venza/venza-01.avif" />
+  <img src="images/work/venza/venza-01.webp" ... />
+</picture>
+```
+
+AVIF takes a further ~23 percent off the WebP for browsers that support it;
+everyone else still gets the WebP from `src`. `picture { display: contents }`
+keeps the wrapper out of the box tree, so the `<img>` stays the grid/flex item
+and wrapping an image never changes layout.
+
+The Open Graph, Twitter card and JSON-LD `image` URLs deliberately stay JPEG:
+social crawler support for WebP is inconsistent and a broken share preview
+costs leads. Flat-art carrier logos stay SVG or PNG wherever WebP and AVIF did
+not beat them — the nav logo is one of these, a 10 KB PNG that neither format
+improved on.
+
+**Do not hand-write any of this.** `tools/optimize-images.mjs` generates the
+AVIF and rewrites the markup:
+
+```bash
+cd tools && npm install     # once
+ORIGINALS_DIR=/path/to/masters node tools/optimize-images.mjs
+node tools/optimize-images.mjs --check     # report only
+```
+
+It is idempotent, skips images already wrapped, and drops any variant that does
+not actually beat the file it would replace.
+
+**Where the masters live.** The full-resolution JPEG/PNG originals are no longer
+in the working tree; they were removed when the site moved to WebP. AVIF must
+still be encoded from those masters, never from the shipped WebP, because
+encoding one lossy format into another stacks a second generation of loss.
+Recover them from a commit that predates the migration, for example the tag
+`backup/pre-reconcile-53f3768`:
+
+```bash
+git cat-file blob backup/pre-reconcile-53f3768:images/work/venza/venza-01.jpg > masters/...
+```
+
+then point `ORIGINALS_DIR` at that folder. With no master available the script
+refuses to encode and says so rather than quietly shipping a degraded image.
+
+**Known limit:** the source photos are 480x640. That is fine for the gallery
+grid but means the lightbox upscales on a retina phone. Higher-resolution
+originals are the only fix; re-encoding cannot recover detail that is not there.
 
 **Signature components**
 - `.meta-point` — border-scoped spec rows (replaces icon boxes)
@@ -126,101 +198,8 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 
 ## 5. Files in this build
 
-- `css/mkc.css` — global design system (`@font-face` block, tokens, type, grid, nav, footer, components)
-- `js/mkc.js` — nav toggle, scroll reveals, before/after comparators, review carousel, photo lightbox
-- `fonts/` — self-hosted latin `woff2` subsets (Anton, Archivo variable, IBM Plex Mono 400/500)
-- `tools/` — local image tooling, not deployed and not part of any build (see §7)
+- `css/mkc.css` — global design system (tokens, type, grid, nav, footer, components)
+- `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
+- `tools/` — local image tooling, not deployed and not part of any build (see §2)
 - `index.html` — PAGE A, complete
 - `oem-advocacy.html` — PAGE B, complete
-- `standalone/` — self-contained single-file versions for instant preview (`noindex`)
-- `privacy.html` / `terms.html` — legal pages on the shared `.legal` prose layout
-- `404.html` — not-found page, served automatically by Vercel
-- `sitemap.xml` — all 8 indexable URLs with `lastmod` + image entries for the work gallery
-- `robots.txt` — allows all, disallows `/standalone/`
-- `images/og/mkc-og.jpg` — 1200×630 social card used by every page
-
----
-
-## 6. SEO conventions
-
-The head opens with the render-critical links: stylesheet, font preloads, and on
-the homepage the hero image preload. The favicons follow, then the metadata, in
-this order: `theme-color` · `title` · `description` · `canonical` · `robots` ·
-Open Graph (with `og:image:width/height/alt`) · Twitter card · one
-`application/ld+json` `@graph`.
-
-The JSON-LD block runs to roughly 150 lines, so it sits last. Anything the
-browser needs to start fetching belongs above it.
-
-Structured data uses a single canonical business node, `#business`
-(`AutoBodyShop` + `AutoRepair`), declared on the homepage. Every other page
-references it by `@id` rather than redeclaring it, and adds its own `WebPage`,
-`BreadcrumbList`, and where relevant a `Service`, `ContactPage`,
-`CollectionPage`, or `FAQPage` node.
-
-**Deliberate omission:** no `aggregateRating` / `Review` markup. Google's
-structured-data policy disallows self-serving review markup on a business's own
-pages, so the 5.0 ratings stay as on-page copy only.
-
-Images all carry intrinsic `width`/`height` (CLS), `decoding="async"`, and
-`loading="lazy"` except the nav logo and the homepage hero, which are
-`fetchpriority="high"`. The hero is also `<link rel="preload">`ed, as
-`type="image/avif"` so the preload matches what `<picture>` actually picks.
-
-Copy rules in force: no em dashes, no two-beat antithesis, no aphorism
-formulas, no generic openers, no padded triads. Written for skimmers.
-
----
-
-## 7. Asset delivery
-
-Every photo ships three ways. The `.jpg`/`.png` in `src` is the untouched
-original and the fallback; alongside it sit `.avif` (q65) and `.webp` (q80)
-generated from that original, offered through `<picture>`:
-
-```html
-<picture>
-  <source type="image/avif" srcset="images/work/venza/venza-01.avif" />
-  <source type="image/webp" srcset="images/work/venza/venza-01.webp" />
-  <img src="images/work/venza/venza-01.jpg" width="480" height="640" ... />
-</picture>
-```
-
-`picture { display: contents }` in the CSS keeps the wrapper out of the box
-tree, so the `<img>` stays the grid/flex item and wrapping an image never
-changes layout.
-
-**Do not hand-write any of this.** `tools/optimize-images.mjs` generates the
-variants and rewrites the markup:
-
-```bash
-cd tools && npm install     # once
-node tools/optimize-images.mjs          # from the repo root
-node tools/optimize-images.mjs --check  # report only, changes nothing
-```
-
-Run it after adding photos or publishing a case file. It is idempotent, so
-running it twice is harmless. It writes a plain `<img>` into a `<picture>`,
-skips images already wrapped, ignores SVG and the single-format assets above,
-and drops a variant that comes out no smaller than the original it would
-replace. It always encodes from the original `.jpg`/`.png` and never from an
-existing variant, because a variant of a variant carries two generations of
-loss.
-
-`images/work/<project>/` holds more photos than the site currently shows; the
-extras are staged for future case files. They deliberately have no variants
-yet. Reference one from a page, run the tool, and it picks them up.
-
-Exceptions that stay single-format: the favicons, the apple-touch icon, and
-`images/og/mkc-og.jpg`. Social crawlers and OS icon fetchers do not content-
-negotiate, so those keep their original format.
-
-Fonts are self-hosted from `/fonts` rather than Google Fonts, which removes two
-render-blocking third-party origins from the critical path. Archivo is one
-variable file covering 400-600; the Google Fonts link fetched the same file once
-per weight. The stylesheet link sits directly after the viewport meta, ahead of
-the JSON-LD block, so the parser reaches it immediately.
-
-**Known limit:** the source photos are 480×640. That is fine for the gallery
-grid but means the lightbox upscales on a retina phone. Higher-resolution
-originals are the only fix; re-encoding cannot recover detail that is not there.

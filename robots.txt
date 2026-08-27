@@ -2,7 +2,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /standalone/
 
 # Preview-only duplicates of built pages, excluded to avoid duplicate content.
 

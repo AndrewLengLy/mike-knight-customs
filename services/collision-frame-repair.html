@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../css/mkc.css" />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-var.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-mono-400.woff2" crossorigin />
 <link rel="icon" href="../images/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
@@ -231,9 +232,13 @@
   gap: var(--space-4);
   padding-block: var(--space-5);
 }
+.proof__media { width: 100%; max-width: 38rem; }
 .proof__spec { display: flex; flex-direction: column; justify-content: center; gap: var(--space-3); }
 .proof__spec .readout { background: var(--ink-2); }
-@media (max-width: 960px) { .proof__unit { grid-template-columns: 1fr; } }
+@media (max-width: 960px) {
+  .proof__unit { grid-template-columns: 1fr; }
+  .proof__media { max-width: 34rem; }
+}
 
 /* final CTA */
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
@@ -246,11 +251,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <picture>
-        <source type="image/avif" srcset="../images/mkc-logo.avif" />
-        <source type="image/webp" srcset="../images/mkc-logo.webp" />
-        <img class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" width="474" height="240" decoding="async" fetchpriority="high" />
-      </picture>
+      <img decoding="async" width="474" height="240" class="nav__logo" src="../images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -447,16 +448,14 @@
           <div class="compare" data-compare>
             <picture>
               <source type="image/avif" srcset="../images/work/gmc-sierra/gmc-06.avif" />
-              <source type="image/webp" srcset="../images/work/gmc-sierra/gmc-06.webp" />
-              <img src="../images/work/gmc-sierra/gmc-06.jpg"
-                   alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" width="480" height="640" decoding="async" loading="lazy" />
+              <img fetchpriority="high" decoding="async" src="../images/work/gmc-sierra/gmc-06.webp"
+                 alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
             </picture>
             <picture>
               <source type="image/avif" srcset="../images/work/gmc-sierra/gmc-02.avif" />
-              <source type="image/webp" srcset="../images/work/gmc-sierra/gmc-02.webp" />
-              <img class="compare__after"
-                   src="../images/work/gmc-sierra/gmc-02.jpg"
-                   alt="2011 GMC Sierra after rear collision repair and factory color match" width="480" height="640" decoding="async" loading="lazy" />
+              <img loading="lazy" decoding="async" class="compare__after"
+                 src="../images/work/gmc-sierra/gmc-02.webp"
+                 alt="2011 GMC Sierra after rear collision repair and factory color match" />
             </picture>
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -538,7 +537,7 @@
   </div>
 </footer>
 
-<script src="../js/mkc.js"></script>
+<script defer src="../js/mkc.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

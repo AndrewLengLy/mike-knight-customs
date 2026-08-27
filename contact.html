@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-var.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-mono-400.woff2" crossorigin />
 <link rel="icon" href="images/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
@@ -145,7 +146,12 @@
   cursor: pointer;
 }
 .field textarea { resize: vertical; min-height: 8rem; }
-.form__botcheck { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+/* honeypot: hidden without pushing the layout box 9999px off-canvas */
+.form__botcheck {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; border: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
 .form__status { padding-top: var(--space-2); display: none; }
 .form__status.is-ok { display: block; color: var(--mkc-green); }
 .form__status.is-err { display: block; color: #f07040; }
@@ -163,12 +169,60 @@
   .field input, .field select, .field textarea { font-size: 16px; }
 }
 
-/* map frame */
-.map-frame { position: relative; }
-.map-frame iframe {
-  display: block; width: 100%; aspect-ratio: 4 / 3;
-  border: 0; filter: grayscale(1) invert(0.92) contrast(0.9);
+/* phone and email in the shop panel are primary actions: keep them tappable */
+@media (hover: none) {
+  .readout__row a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 }
+
+/* location card: replaces the Google iframe, which stopped rendering once
+   Google began sending X-Frame-Options on the unofficial ?output=embed URL.
+   Does the job the map was there for (where we are, how to get there) with
+   no third-party dependency to break again. */
+.locus {
+  position: relative; display: flex; align-items: flex-end;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  background: var(--ink-2);
+  transition: border-color 0.25s ease;
+}
+.locus__grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 38% 40%, black 15%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 38% 40%, black 15%, transparent 85%);
+}
+/* a heavier cross through the pin, standing in for the CA-32 corridor */
+.locus__grid::before,
+.locus__grid::after {
+  content: ""; position: absolute; background: var(--silver-dim); opacity: 0.55;
+}
+.locus__grid::before { left: 0; right: 0; top: 40%; height: 2px; }
+.locus__grid::after  { top: 0; bottom: 0; left: 38%; width: 2px; }
+.locus__pin {
+  position: absolute; left: 38%; top: 42%; z-index: 1;
+  width: 0.85rem; height: 0.85rem; margin: -0.425rem 0 0 -0.425rem;
+  border-radius: 50%;
+  background: var(--mkc-green);
+  box-shadow: 0 0 0 0.35rem var(--mkc-green-dim), 0 0 0 0.7rem rgba(168, 240, 64, 0.07);
+}
+.locus__body {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  padding: var(--space-3);
+  width: 100%;
+  background: linear-gradient(0deg, var(--ink) 12%, rgba(11, 15, 18, 0.82) 62%, transparent);
+}
+.locus__addr {
+  font-family: var(--f-body); font-weight: 600;
+  font-size: var(--step-1); line-height: 1.25; color: var(--white);
+}
+.locus__cta { color: var(--mkc-green); display: inline-flex; align-items: center; gap: 0.5rem; }
+.locus .arrow { transition: transform 0.25s ease; }
+.locus:hover { border-color: var(--mkc-green); }
+.locus:hover .arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .locus .arrow { transition: none; } }
 
 /* what happens next: step rows */
 .frame-steps { border-top: 1px solid var(--line); }
@@ -204,11 +258,7 @@
 <header class="nav" id="top">
   <div class="wrap nav__inner">
     <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
-      <picture>
-        <source type="image/avif" srcset="images/mkc-logo.avif" />
-        <source type="image/webp" srcset="images/mkc-logo.webp" />
-        <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" width="474" height="240" decoding="async" fetchpriority="high" />
-      </picture>
+      <img decoding="async" width="474" height="240" class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
@@ -260,7 +310,7 @@
       <h2 id="form-title" class="display display--md" style="margin-bottom: var(--space-3);">Request a Free Quote</h2>
 
       <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post">
-        <input type="hidden" name="access_key" value="bb71e729-83e3-4205-899f-dc61b512aca0" />
+        <input type="hidden" name="access_key" value="de055d4e-38e6-425f-afe7-29bea86e84c6" />
         <input type="hidden" name="subject" value="New Quote Request · MKC Website" />
         <input type="hidden" name="from_name" value="MKC Website Intake" />
         <input type="checkbox" name="botcheck" class="form__botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -339,17 +389,17 @@
         </dl>
       </div>
 
-      <div class="spec-frame">
+      <a class="spec-frame locus" href="https://goo.gl/maps/uw7pBq6PFWgGMntD9"
+         aria-label="Get directions to Mike Knight Customs, 2961 CA-32 Suite 54 to 56, Chico, CA 95973">
         <span class="tick" aria-hidden="true"></span>
-        <div class="map-frame">
-          <iframe
-            src="https://www.google.com/maps?q=2961+CA-32+Suite+54,+Chico,+CA+95973&output=embed"
-            title="Map to Mike Knight Customs, 2961 CA-32, Suite 54–56, Chico, CA 95973"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-      <a class="btn btn--ghost" href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Open in Google Maps <span class="arrow">→</span></a>
+        <span class="locus__grid" aria-hidden="true"></span>
+        <span class="locus__pin" aria-hidden="true"></span>
+        <span class="locus__body">
+          <span class="data data--live">The Shop</span>
+          <span class="locus__addr">2961 CA-32, Ste 54–56<br />Chico, CA 95973</span>
+          <span class="data locus__cta">Get Directions <span class="arrow">→</span></span>
+        </span>
+      </a>
     </aside>
   </div>
 </section>
@@ -511,7 +561,7 @@
   </div>
 </footer>
 
-<script src="js/mkc.js"></script>
+<script defer src="js/mkc.js"></script>
 <script>
 // Web3Forms intake submission
 (function () {
