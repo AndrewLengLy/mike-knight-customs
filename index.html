@@ -58,6 +58,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/mkc.css" />
+<link rel="preload" as="image" href="images/work/bmw-750i/bmw-08.jpg" fetchpriority="high" />
 <style>
 /* ============ HOMEPAGE-SCOPED LAYOUT ============ */
 
@@ -69,18 +70,18 @@
   min-height: min(76vh, 42rem);
 }
 .hero__copy {
-  padding: var(--space-5) var(--gutter) var(--space-4) var(--gutter);
+  padding: var(--space-4) var(--gutter) var(--space-4) var(--gutter);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   max-width: calc((var(--max-w) / 12) * 7);
   margin-left: max(var(--gutter), calc((100vw - var(--max-w)) / 2));
   padding-left: 0;
 }
 .hero__title { margin: 0.5rem 0 0.25rem; }
 .hero__title em { font-style: normal; color: var(--mkc-green); }
-.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-1); }
 .hero__meta { margin-top: var(--space-3); }
 
 /* right rail: immersive edge-to-edge frame */
@@ -103,12 +104,21 @@
 }
 @media (max-width: 960px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__copy { margin-left: 0; padding: var(--space-5) var(--gutter); max-width: none; }
+  .hero__copy { margin-left: 0; padding: var(--space-4) var(--gutter); max-width: none; }
   .hero__visual { border-left: 0; border-top: 1px solid var(--line); }
 }
 @media (max-width: 480px) {
   .hero__actions { gap: var(--space-1); }
   .hero__actions .btn { flex: 1 1 100%; }
+}
+
+/* short viewports (compact phones, laptops with heavy browser chrome):
+   shrink the display type and rhythm so both CTAs stay above the fold */
+@media (max-height: 700px) {
+  .hero__grid { min-height: 0; }
+  .hero__copy { gap: var(--space-1); padding-block: var(--space-3); }
+  .hero__title { font-size: clamp(2rem, 1.6rem + 2vw, 3.4rem); }
+  .hero__meta { margin-top: var(--space-2); }
 }
 
 /* --- INSURANCE TICKER STRIP (auto-scrolling marquee) --- */
@@ -375,11 +385,9 @@
         Backed by a <em>Lifetime Warranty.</em>
       </h1>
       <p class="lede">
-        Vehicles are more complex than ever. It is our job to inform the
-        insurance companies on how to properly repair these vehicles to
-        manufacturer specifications. We don't let insurance dictate your
-        safety. Every repair is done to protect your family, your investment,
-        and your peace of mind.
+        Modern vehicles are complex. We repair yours exactly to factory
+        specification, handle the insurance company for you, and never let
+        an adjuster dictate your safety.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="contact">Get a Free Quote <span class="arrow">→</span></a>
