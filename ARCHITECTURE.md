@@ -68,6 +68,21 @@ is `--max-w: 1320px`. There is no phone-only spacing override: the clamps handle
 that minimum (footer links, gallery captions, readout links) is scoped to
 `@media (hover: none)` so pointer devices keep the tighter desktop rhythm.
 
+**Fonts** — Anton, Archivo and IBM Plex Mono are self-hosted from `fonts/`
+(SIL OFL 1.1, license text alongside the files). Same-origin, so no
+third-party DNS, TCP or TLS handshake sits on the critical path and the
+typography cannot silently fall back to system metrics when a CDN is
+unreachable. Only latin and latin-ext subsets ship; `unicode-range` means a
+browser fetches a file only when the page needs those codepoints, so an
+English page pulls just the four latin faces (~81 KB). The three faces that
+paint the first screen are preloaded.
+
+**Images** — photographs are WebP at quality 85 (~30 percent smaller than the
+JPEG sources, worst-case PSNR 38.5 dB). The Open Graph, Twitter card and
+JSON-LD `image` URLs deliberately stay JPEG: social crawler support for WebP
+is inconsistent and a broken share preview costs leads. Flat-art carrier
+logos stay SVG or PNG wherever WebP did not beat them.
+
 **Signature components**
 - `.meta-point` — border-scoped spec rows (replaces icon boxes)
 - `.readout` — mono data-readout tables with `is-live` green values

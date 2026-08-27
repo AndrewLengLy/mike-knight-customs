@@ -54,11 +54,12 @@
   ]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
-<link rel="preload" as="image" href="images/work/bmw-750i/bmw-08.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="images/work/bmw-750i/bmw-08.webp" fetchpriority="high" />
 <style>
 /* ============ HOMEPAGE-SCOPED LAYOUT ============ */
 
@@ -418,7 +419,7 @@
     </div>
 
     <figure class="hero__visual">
-      <img fetchpriority="high" decoding="async" src="images/work/bmw-750i/bmw-08.jpg"
+      <img fetchpriority="high" decoding="async" src="images/work/bmw-750i/bmw-08.webp"
            alt="2023 BMW 750i in Frozen matte paint outside Mike Knight Customs after completed collision repair" />
     </figure>
   </div>
@@ -440,7 +441,7 @@
           <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.png" alt="Aspire General Insurance" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="Aspire General Insurance" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="National General" /><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
@@ -453,7 +454,7 @@
           <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.png" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="" /><span class="sep">/</span>
           <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="" /><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
@@ -525,10 +526,10 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-06.jpg"
+            <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-06.webp"
                  alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
             <img loading="lazy" decoding="async" class="compare__after"
-                 src="images/work/gmc-sierra/gmc-02.jpg"
+                 src="images/work/gmc-sierra/gmc-02.webp"
                  alt="2011 GMC Sierra after rear collision repair and factory color match" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -549,10 +550,10 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-13.jpg"
+            <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-13.webp"
                  alt="2023 BMW 750i in the shop with front collision damage marked for repair" />
             <img loading="lazy" decoding="async" class="compare__after"
-                 src="images/work/bmw-750i/bmw-04.jpg"
+                 src="images/work/bmw-750i/bmw-04.webp"
                  alt="2023 BMW 750i after repair with all-new OEM parts and matched Frozen factory paint" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -584,7 +585,7 @@
     <div class="wgrid">
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/range-rover/rr-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/range-rover/rr-01.webp" loading="lazy" data-zoom
              alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Range Rover</span>
@@ -593,7 +594,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/venza/venza-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/venza/venza-01.webp" loading="lazy" data-zoom
              alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Toyota Venza</span>
@@ -602,7 +603,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/silverado/silv-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/silverado/silv-01.webp" loading="lazy" data-zoom
              alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2022 Chevy Silverado</span>
@@ -611,7 +612,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/f350/f350-02.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/f350/f350-02.webp" loading="lazy" data-zoom
              alt="2019 Ford Super Duty F350 front view after repair and refinish" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">2019 Ford F350</span>
@@ -620,7 +621,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/aluminum/alu-08.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/aluminum/alu-08.webp" loading="lazy" data-zoom
              alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">Aluminum F-150</span>
@@ -629,7 +630,7 @@
       </figure>
       <figure class="wgrid__item spec-frame reveal">
         <span class="tick" aria-hidden="true"></span>
-        <img decoding="async" src="images/work/boom-trucks/boom-01.jpg" loading="lazy" data-zoom
+        <img decoding="async" src="images/work/boom-trucks/boom-01.webp" loading="lazy" data-zoom
              alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
         <figcaption class="wgrid__cap">
           <span class="data data--white">Commercial Boom Truck</span>

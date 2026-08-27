@@ -21,9 +21,10 @@
 <meta name="twitter:title" content="Collision Repair · Structural Restoration to Factory Specification | Mike Knight Customs, Chico CA" />
 <meta name="twitter:description" content="Collision repair, multi-panel reconstruction, and ADAS recalibration to manufacturer specifications in Chico, CA. 100% OEM parts, lifetime warranty." />
 <meta name="twitter:image" content="https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../fonts/fonts.css" />
 <link rel="stylesheet" href="../css/mkc.css" />
 <style>
 /* ============ PAGE C · CALIBRATION-REPORT LAYOUT ============ */
@@ -310,10 +311,10 @@
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
-            <img fetchpriority="high" decoding="async" src="../images/work/gmc-sierra/gmc-06.jpg"
+            <img fetchpriority="high" decoding="async" src="../images/work/gmc-sierra/gmc-06.webp"
                  alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
             <img loading="lazy" decoding="async" class="compare__after"
-                 src="../images/work/gmc-sierra/gmc-02.jpg"
+                 src="../images/work/gmc-sierra/gmc-02.webp"
                  alt="2011 GMC Sierra after rear collision repair and factory color match" />
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
