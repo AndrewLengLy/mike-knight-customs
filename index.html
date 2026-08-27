@@ -111,6 +111,10 @@
   .hero__actions { gap: var(--space-1); }
   .hero__actions .btn { flex: 1 1 100%; }
 }
+@media (max-width: 560px) {
+  .hero__meta .meta-point { grid-template-columns: auto 1fr auto; padding: 0.6rem 0; row-gap: 0; }
+  .hero__meta .meta-point__value { grid-column: auto; text-align: right; }
+}
 
 /* short viewports (compact phones, laptops with heavy browser chrome):
    shrink the display type and rhythm so both CTAs stay above the fold */
@@ -385,9 +389,8 @@
         Backed by a <em>Lifetime Warranty.</em>
       </h1>
       <p class="lede">
-        Modern vehicles are complex. We repair yours exactly to factory
-        specification, handle the insurance company for you, and never let
-        an adjuster dictate your safety.
+        Factory-spec collision repair. We handle the insurance company for
+        you and never let an adjuster dictate your safety.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="contact">Get a Free Quote <span class="arrow">→</span></a>
@@ -398,23 +401,18 @@
       <dl class="hero__meta" aria-label="Shop credentials">
         <div class="meta-point">
           <dt class="meta-point__idx">A/01</dt>
-          <dd class="meta-point__label">Google Rating</dd>
-          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
+          <dd class="meta-point__label">Google · Yelp Rating</dd>
+          <dd class="meta-point__value">5.0 Verified</dd>
         </div>
         <div class="meta-point">
           <dt class="meta-point__idx">A/02</dt>
-          <dd class="meta-point__label">Yelp Rating</dd>
-          <dd class="meta-point__value">5.0 / 5.0 Verified</dd>
-        </div>
-        <div class="meta-point">
-          <dt class="meta-point__idx">A/03</dt>
           <dd class="meta-point__label">Warranty</dd>
           <dd class="meta-point__value">Lifetime</dd>
         </div>
         <div class="meta-point">
-          <dt class="meta-point__idx">A/04</dt>
+          <dt class="meta-point__idx">A/03</dt>
           <dd class="meta-point__label">Operation</dd>
-          <dd class="meta-point__value">Family-Owned · 20+ Yrs Craft</dd>
+          <dd class="meta-point__value">Family-Owned · 20+ Yrs</dd>
         </div>
       </dl>
     </div>
