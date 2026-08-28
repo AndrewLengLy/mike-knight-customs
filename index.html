@@ -147,8 +147,8 @@
     {
       "@type": "ImageObject",
       "@id": "https://mikeknightcustoms.com/#primaryimage",
-      "url": "https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg",
-      "contentUrl": "https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.jpg",
+      "url": "https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.webp",
+      "contentUrl": "https://mikeknightcustoms.com/images/work/bmw-750i/bmw-08.webp",
       "width": 480,
       "height": 640,
       "caption": "2023 BMW 750i in Frozen matte paint outside Mike Knight Customs after collision repair"
@@ -479,6 +479,30 @@
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
 .cta-final__inner { padding-block: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
 </style>
+<!-- Consent Mode v2 defaults. Region-specific call first, global default
+     second: the more specific region wins. This has to run before any Google
+     tag loads, because getting the order wrong invalidates the whole signal
+     without reporting an error anywhere. -->
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', wait_for_update: 500,
+    region: ['AT','BE','BG','CH','CY','CZ','DE','DK','EE','ES','FI','FR','GB','GR',
+             'HR','HU','IE','IS','IT','LI','LT','LU','LV','MT','NL','NO','PL','PT',
+             'RO','SE','SI','SK']
+  });
+  // Global Privacy Control is honored everywhere, not just where it is
+  // mandated, so ad storage starts denied for anyone who sends it.
+  var gpc = navigator.globalPrivacyControl === true ? 'denied' : 'granted';
+  gtag('consent', 'default', {
+    ad_storage: gpc, ad_user_data: gpc, ad_personalization: gpc,
+    analytics_storage: 'granted'
+  });
+})();
+</script>
 </head>
 <body>
 
@@ -561,7 +585,7 @@
       <picture>
         <source type="image/avif" srcset="images/work/bmw-750i/bmw-08.avif" />
         <img fetchpriority="high" decoding="async" src="images/work/bmw-750i/bmw-08.webp"
-           alt="2023 BMW 750i in Frozen matte paint outside Mike Knight Customs after completed collision repair" />
+           alt="2023 BMW 750i in Frozen matte paint outside Mike Knight Customs after completed collision repair" width="480" height="640" />
       </picture>
     </figure>
   </div>
@@ -575,42 +599,42 @@
     <div class="carriers__marquee">
       <div class="carriers__track">
         <div class="carriers__group">
-          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="The Hartford" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="State Farm" width="200" height="28" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="Allstate" width="1547" height="328" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="GEICO" width="847" height="149" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="Progressive" width="454" height="55" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="The Hartford" width="112" height="83" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="Intact Insurance" width="397" height="105" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="Brotherhood Auto Aid" width="340" height="40" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="Travelers" width="227" height="48" /><span class="sep">/</span>
           <picture>
             <source type="image/avif" srcset="images/carriers/aspire.avif" />
-            <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="Aspire General Insurance" />
+            <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="Aspire General Insurance" width="641" height="120" />
           </picture><span class="sep">/</span>
           <picture>
             <source type="image/avif" srcset="images/carriers/national-general.avif" />
             <source type="image/webp" srcset="images/carriers/national-general.webp" />
-            <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="National General" />
+            <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="National General" width="184" height="86" />
           </picture><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
         <div class="carriers__group" aria-hidden="true">
-          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" /><span class="sep">/</span>
-          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/state-farm.svg" alt="" width="200" height="28" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/allstate.svg" alt="" width="1547" height="328" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/geico.svg" alt="" width="847" height="149" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/progressive.svg" alt="" width="454" height="55" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/the-hartford.svg" alt="" width="112" height="83" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/intact.svg" alt="" width="397" height="105" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/brotherhood-auto-aid.svg" alt="" width="340" height="40" /><span class="sep">/</span>
+          <img decoding="async" class="carriers__logo" src="images/carriers/travelers.svg" alt="" width="227" height="48" /><span class="sep">/</span>
           <picture>
             <source type="image/avif" srcset="images/carriers/aspire.avif" />
-            <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="" />
+            <img decoding="async" class="carriers__logo" src="images/carriers/aspire.webp" alt="" width="641" height="120" />
           </picture><span class="sep">/</span>
           <picture>
             <source type="image/avif" srcset="images/carriers/national-general.avif" />
             <source type="image/webp" srcset="images/carriers/national-general.webp" />
-            <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="" />
+            <img decoding="async" class="carriers__logo" src="images/carriers/national-general.png" alt="" width="184" height="86" />
           </picture><span class="sep">/</span>
           <span class="data">+ Many More</span><span class="sep">/</span>
         </div>
@@ -688,13 +712,13 @@
             <picture>
               <source type="image/avif" srcset="images/work/gmc-sierra/gmc-06.avif" />
               <img loading="lazy" decoding="async" src="images/work/gmc-sierra/gmc-06.webp"
-                 alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
+                 alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" width="480" height="640" />
             </picture>
             <picture>
               <source type="image/avif" srcset="images/work/gmc-sierra/gmc-02.avif" />
               <img loading="lazy" decoding="async" class="compare__after"
                  src="images/work/gmc-sierra/gmc-02.webp"
-                 alt="2011 GMC Sierra after rear collision repair and factory color match" />
+                 alt="2011 GMC Sierra after rear collision repair and factory color match" width="480" height="640" />
             </picture>
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -718,13 +742,13 @@
             <picture>
               <source type="image/avif" srcset="images/work/bmw-750i/bmw-13.avif" />
               <img loading="lazy" decoding="async" src="images/work/bmw-750i/bmw-13.webp"
-                 alt="2023 BMW 750i in the shop with front collision damage marked for repair" />
+                 alt="2023 BMW 750i in the shop with front collision damage marked for repair" width="480" height="640" />
             </picture>
             <picture>
               <source type="image/avif" srcset="images/work/bmw-750i/bmw-04.avif" />
               <img loading="lazy" decoding="async" class="compare__after"
                  src="images/work/bmw-750i/bmw-04.webp"
-                 alt="2023 BMW 750i after repair with all-new OEM parts and matched Frozen factory paint" />
+                 alt="2023 BMW 750i after repair with all-new OEM parts and matched Frozen factory paint" width="480" height="640" />
             </picture>
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -758,7 +782,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/range-rover/rr-01.avif" />
           <img decoding="async" src="images/work/range-rover/rr-01.webp" loading="lazy" data-zoom
-             alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" />
+             alt="2024 Range Rover, front three-quarter view after rear bumper repair and detail" width="480" height="640" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Range Rover</span>
@@ -770,7 +794,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/venza/venza-01.avif" />
           <img decoding="async" src="images/work/venza/venza-01.webp" loading="lazy" data-zoom
-             alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" />
+             alt="2024 Toyota Venza in deep candy red outside the shop after a four-stage refinish" width="480" height="640" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">2024 Toyota Venza</span>
@@ -782,7 +806,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/silverado/silv-01.avif" />
           <img decoding="async" src="images/work/silverado/silv-01.webp" loading="lazy" data-zoom
-             alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" />
+             alt="2022 Chevy Silverado rear view after repair with new OEM bumper and tailgate" width="480" height="640" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">2022 Chevy Silverado</span>
@@ -794,7 +818,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/f350/f350-02.avif" />
           <img decoding="async" src="images/work/f350/f350-02.webp" loading="lazy" data-zoom
-             alt="2019 Ford Super Duty F350 front view after repair and refinish" />
+             alt="2019 Ford Super Duty F350 front view after repair and refinish" width="480" height="640" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">2019 Ford F350</span>
@@ -806,7 +830,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/aluminum/alu-08.avif" />
           <img decoding="async" src="images/work/aluminum/alu-08.webp" loading="lazy" data-zoom
-             alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" />
+             alt="Green two-tone aluminum-bodied Ford F-150 after completed repair, front three-quarter view" width="480" height="640" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">Aluminum F-150</span>
@@ -818,7 +842,7 @@
         <picture>
           <source type="image/avif" srcset="images/work/boom-trucks/boom-01.avif" />
           <img decoding="async" src="images/work/boom-trucks/boom-01.webp" loading="lazy" data-zoom
-             alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" />
+             alt="Ford Super Duty boom truck with utility body, repaired at Mike Knight Customs" width="640" height="480" />
         </picture>
         <figcaption class="wgrid__cap">
           <span class="data data--white">Commercial Boom Truck</span>
@@ -948,12 +972,16 @@
     <nav class="data" aria-label="Legal">
       <a href="privacy">Privacy</a>
       <a href="terms">Terms</a>
+      <a href="accessibility">Accessibility</a>
+      <button type="button" data-privacy-choices>Privacy Choices</button>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
   </div>
 </footer>
 
 <script defer src="js/mkc.js"></script>
+<script defer src="js/mkc-consent.js"></script>
+<script defer src="js/mkc-analytics.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

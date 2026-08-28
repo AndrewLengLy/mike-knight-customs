@@ -1,0 +1,10 @@
+{
+  "name": "mike-knight-customs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static site for Mike Knight Customs. There is no build step and no bundler: the HTML, CSS and JS in this repo are exactly what ships. This file exists so Vercel can compile middleware.ts, which sets the consent region cookie. Do not add a build script.",
+  "dependencies": {
+    "@vercel/functions": "^3.9.5"
+  }
+}

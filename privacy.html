@@ -74,6 +74,30 @@
   -webkit-mask-image: radial-gradient(ellipse at 80% 20%, black, transparent 68%);
 }
 </style>
+<!-- Consent Mode v2 defaults. Region-specific call first, global default
+     second: the more specific region wins. This has to run before any Google
+     tag loads, because getting the order wrong invalidates the whole signal
+     without reporting an error anywhere. -->
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', wait_for_update: 500,
+    region: ['AT','BE','BG','CH','CY','CZ','DE','DK','EE','ES','FI','FR','GB','GR',
+             'HR','HU','IE','IS','IT','LI','LT','LU','LV','MT','NL','NO','PL','PT',
+             'RO','SE','SI','SK']
+  });
+  // Global Privacy Control is honored everywhere, not just where it is
+  // mandated, so ad storage starts denied for anyone who sends it.
+  var gpc = navigator.globalPrivacyControl === true ? 'denied' : 'granted';
+  gtag('consent', 'default', {
+    ad_storage: gpc, ad_user_data: gpc, ad_personalization: gpc,
+    analytics_storage: 'granted'
+  });
+})();
+</script>
 </head>
 <body>
 
@@ -163,6 +187,11 @@
         <p>Our host records standard web server data: IP address, browser and
         device type, pages viewed, and the page that referred you. We use it to
         keep the site running and to see which pages people read.</p>
+        <p>Where you allow analytics, we also record how the page was used:
+        clicks, scrolling, mouse movement, and the route you took through the
+        site. Form fields are masked before this is recorded. See
+        <a href="#cookies">Cookies and Tracking</a> for the tools involved and
+        how to turn them off.</p>
         <h3>What we never ask for online</h3>
         <p>Do not send Social Security numbers, driver's license images, or
         payment card numbers through this website. We do not request them here
@@ -204,6 +233,8 @@
         <dl class="readout">
           <div class="readout__row"><dt>Web3Forms</dt><dd>Delivers quote form submissions to our inbox</dd></div>
           <div class="readout__row"><dt>Vercel</dt><dd>Website hosting and cookieless traffic analytics</dd></div>
+          <div class="readout__row"><dt>Google Analytics</dt><dd>Which pages are read and how visitors arrive</dd></div>
+          <div class="readout__row"><dt>Microsoft Clarity</dt><dd>Session recording for usability, with form fields masked</dd></div>
           <div class="readout__row"><dt>Google Fonts</dt><dd>Serves the typefaces used on this site</dd></div>
           <div class="readout__row"><dt>Google Maps</dt><dd>Embedded shop map on the contact page</dd></div>
           <div class="readout__row"><dt>Microsoft</dt><dd>Hosts the shop email account</dd></div>
@@ -212,9 +243,28 @@
 
       <section id="cookies">
         <h2>Cookies and Tracking</h2>
-        <p>This website sets no cookies of its own and stores nothing in your
-        browser. Our traffic analytics are cookieless and do not follow you to
-        other sites.</p>
+        <h3>Cookies this site sets</h3>
+        <dl class="readout">
+          <div class="readout__row"><dt>mkc_consent</dt><dd>Remembers your analytics choice. 12 months.</dd></div>
+          <div class="readout__row"><dt>mkc_geo</dt><dd>Your broad region, so we know which consent rules apply. 1 hour.</dd></div>
+          <div class="readout__row"><dt>mkc_attr</dt><dd>Which ad or link brought you here, so we can credit it if you become a customer.</dd></div>
+        </dl>
+        <h3>Analytics</h3>
+        <p>We use Google Analytics to see which pages people read, and Microsoft
+        Clarity to see where the site gives them trouble. Clarity records how the
+        page was used, including mouse movement, clicks, and scrolling. Both set
+        their own cookies.</p>
+        <p>Form fields are masked before Clarity records them, so what you type
+        into the quote form is not captured. We do not use either tool to build
+        advertising profiles.</p>
+        <h3>Your choice</h3>
+        <p>In the EEA, the UK, and Switzerland, analytics stay off until you
+        allow them. Everywhere else they start on and the banner lets you turn
+        them off. Either way the choice is remembered, and you can reopen the
+        banner from any page to change it.</p>
+        <p>We honor Global Privacy Control everywhere, not only where the law
+        requires it. If your browser sends that signal, advertising storage is
+        off before you touch anything.</p>
         <p>The Google Map embedded on the contact page is loaded from Google and
         may set its own cookies once it appears. Blocking third-party cookies in
         your browser stops that without breaking the rest of the site.</p>
@@ -236,7 +286,7 @@
           <li><strong>Know.</strong> Ask what personal information we hold about you and where it came from.</li>
           <li><strong>Delete.</strong> Ask us to delete it, subject to records we must keep by law.</li>
           <li><strong>Correct.</strong> Ask us to fix information that is wrong.</li>
-          <li><strong>Opt out of sale or sharing.</strong> We do not sell or share personal information, so there is nothing to opt out of.</li>
+          <li><strong>Opt out of sale or sharing.</strong> We do not sell personal information. We honor Global Privacy Control everywhere, and the consent banner turns analytics off on request.</li>
           <li><strong>Non-discrimination.</strong> Exercising a right will never change your price or the quality of your repair.</li>
         </ul>
         <p>To exercise any of these, call <a href="tel:+15302149949">(530) 214-9949</a>
@@ -324,12 +374,16 @@
     <nav class="data" aria-label="Legal">
       <a href="privacy" aria-current="page">Privacy</a>
       <a href="terms">Terms</a>
+      <a href="accessibility">Accessibility</a>
+      <button type="button" data-privacy-choices>Privacy Choices</button>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
   </div>
 </footer>
 
 <script src="js/mkc.js"></script>
+<script defer src="js/mkc-consent.js"></script>
+<script defer src="js/mkc-analytics.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>

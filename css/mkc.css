@@ -317,6 +317,10 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
 
 .nav__burger { display: none; min-height: 2.75rem; min-width: 2.75rem; align-items: center; justify-content: center; padding: 0 1rem; border-left: 1px solid var(--line); color: var(--white); font-family: var(--f-data); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
 
+/* mobile-menu-only call row; the desktop nav already shows the number as a ghost button.
+   .nav.is-open .nav__links > li wins on specificity, so it reappears in the open menu. */
+.nav__links > li.nav__li--call { display: none; }
+
 @media (max-width: 960px) {
   .nav__links, .nav__cta .btn--ghost { display: none; }
   .nav__burger { display: flex; align-items: center; }
@@ -631,4 +635,101 @@ img.is-zoomable { cursor: zoom-in; }
     min-height: 2.75rem;
     display: inline-flex; align-items: center; justify-content: center;
   }
+}
+
+/* ---------- 13 · CONSENT BANNER ----------
+   Built in the repo rather than bought. A CMP subscription is a recurring cost
+   on a one-person studio's client, and this is the part of it MKC actually
+   needs. Reads as part of the site: ink panel, 1px structure, green corner
+   ticks, mono readout type. */
+.consent {
+  position: fixed;
+  z-index: 80;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--gutter);
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.consent[hidden] { display: none; }
+
+.consent__panel {
+  position: relative;
+  pointer-events: auto;
+  width: min(30rem, 100%);
+  background: rgba(16, 21, 26, 0.97);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+  /* matches .spec-frame corner ticks without inheriting its layout */
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+.consent.is-in .consent__panel { opacity: 1; transform: translateY(0); }
+
+.consent__panel::before, .consent__panel::after,
+.consent__panel > .tick::before, .consent__panel > .tick::after {
+  content: "";
+  position: absolute;
+  width: 9px; height: 9px;
+  border-color: var(--mkc-green);
+  border-style: solid;
+  border-width: 0;
+}
+.consent__panel::before        { top: -1px; left: -1px;    border-top-width: 1px; border-left-width: 1px; }
+.consent__panel::after         { top: -1px; right: -1px;   border-top-width: 1px; border-right-width: 1px; }
+.consent__panel > .tick::before{ bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+.consent__panel > .tick::after { bottom: -1px; right: -1px;border-bottom-width: 1px; border-right-width: 1px; }
+
+.consent__title {
+  font-family: var(--f-display);
+  font-size: var(--step-2);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: var(--space-1) 0 var(--space-2);
+}
+.consent__copy {
+  font-size: var(--step--1);
+  line-height: 1.65;
+  color: var(--silver);
+}
+.consent__copy a {
+  color: var(--mkc-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.consent__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+.consent__actions .btn { flex: 1 1 auto; }
+
+/* The banner slides in. Under reduced motion it simply appears. The global
+   reset already forces transition:none, this states the intent locally. */
+@media (prefers-reduced-motion: reduce) {
+  .consent__panel { transition: none; transform: none; }
+}
+
+@media (max-width: 560px) {
+  .consent { left: 0; right: 0; bottom: 0; }
+  .consent__panel { width: 100%; border-left: 0; border-right: 0; border-bottom: 0; }
+  .consent__actions .btn { flex: 1 1 100%; }
+}
+
+/* The privacy choices control is a button, not a link, but it sits in the
+   footer legal row and has to read as one of its siblings. */
+.footer__legal button {
+  font: inherit;
+  color: var(--silver-dim);
+  padding: 0;
+  transition: color 0.2s;
+}
+.footer__legal button:hover { color: var(--mkc-green); }
+@media (max-width: 640px) {
+  .footer__legal button { display: inline-block; padding-block: 1rem; }
 }

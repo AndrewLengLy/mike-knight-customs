@@ -251,6 +251,30 @@
 .rights blockquote em { font-style: normal; color: var(--mkc-green); }
 @media (max-width: 900px) { .rights__inner { grid-template-columns: 1fr; } }
 </style>
+<!-- Consent Mode v2 defaults. Region-specific call first, global default
+     second: the more specific region wins. This has to run before any Google
+     tag loads, because getting the order wrong invalidates the whole signal
+     without reporting an error anywhere. -->
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', wait_for_update: 500,
+    region: ['AT','BE','BG','CH','CY','CZ','DE','DK','EE','ES','FI','FR','GB','GR',
+             'HR','HU','IE','IS','IT','LI','LT','LU','LV','MT','NL','NO','PL','PT',
+             'RO','SE','SI','SK']
+  });
+  // Global Privacy Control is honored everywhere, not just where it is
+  // mandated, so ad storage starts denied for anyone who sends it.
+  var gpc = navigator.globalPrivacyControl === true ? 'denied' : 'granted';
+  gtag('consent', 'default', {
+    ad_storage: gpc, ad_user_data: gpc, ad_personalization: gpc,
+    analytics_storage: 'granted'
+  });
+})();
+</script>
 </head>
 <body>
 
@@ -309,7 +333,10 @@
       <p class="data data--live" style="margin-bottom: var(--space-2);">Form · MKC/INTAKE-01</p>
       <h2 id="form-title" class="display display--md" style="margin-bottom: var(--space-3);">Request a Free Quote</h2>
 
-      <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post">
+      <!-- data-clarity-mask keeps everything a customer types out of session
+           replay, whatever the Clarity project's masking mode is set to. -->
+      <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post"
+            data-clarity-mask="True">
         <input type="hidden" name="access_key" value="de055d4e-38e6-425f-afe7-29bea86e84c6" />
         <input type="hidden" name="subject" value="New Quote Request · MKC Website" />
         <input type="hidden" name="from_name" value="MKC Website Intake" />
@@ -372,7 +399,11 @@
           <span class="data">Response within one business day</span>
         </div>
 
-        <p class="form__status data" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form__privacy">We use what you send here to write your estimate
+        and nothing else. Read the <a href="privacy">privacy policy</a>.</p>
+
+        <p class="form__status data" id="form-status" role="status" aria-live="polite"
+           data-clarity-mask="True"></p>
       </form>
     </div>
 
@@ -556,12 +587,16 @@
     <nav class="data" aria-label="Legal">
       <a href="privacy">Privacy</a>
       <a href="terms">Terms</a>
+      <a href="accessibility">Accessibility</a>
+      <button type="button" data-privacy-choices>Privacy Choices</button>
       <a href="sitemap.xml">Sitemap</a>
     </nav>
   </div>
 </footer>
 
 <script defer src="js/mkc.js"></script>
+<script defer src="js/mkc-consent.js"></script>
+<script defer src="js/mkc-analytics.js"></script>
 <script>
 // Web3Forms intake submission
 (function () {
@@ -574,6 +609,20 @@
     status.classList.toggle('is-err', !ok);
   }
 
+  function measure() { return (window.MKC && window.MKC.form) || null; }
+
+  // Required fields are enforced by the browser, so a failed validation never
+  // reaches the submit handler. Without this, a form that quietly stopped
+  // being completable would look identical to a month of weak demand.
+  var reportedInvalid = false;
+  form.addEventListener('invalid', function (e) {
+    if (reportedInvalid) return;      // one event per attempt, not one per field
+    reportedInvalid = true;
+    var m = measure();
+    if (m) m.error('validation:' + (e.target.name || 'unknown'));
+    setTimeout(function () { reportedInvalid = false; }, 0);
+  }, true);
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -584,14 +633,22 @@
     fetch(form.action, { method: 'POST', body: new FormData(form) })
       .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
       .then(function (r) {
+        var m = measure();
         if (r.ok) {
+          if (m) m.lead();
           form.reset();
+          // reset() empties the hidden attribution fields too, so put them
+          // back for anyone who submits a second vehicle.
+          if (m) m.stamp();
           show('Received. We\'ll get back to you within one business day. Send damage photos to mikeknightcustoms@hotmail.com when you can.', true);
         } else {
+          if (m) m.error('endpoint');
           show((r.json && r.json.message) || 'Something went wrong. Please call (530) 214-9949.', false);
         }
       })
       .catch(function () {
+        var m = measure();
+        if (m) m.error('network');
         show('Network error. Please try again or call (530) 214-9949.', false);
       })
       .then(function () { btn.disabled = false; });

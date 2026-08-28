@@ -109,8 +109,8 @@
     {
       "@type": "ImageObject",
       "@id": "https://mikeknightcustoms.com/services/collision-frame-repair#primaryimage",
-      "url": "https://mikeknightcustoms.com/images/work/gmc-sierra/gmc-06.jpg",
-      "contentUrl": "https://mikeknightcustoms.com/images/work/gmc-sierra/gmc-06.jpg",
+      "url": "https://mikeknightcustoms.com/images/work/gmc-sierra/gmc-06.webp",
+      "contentUrl": "https://mikeknightcustoms.com/images/work/gmc-sierra/gmc-06.webp",
       "width": 480,
       "height": 640,
       "caption": "Collision-damaged GMC Sierra before structural repair"
@@ -244,6 +244,30 @@
 .cta-final { border-top: 1px solid var(--line); background: var(--ink-2); }
 .cta-final__inner { padding-block: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
 </style>
+<!-- Consent Mode v2 defaults. Region-specific call first, global default
+     second: the more specific region wins. This has to run before any Google
+     tag loads, because getting the order wrong invalidates the whole signal
+     without reporting an error anywhere. -->
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', wait_for_update: 500,
+    region: ['AT','BE','BG','CH','CY','CZ','DE','DK','EE','ES','FI','FR','GB','GR',
+             'HR','HU','IE','IS','IT','LI','LT','LU','LV','MT','NL','NO','PL','PT',
+             'RO','SE','SI','SK']
+  });
+  // Global Privacy Control is honored everywhere, not just where it is
+  // mandated, so ad storage starts denied for anyone who sends it.
+  var gpc = navigator.globalPrivacyControl === true ? 'denied' : 'granted';
+  gtag('consent', 'default', {
+    ad_storage: gpc, ad_user_data: gpc, ad_personalization: gpc,
+    analytics_storage: 'granted'
+  });
+})();
+</script>
 </head>
 <body>
 
@@ -449,13 +473,13 @@
             <picture>
               <source type="image/avif" srcset="../images/work/gmc-sierra/gmc-06.avif" />
               <img fetchpriority="high" decoding="async" src="../images/work/gmc-sierra/gmc-06.webp"
-                 alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" />
+                 alt="2011 GMC Sierra with rear quarter and bumper collision damage, before repair" width="480" height="640" />
             </picture>
             <picture>
               <source type="image/avif" srcset="../images/work/gmc-sierra/gmc-02.avif" />
               <img loading="lazy" decoding="async" class="compare__after"
                  src="../images/work/gmc-sierra/gmc-02.webp"
-                 alt="2011 GMC Sierra after rear collision repair and factory color match" />
+                 alt="2011 GMC Sierra after rear collision repair and factory color match" width="480" height="640" />
             </picture>
             <button type="button" class="compare__flag compare__flag--before" aria-label="Slide to the full before photo">Before</button>
             <button type="button" class="compare__flag compare__flag--after" aria-label="Slide to the full after photo">After</button>
@@ -532,12 +556,16 @@
     <nav class="data" aria-label="Legal">
       <a href="../privacy">Privacy</a>
       <a href="../terms">Terms</a>
+      <a href="../accessibility">Accessibility</a>
+      <button type="button" data-privacy-choices>Privacy Choices</button>
       <a href="../sitemap.xml">Sitemap</a>
     </nav>
   </div>
 </footer>
 
 <script defer src="../js/mkc.js"></script>
+<script defer src="../js/mkc-consent.js"></script>
+<script defer src="../js/mkc-analytics.js"></script>
 
 <!-- Vercel Web Analytics -->
 <script>
