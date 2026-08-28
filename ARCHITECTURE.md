@@ -209,11 +209,64 @@ Theme: **texturally rich, staggered rhythm**. Alternating rows with unexpected c
 
 ## 5. Files in this build
 
-- `css/mkc.css`: global design system (tokens, type, grid, nav, footer, components)
-- `js/mkc.js`: nav toggle, scroll reveals, before/after comparators
-- `tools/`: local image tooling, not deployed and not part of any build (see §2)
-- `index.html`: PAGE A, complete
-- `oem-advocacy.html`: PAGE B, complete
+There is no build step and no bundler, so the repo is the deploy artifact:
+what is committed is what Vercel serves, minus whatever `.vercelignore`
+excludes. This list is therefore a deploy manifest as much as an index.
+
+**Pages.** Letters refer to the blueprints in §1, §3 and §4. Internal links are
+extensionless because `vercel.json` sets `cleanUrls`.
+
+| File | Role |
+|---|---|
+| `index.html` | PAGE A, homepage |
+| `oem-advocacy.html` | PAGE B, OEM advocacy pillar |
+| `services/collision-frame-repair.html` | PAGE C |
+| `services/paint-coating-detailing.html` | PAGE D |
+| `recent-work.html` | Case-file gallery, comparators, lightbox |
+| `contact.html` | Quote form, location card, carrier logos |
+| `privacy.html`, `terms.html`, `accessibility.html` | Legal set, see §6 |
+| `404.html` | Designed not-found page |
+
+**Shared front end**
+
+| Path | Role |
+|---|---|
+| `css/mkc.css` | The whole design system: tokens, type, grid, nav, footer, components (§2) |
+| `js/mkc.js` | Nav toggle, services submenu, scroll reveals, before/after comparators, photo lightbox |
+| `fonts/` | Self-hosted woff2 for Anton, Archivo and IBM Plex Mono, with `fonts.css` and the OFL licenses. Deliberately not Google Fonts |
+| `images/` | Photography and icon set. Work photos live in `images/work/<project>/` as WebP with an AVIF layer offered first |
+
+**Measurement, consent and legal.** `js/mkc-consent.js`, `js/mkc-analytics.js`,
+`middleware.ts` and `tools/check-legal-dates.mjs`. Covered in full in §6,
+including the load order, which is not arbitrary.
+
+**Platform config**
+
+| File | Role |
+|---|---|
+| `vercel.json` | `cleanUrls`, the §1 redirect map, cache headers, security headers |
+| `package.json` | Exists only so Vercel can compile `middleware.ts`. No build script. Do not add one |
+| `robots.txt`, `sitemap.xml` | Crawl directives, and the nine indexed URLs |
+| `favicon.ico`, `images/favicon-*`, `images/apple-touch-icon.png` | Icon set |
+| `.vercelignore` | The deploy boundary. Currently excludes `tools/` and `node_modules/` only |
+| `.claude/launch.json` | Local preview target `mkc`, port 4188 |
+
+**Local only**
+
+| Path | Role |
+|---|---|
+| `tools/` | Image tooling and the legal-date check. Has its own `package.json`, is `.vercelignore`d, and is not part of any build |
+
+**Repo documentation.** `ARCHITECTURE.md` (this file), `CLAUDE.md` (the working
+guide for Claude Code), and `docs/`: `measurement-plan.md`,
+`console-setup-checklist.md`, `client-explainer.md`.
+
+> **Known gap.** Those five Markdown files are not in `.vercelignore`, so they
+> upload with the site and are fetchable, for example
+> `/docs/console-setup-checklist.md`. Nothing in them is a credential, but they
+> carry Parabox account structure and internal email addresses on a client
+> domain. They are absent from `sitemap.xml`, so this is exposure rather than
+> indexing. Adding `docs/` and `*.md` to `.vercelignore` closes it.
 
 ---
 
