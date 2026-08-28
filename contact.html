@@ -3,12 +3,92 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contact · Free Estimates &amp; Insurance Claim Intake | Mike Knight Customs, Chico CA</title>
-<meta name="description" content="Request a free collision repair estimate from Mike Knight Customs in Chico, CA. We handle your insurance claim directly with every major carrier. OEM parts, lifetime warranty. (530) 214-9949." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/anton-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-var-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/plex-mono-400-latin.woff2" crossorigin />
+<link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="stylesheet" href="css/mkc.css" />
+<link rel="icon" href="images/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+<meta name="theme-color" content="#0B0F12" />
+<title>Free Estimate &amp; Claim Intake | Mike Knight Customs, Chico CA</title>
+<meta name="description" content="Request a free collision repair estimate in Chico, CA. We handle your claim with every major carrier. OEM parts, lifetime warranty. Call (530) 214-9949." />
+<link rel="canonical" href="https://mikeknightcustoms.com/contact" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="Mike Knight Customs" />
+<meta property="og:title" content="Free Estimate &amp; Claim Intake | Mike Knight Customs, Chico CA" />
+<meta property="og:description" content="Request a free collision repair estimate in Chico, CA. We handle your claim with every major carrier. OEM parts, lifetime warranty. Call (530) 214-9949." />
+<meta property="og:url" content="https://mikeknightcustoms.com/contact" />
+<meta property="og:image" content="https://mikeknightcustoms.com/images/og/mkc-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="A repaired BMW 750i outside the Mike Knight Customs shop in Chico, California" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Free Estimate &amp; Claim Intake | Mike Knight Customs, Chico CA" />
+<meta name="twitter:description" content="Request a free collision repair estimate in Chico, CA. We handle your claim with every major carrier. Call (530) 214-9949." />
+<meta name="twitter:image" content="https://mikeknightcustoms.com/images/og/mkc-og.jpg" />
+<meta name="twitter:image:alt" content="A repaired BMW 750i outside the Mike Knight Customs shop in Chico, California" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ImageObject",
+      "@id": "https://mikeknightcustoms.com/contact#primaryimage",
+      "url": "https://mikeknightcustoms.com/images/og/mkc-og.jpg",
+      "contentUrl": "https://mikeknightcustoms.com/images/og/mkc-og.jpg",
+      "width": 1200,
+      "height": 630,
+      "caption": "Mike Knight Customs shop in Chico, California"
+    },
+    {
+      "@type": "ContactPage",
+      "@id": "https://mikeknightcustoms.com/contact#webpage",
+      "url": "https://mikeknightcustoms.com/contact",
+      "name": "Free Estimate & Claim Intake | Mike Knight Customs, Chico CA",
+      "description": "Request a free collision repair estimate in Chico, CA.",
+      "isPartOf": {
+        "@id": "https://mikeknightcustoms.com/#website"
+      },
+      "about": {
+        "@id": "https://mikeknightcustoms.com/#business"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://mikeknightcustoms.com/contact#primaryimage"
+      },
+      "breadcrumb": {
+        "@id": "https://mikeknightcustoms.com/contact#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "mainEntity": {
+        "@id": "https://mikeknightcustoms.com/#business"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mikeknightcustoms.com/contact#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mikeknightcustoms.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://mikeknightcustoms.com/contact"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
 /* ============ CONTACT PAGE · INTAKE-FILE LAYOUT ============ */
 
@@ -39,7 +119,7 @@
 .field { padding: var(--space-2) 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.5rem; }
 .field label {
   font-family: var(--f-data); font-size: var(--step--1);
-  text-transform: uppercase; letter-spacing: 0.14em; color: var(--silver-dim);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--silver);
   display: flex; justify-content: space-between; gap: var(--space-2);
 }
 .field label .req { color: var(--mkc-green); letter-spacing: 0.08em; }
@@ -66,7 +146,12 @@
   cursor: pointer;
 }
 .field textarea { resize: vertical; min-height: 8rem; }
-.form__botcheck { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+/* honeypot: hidden without pushing the layout box 9999px off-canvas */
+.form__botcheck {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; border: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
 .form__status { padding-top: var(--space-2); display: none; }
 .form__status.is-ok { display: block; color: var(--mkc-green); }
 .form__status.is-err { display: block; color: #f07040; }
@@ -78,14 +163,69 @@
   font-size: var(--step--1);
 }
 .form__submit { padding-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
-@media (max-width: 640px) { .form__row { grid-template-columns: 1fr; } }
-
-/* map frame */
-.map-frame { position: relative; }
-.map-frame iframe {
-  display: block; width: 100%; aspect-ratio: 4 / 3;
-  border: 0; filter: grayscale(1) invert(0.92) contrast(0.9);
+/* Functional text beside the submit button, not decoration, so it takes
+   --silver at 7.41:1 rather than --silver-dim at 3.42:1. */
+.form__submit .data { color: var(--silver); }
+@media (max-width: 640px) {
+  .form__row { grid-template-columns: 1fr; }
+  /* 16px floor. Below it iOS Safari zooms the page in on field focus. */
+  .field input, .field select, .field textarea { font-size: 16px; }
 }
+
+/* phone and email in the shop panel are primary actions: keep them tappable */
+@media (hover: none) {
+  .readout__row a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+}
+
+/* location card: replaces the Google iframe, which stopped rendering once
+   Google began sending X-Frame-Options on the unofficial ?output=embed URL.
+   Does the job the map was there for (where we are, how to get there) with
+   no third-party dependency to break again. */
+.locus {
+  position: relative; display: flex; align-items: flex-end;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  background: var(--ink-2);
+  transition: border-color 0.25s ease;
+}
+.locus__grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 38% 40%, black 15%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 38% 40%, black 15%, transparent 85%);
+}
+/* a heavier cross through the pin, standing in for the CA-32 corridor */
+.locus__grid::before,
+.locus__grid::after {
+  content: ""; position: absolute; background: var(--silver-dim); opacity: 0.55;
+}
+.locus__grid::before { left: 0; right: 0; top: 40%; height: 2px; }
+.locus__grid::after  { top: 0; bottom: 0; left: 38%; width: 2px; }
+.locus__pin {
+  position: absolute; left: 38%; top: 42%; z-index: 1;
+  width: 0.85rem; height: 0.85rem; margin: -0.425rem 0 0 -0.425rem;
+  border-radius: 50%;
+  background: var(--mkc-green);
+  box-shadow: 0 0 0 0.35rem var(--mkc-green-dim), 0 0 0 0.7rem rgba(168, 240, 64, 0.07);
+}
+.locus__body {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  padding: var(--space-3);
+  width: 100%;
+  background: linear-gradient(0deg, var(--ink) 12%, rgba(11, 15, 18, 0.82) 62%, transparent);
+}
+.locus__addr {
+  font-family: var(--f-body); font-weight: 600;
+  font-size: var(--step-1); line-height: 1.25; color: var(--white);
+}
+.locus__cta { color: var(--mkc-green); display: inline-flex; align-items: center; gap: 0.5rem; }
+.locus .arrow { transition: transform 0.25s ease; }
+.locus:hover { border-color: var(--mkc-green); }
+.locus:hover .arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .locus .arrow { transition: none; } }
 
 /* what happens next: step rows */
 .frame-steps { border-top: 1px solid var(--line); }
@@ -114,34 +254,60 @@
 .rights blockquote em { font-style: normal; color: var(--mkc-green); }
 @media (max-width: 900px) { .rights__inner { grid-template-columns: 1fr; } }
 </style>
+<!-- Consent Mode v2 defaults. Region-specific call first, global default
+     second: the more specific region wins. This has to run before any Google
+     tag loads, because getting the order wrong invalidates the whole signal
+     without reporting an error anywhere. -->
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'denied', wait_for_update: 500,
+    region: ['AT','BE','BG','CH','CY','CZ','DE','DK','EE','ES','FI','FR','GB','GR',
+             'HR','HU','IE','IS','IT','LI','LT','LU','LV','MT','NL','NO','PL','PT',
+             'RO','SE','SI','SK']
+  });
+  // Global Privacy Control is honored everywhere, not just where it is
+  // mandated, so ad storage starts denied for anyone who sends it.
+  var gpc = navigator.globalPrivacyControl === true ? 'denied' : 'granted';
+  gtag('consent', 'default', {
+    ad_storage: gpc, ad_user_data: gpc, ad_personalization: gpc,
+    analytics_storage: 'granted'
+  });
+})();
+</script>
 </head>
 <body>
 
 <!-- ================= NAV ================= -->
 <header class="nav" id="top">
   <div class="wrap nav__inner">
-    <a class="nav__brand" href="index.html" aria-label="Mike Knight Customs home">
-      <img class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
+    <a class="nav__brand" href="/" aria-label="Mike Knight Customs home">
+      <img decoding="async" width="474" height="240" class="nav__logo" src="images/mkc-logo.png" alt="Mike Knight Customs" />
       <span class="nav__tag">Chico · CA<br />Est. 2016</span>
     </a>
     <nav aria-label="Primary">
       <ul class="nav__links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li>
           <button class="nav__toggle" aria-haspopup="true" aria-expanded="false">Services ▾</button>
           <div class="nav__menu">
-            <a href="services/collision-frame-repair.html">Collision &amp; Frame Repair <small>01</small></a>
-            <a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing <small>02</small></a>
-            <a href="oem-advocacy.html">OEM Advocacy <small>03</small></a>
+            <a href="services/collision-frame-repair">Collision Repair <small>01</small></a>
+            <a href="services/paint-coating-detailing">Paint · Ceramic · Detailing <small>02</small></a>
+            <a href="oem-advocacy">OEM Advocacy <small>03</small></a>
           </div>
         </li>
-        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
-        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li><a href="recent-work">Recent Work</a></li>
+        <li><a href="oem-advocacy">OEM Advocacy</a></li>
+        <li><a href="contact" aria-current="page">Contact</a></li>
+        <li class="nav__li--call"><a href="tel:+15302149949">Call (530) 214-9949</a></li>
       </ul>
     </nav>
     <div class="nav__cta">
       <a class="btn btn--ghost" href="tel:+15302149949">(530) 214-9949</a>
-      <a class="btn btn--primary" href="contact.html">Get a Quote</a>
+      <a class="btn btn--primary" href="contact">Get a Quote</a>
       <button class="nav__burger" aria-expanded="false" aria-label="Open menu">Menu</button>
     </div>
   </div>
@@ -170,8 +336,11 @@
       <p class="data data--live" style="margin-bottom: var(--space-2);">Form · MKC/INTAKE-01</p>
       <h2 id="form-title" class="display display--md" style="margin-bottom: var(--space-3);">Request a Free Quote</h2>
 
-      <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post">
-        <input type="hidden" name="access_key" value="bb71e729-83e3-4205-899f-dc61b512aca0" />
+      <!-- data-clarity-mask keeps everything a customer types out of session
+           replay, whatever the Clarity project's masking mode is set to. -->
+      <form class="form" id="intake-form" action="https://api.web3forms.com/submit" method="post"
+            data-clarity-mask="True">
+        <input type="hidden" name="access_key" value="de055d4e-38e6-425f-afe7-29bea86e84c6" />
         <input type="hidden" name="subject" value="New Quote Request · MKC Website" />
         <input type="hidden" name="from_name" value="MKC Website Intake" />
         <input type="checkbox" name="botcheck" class="form__botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -224,7 +393,7 @@
           <span class="data data--live">Photos</span>
           <p>Photos speed up your estimate. After you submit, please send
           pictures of the damage to
-          <a href="mailto:mikeknightcustoms@hotmail.com?subject=Damage%20Photos%20-%20Quote%20Request" style="color: var(--mkc-green);">mikeknightcustoms@hotmail.com</a>.
+          <a href="mailto:mikeknightcustoms@hotmail.com?subject=Damage%20Photos%20-%20Quote%20Request" style="color: var(--mkc-green); text-decoration: underline; text-underline-offset: 3px;">mikeknightcustoms@hotmail.com</a>.
           Include your name and vehicle in the email so we can match it to your intake.</p>
         </div>
 
@@ -233,7 +402,11 @@
           <span class="data">Response within one business day</span>
         </div>
 
-        <p class="form__status data" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form__privacy">We use what you send here to write your estimate
+        and nothing else. Read the <a href="privacy">privacy policy</a>.</p>
+
+        <p class="form__status data" id="form-status" role="status" aria-live="polite"
+           data-clarity-mask="True"></p>
       </form>
     </div>
 
@@ -250,17 +423,17 @@
         </dl>
       </div>
 
-      <div class="spec-frame">
+      <a class="spec-frame locus" href="https://goo.gl/maps/uw7pBq6PFWgGMntD9"
+         aria-label="Get directions to Mike Knight Customs, 2961 CA-32 Suite 54 to 56, Chico, CA 95973">
         <span class="tick" aria-hidden="true"></span>
-        <div class="map-frame">
-          <iframe
-            src="https://www.google.com/maps?q=2961+CA-32+Suite+54,+Chico,+CA+95973&output=embed"
-            title="Map to Mike Knight Customs, 2961 CA-32, Suite 54–56, Chico, CA 95973"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-      <a class="btn btn--ghost" href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Open in Google Maps <span class="arrow">→</span></a>
+        <span class="locus__grid" aria-hidden="true"></span>
+        <span class="locus__pin" aria-hidden="true"></span>
+        <span class="locus__body">
+          <span class="data data--live">The Shop</span>
+          <span class="locus__addr">2961 CA-32, Ste 54–56<br />Chico, CA 95973</span>
+          <span class="data locus__cta">Get Directions <span class="arrow">→</span></span>
+        </span>
+      </a>
     </aside>
   </div>
 </section>
@@ -279,10 +452,9 @@
         </div>
         <div>
           <h3>Free Estimate</h3>
-          <p>We inspect the damage, including what a drive-by estimate can't
-          see, and write the repair plan to the manufacturer's published
-          procedures. You get a plain-language walkthrough of exactly what the
-          vehicle needs.</p>
+          <p>We inspect the damage, including what a drive-by estimate misses, and
+          write the repair plan to the manufacturer's published procedures. You
+          get a plain-language walkthrough of what the vehicle needs.</p>
         </div>
         <aside class="step__aside">
           <span class="data data--live">Cost to You</span>
@@ -337,13 +509,13 @@
           <h3>Delivered Under Lifetime Warranty</h3>
           <p>You get the vehicle back indistinguishable from factory, along
           with the complete repair file: parts invoices, measurements, and
-          calibration reports. The workmanship is warrantied for as long as you
+          calibration reports. The work is warrantied for as long as you
           own it.</p>
         </div>
         <aside class="step__aside">
           <span class="data data--live">Coverage</span>
-          <p style="font-size: var(--step--1);">Lifetime, covering the full ownership
-          term of the vehicle.</p>
+          <p style="font-size: var(--step--1);">Lifetime, for as long as you own
+          the vehicle.</p>
         </aside>
       </article>
     </div>
@@ -363,10 +535,11 @@
         <div class="readout__row"><dt>Reference</dt><dd>CA Insurance Code §758.5</dd></div>
         <div class="readout__row"><dt>Claims</dt><dd class="is-live">Every Major Carrier · Direct</dd></div>
       </dl>
-      <p style="margin-top: var(--space-2); font-size: var(--step--1);">State Farm,
-      Allstate, GEICO, Progressive, and every major carrier. We handle the
-      claim directly, so you never argue with an adjuster.
-      <a href="oem-advocacy.html" style="color: var(--mkc-green);">Read OEM Advocacy →</a></p>
+      <p style="margin-top: var(--space-2); font-size: var(--step--1);">We accept
+      all insurance companies: State Farm, Allstate, GEICO, Progressive,
+      The Hartford, Intact, Brotherhood Auto Aid, Travelers, Aspire, National
+      General, and more. We handle the claim directly from start to finish.
+      <a href="oem-advocacy" style="color: var(--mkc-green);">Read OEM Advocacy →</a></p>
     </div>
   </div>
 </section>
@@ -379,20 +552,22 @@
     <div>
       <span class="nav__mark" style="font-size:1.6rem;">MK<span style="color:var(--mkc-green)">C</span></span>
       <p style="margin-top: var(--space-2); max-width: 32ch;">Auto body shop in
-      Chico, California since 2016. Factory-spec repair, family accountability.</p>
+      Chico, California since 2016. OEM parts, documented repairs, lifetime
+      workmanship warranty.</p>
     </div>
     <div>
-      <h4>Pages</h4>
+      <h2>Pages</h2>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services/collision-frame-repair.html">Collision &amp; Frame</a></li>
-        <li><a href="services/paint-coating-detailing.html">Paint · Ceramic · Detailing</a></li>
-        <li><a href="oem-advocacy.html">OEM Advocacy</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="services/collision-frame-repair">Collision Repair</a></li>
+        <li><a href="services/paint-coating-detailing">Paint · Ceramic · Detailing</a></li>
+        <li><a href="oem-advocacy">OEM Advocacy</a></li>
+        <li><a href="recent-work">Recent Work</a></li>
+        <li><a href="contact">Contact</a></li>
       </ul>
     </div>
     <div>
-      <h4>Connect</h4>
+      <h2>Connect</h2>
       <ul>
         <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">Google Maps</a></li>
         <li><a href="https://www.facebook.com/MKCchico/">Facebook</a></li>
@@ -401,7 +576,7 @@
       </ul>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h2>Contact</h2>
       <ul>
         <li><a href="https://goo.gl/maps/uw7pBq6PFWgGMntD9">2961 CA-32, Suite 54–56<br />Chico, CA 95973</a></li>
         <li><a href="tel:+15302149949">(530) 214-9949</a></li>
@@ -412,10 +587,19 @@
   <div class="wrap footer__legal">
     <span class="data">© 2026 Mike Knight Customs · Chico, CA</span>
     <span class="data">Repairs to Factory OEM Specification · Lifetime Warranty</span>
+    <nav class="data" aria-label="Legal">
+      <a href="privacy">Privacy</a>
+      <a href="terms">Terms</a>
+      <a href="accessibility">Accessibility</a>
+      <button type="button" data-privacy-choices>Privacy Choices</button>
+      <a href="sitemap.xml">Sitemap</a>
+    </nav>
   </div>
 </footer>
 
-<script src="js/mkc.js"></script>
+<script defer src="js/mkc.js"></script>
+<script defer src="js/mkc-consent.js"></script>
+<script defer src="js/mkc-analytics.js"></script>
 <script>
 // Web3Forms intake submission
 (function () {
@@ -428,6 +612,20 @@
     status.classList.toggle('is-err', !ok);
   }
 
+  function measure() { return (window.MKC && window.MKC.form) || null; }
+
+  // Required fields are enforced by the browser, so a failed validation never
+  // reaches the submit handler. Without this, a form that quietly stopped
+  // being completable would look identical to a month of weak demand.
+  var reportedInvalid = false;
+  form.addEventListener('invalid', function (e) {
+    if (reportedInvalid) return;      // one event per attempt, not one per field
+    reportedInvalid = true;
+    var m = measure();
+    if (m) m.error('validation:' + (e.target.name || 'unknown'));
+    setTimeout(function () { reportedInvalid = false; }, 0);
+  }, true);
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -438,26 +636,27 @@
     fetch(form.action, { method: 'POST', body: new FormData(form) })
       .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
       .then(function (r) {
+        var m = measure();
         if (r.ok) {
+          if (m) m.lead();
           form.reset();
+          // reset() empties the hidden attribution fields too, so put them
+          // back for anyone who submits a second vehicle.
+          if (m) m.stamp();
           show('Received. We\'ll get back to you within one business day. Send damage photos to mikeknightcustoms@hotmail.com when you can.', true);
         } else {
+          if (m) m.error('endpoint');
           show((r.json && r.json.message) || 'Something went wrong. Please call (530) 214-9949.', false);
         }
       })
       .catch(function () {
+        var m = measure();
+        if (m) m.error('network');
         show('Network error. Please try again or call (530) 214-9949.', false);
       })
       .then(function () { btn.disabled = false; });
   });
 })();
 </script>
-
-<!-- Vercel Web Analytics -->
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-
 </body>
 </html>

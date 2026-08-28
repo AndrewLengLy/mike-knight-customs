@@ -1,0 +1,7 @@
+{
+  "name": "mkc-tools",
+  "private": true,
+  "type": "module",
+  "description": "Local image tooling. Not part of the deployed site.",
+  "dependencies": { "sharp": "^0.34.0" }
+}

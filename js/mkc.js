@@ -1,4 +1,4 @@
-/* MKC shared behaviors: nav, reveals, proof-center comparators */
+/* MKC shared behaviors: nav, reveals, proof-center comparators, photo lightbox */
 
 // Mobile nav
 const nav = document.querySelector('.nav');
@@ -9,6 +9,16 @@ if (burger) {
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 }
+
+// Services submenu toggle — CSS scopes the collapsed state to <=960px,
+// so on desktop this only sets aria state and hover still governs.
+document.querySelectorAll('.nav__toggle').forEach((tog) => {
+  const li = tog.closest('li');
+  tog.addEventListener('click', () => {
+    const open = li.classList.toggle('is-open');
+    tog.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
 
 // Scroll reveals (respects reduced motion via CSS)
 const io = new IntersectionObserver((entries) => {
@@ -74,18 +84,38 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     afterFlag.addEventListener('click', (e) => { e.stopPropagation(); slideTo(0); });
   }
 
+  // Touch gestures stay ambiguous until they move: a vertical swipe belongs to
+  // the page, a horizontal one to the slider. Mouse keeps click-to-jump.
   let dragging = false;
+  let pending = null;
+  const SLOP = 6;
+
   unit.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.compare__flag')) return;
-    dragging = true;
-    unit.setPointerCapture(e.pointerId);
-    updateFromX(e.clientX);
+    if (e.target.closest('.compare__flag, .compare__zoom')) return;
+    if (e.pointerType === 'mouse') {
+      dragging = true;
+      unit.setPointerCapture(e.pointerId);
+      updateFromX(e.clientX);
+    } else {
+      pending = { id: e.pointerId, x: e.clientX, y: e.clientY };
+    }
   });
+
   unit.addEventListener('pointermove', (e) => {
+    if (pending && e.pointerId === pending.id) {
+      const dx = Math.abs(e.clientX - pending.x);
+      const dy = Math.abs(e.clientY - pending.y);
+      if (dx < SLOP && dy < SLOP) return;
+      pending = null;
+      if (dy >= dx) return;            // vertical: let the page scroll
+      dragging = true;
+      unit.setPointerCapture(e.pointerId);
+    }
     if (!dragging) return;
     updateFromX(e.clientX);
   });
-  const endDrag = () => { dragging = false; };
+
+  const endDrag = () => { dragging = false; pending = null; };
   unit.addEventListener('pointerup', endDrag);
   unit.addEventListener('pointercancel', endDrag);
 });
@@ -97,6 +127,7 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
 
   const reviews = [
     { quote: 'Mike and his team did a fantastic job on my 2019 GMC Sierra 1500. Excellent service, perfect paint match. My pickup came back better than new.', author: 'Zane G. · Google Review' },
+    { quote: 'My car has custom "Frozen" factory paint from BMW. I was worried the paint wouldn\'t match. Mike promised he could do the job which he did! Knocked it out of the park, car is back together and you can\'t tell at all.', author: 'Robert A. · Google Review' },
     { quote: 'I couldn\'t have asked for a better experience. The whole rig looks better than brand new. 100% recommend.', author: 'Aaron B. · Google Review' },
     { quote: 'I would highly reccomend MKC to anyone in need of body work or insurance repairs. They got my car in and repaired within days of the estimate, and the cost was exactly what was quoted.', author: 'Natalie K. · Yelp Review' },
     { quote: 'Amazing shop! Would give ten stars if I could. Mike and his team took the best care of me and my car. He was reassuring from the start and kept constant communication throughout.', author: 'Alex L. · Yelp Review' },
@@ -111,6 +142,8 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   const quote = document.getElementById('review-quote');
   const author = document.getElementById('review-author');
   const dots = document.getElementById('review-dots');
+  const prevBtn = document.getElementById('review-prev');
+  const nextBtn = document.getElementById('review-next');
   let idx = 0;
   let timer;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -142,7 +175,11 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     }, reduced ? 0 : 280);
   };
 
+  const prev = () => show((idx - 1 + reviews.length) % reviews.length);
   const next = () => show((idx + 1) % reviews.length);
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restart(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); restart(); });
   const restart = () => {
     clearInterval(timer);
     if (interval) timer = setInterval(next, interval);
@@ -153,4 +190,190 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   root.addEventListener('focusin', () => clearInterval(timer));
   root.addEventListener('focusout', restart);
   restart();
+})();
+
+// Photo lightbox — click any case or gallery photo to inspect it up close.
+// Click the enlarged photo to zoom in further and pan by scrolling.
+(() => {
+  const photos = Array.from(document.querySelectorAll('.case__photo img, img[data-zoom], .compare img'));
+  if (!photos.length) return;
+
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('aria-label', 'Photo viewer');
+  lb.hidden = true;
+  lb.innerHTML = [
+    '<div class="lightbox__bar">',
+    '  <p class="data lightbox__caption"></p>',
+    '  <button type="button" class="lightbox__close" aria-label="Close photo viewer">Close ✕</button>',
+    '</div>',
+    '<div class="lightbox__stage">',
+    '  <picture class="lightbox__pic"><img class="lightbox__img" alt="" /></picture>',
+    '</div>',
+    '<div class="lightbox__bar lightbox__bar--foot">',
+    '  <button type="button" class="lightbox__arrow" data-dir="-1" aria-label="Previous photo">← Prev</button>',
+    '  <p class="data lightbox__hint">Click photo to zoom · Esc to close</p>',
+    '  <button type="button" class="lightbox__arrow" data-dir="1" aria-label="Next photo">Next →</button>',
+    '</div>'
+  ].join('\n');
+  document.body.appendChild(lb);
+
+  const stage = lb.querySelector('.lightbox__stage');
+  const lbPicture = lb.querySelector('.lightbox__pic');
+  const img = lb.querySelector('.lightbox__img');
+  const caption = lb.querySelector('.lightbox__caption');
+  const closeBtn = lb.querySelector('.lightbox__close');
+  let idx = 0;
+  let lastFocus = null;
+
+  // A thumbnail inside <picture> only reports currentSrc once it has loaded, so
+  // a photo opened before its lazy load would fall back to the JPEG. Copy the
+  // thumbnail's own <source> list onto the viewer instead and let the browser
+  // negotiate the format, exactly as it does for the thumbnail.
+  const stageSources = (el) => {
+    lbPicture.querySelectorAll('source').forEach((s) => s.remove());
+    const pic = el.closest('picture');
+    if (!pic) return;
+    pic.querySelectorAll('source').forEach((s) => {
+      lbPicture.insertBefore(s.cloneNode(false), img);
+    });
+  };
+
+  const show = (i) => {
+    idx = (i + photos.length) % photos.length;
+    lb.classList.remove('is-zoomed');
+    stageSources(photos[idx]);
+    img.src = photos[idx].getAttribute('src');
+    img.alt = photos[idx].alt;
+    caption.textContent = `${idx + 1} / ${photos.length} · ${photos[idx].alt}`;
+  };
+
+  let lockedY = 0;
+
+  const open = (i) => {
+    lastFocus = document.activeElement;
+    lockedY = window.scrollY;
+    lb.hidden = false;
+    // iOS Safari ignores overflow:hidden on body, so pin it instead
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${lockedY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    show(i);
+    closeBtn.focus();
+  };
+
+  const close = () => {
+    lb.hidden = true;
+    lb.classList.remove('is-zoomed');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    const behavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, lockedY);
+    document.documentElement.style.scrollBehavior = behavior;
+    if (lastFocus) lastFocus.focus();
+  };
+
+  closeBtn.addEventListener('click', close);
+  stage.addEventListener('click', (e) => { if (e.target === stage) close(); });
+  lb.querySelectorAll('.lightbox__arrow').forEach((btn) => {
+    btn.addEventListener('click', () => show(idx + parseInt(btn.dataset.dir, 10)));
+  });
+
+  let swipeX = 0, swipeY = 0, swipeLive = false, swiped = false;
+  stage.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1 || lb.classList.contains('is-zoomed')) { swipeLive = false; return; }
+    swipeX = e.touches[0].clientX;
+    swipeY = e.touches[0].clientY;
+    swipeLive = true;
+    swiped = false;
+  }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (!swipeLive) return;
+    swipeLive = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - swipeX;
+    const dy = t.clientY - swipeY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      swiped = true;
+      show(idx + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  img.addEventListener('click', (e) => {
+    if (swiped) { swiped = false; return; }   // a swipe is not a zoom tap
+    const rect = img.getBoundingClientRect();
+    const fx = (e.clientX - rect.left) / rect.width;
+    const fy = (e.clientY - rect.top) / rect.height;
+    const zoomed = lb.classList.toggle('is-zoomed');
+    if (zoomed) {
+      // keep the clicked detail centered in the zoomed view
+      stage.scrollLeft = fx * img.clientWidth - stage.clientWidth / 2;
+      stage.scrollTop = fy * img.clientHeight - stage.clientHeight / 2;
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowLeft') { show(idx - 1); return; }
+    if (e.key === 'ArrowRight') { show(idx + 1); return; }
+    // aria-modal promises focus stays inside the dialog, so Tab has to wrap
+    // instead of walking off into the page behind it.
+    if (e.key === 'Tab') {
+      const stops = lb.querySelectorAll('button');
+      const first = stops[0];
+      const last = stops[stops.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!lb.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  photos.forEach((el, i) => {
+    // Comparator photos sit under the drag surface and take pointer-events:none,
+    // so they get the dedicated button below instead of being clickable themselves.
+    if (el.closest('.compare')) return;
+    el.classList.add('is-zoomable');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', `View larger photo: ${el.alt}`);
+    el.addEventListener('click', () => open(i));
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
+
+  // One "Full Photo" control per comparator. It opens whichever side the slider
+  // is currently favouring, so a visitor inspecting the damage lands on the
+  // before shot rather than the finished one.
+  document.querySelectorAll('.compare').forEach((unit) => {
+    const imgs = Array.from(unit.querySelectorAll('img'));
+    if (imgs.length < 2) return;
+    const before = imgs.find((im) => !im.classList.contains('compare__after'));
+    const after = unit.querySelector('.compare__after');
+    const range = unit.querySelector('input[type="range"]');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'compare__zoom';
+    btn.innerHTML = '<span aria-hidden="true">\u2922</span> Full Photo';
+    btn.setAttribute('aria-label', 'Open the full uncropped photo and zoom in');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // clip-path is inset from the left, so a high value means before is on top.
+      const showingBefore = !range || parseFloat(range.value) >= 50;
+      const target = (showingBefore ? before : after) || imgs[0];
+      const i = photos.indexOf(target);
+      if (i > -1) open(i);
+    });
+    unit.appendChild(btn);
+  });
 })();

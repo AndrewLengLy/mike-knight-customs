@@ -1,0 +1,8 @@
+# Mike Knight Customs · https://mikeknightcustoms.com
+
+User-agent: *
+Allow: /
+
+# Preview-only duplicates of built pages, excluded to avoid duplicate content.
+
+Sitemap: https://mikeknightcustoms.com/sitemap.xml
