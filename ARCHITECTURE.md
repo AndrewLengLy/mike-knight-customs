@@ -1,6 +1,6 @@
-# Mike Knight Customs — Site Architecture & Design System v1.0
+# Mike Knight Customs: Site Architecture and Design System v1.0
 
-Direction: **Luxury Minimalist / Mechanical Grit** — deep ink backdrops, 1px structural borders, editorial asymmetry, monospace data readouts. Evolved from the baseline deployment at mike-knight-web0-1.vercel.app.
+Direction: **Luxury Minimalist / Mechanical Grit**. Deep ink backdrops, 1px structural borders, editorial asymmetry, monospace data readouts. Evolved from the baseline deployment at mike-knight-web0-1.vercel.app.
 
 ---
 
@@ -39,20 +39,20 @@ MKC (root)
 
 | Token | Value | Role |
 |---|---|---|
-| `--ink` | `#0B0F12` | Page base — deep ink slate |
+| `--ink` | `#0B0F12` | Page base, deep ink slate |
 | `--ink-2` | `#10151A` | Raised panels / alternating bands |
 | `--line` | `#222B33` | 1px structural borders (never box-shadows) |
 | `--white` | `#F4F7F9` | Display type & headings |
 | `--silver` | `#98A2AB` | Body copy |
 | `--silver-dim` | `#5E6972` | Captions / index labels |
-| `--mkc-green` | `#A8F040` | Single industrial accent — focus points only |
+| `--mkc-green` | `#A8F040` | Single industrial accent, focus points only |
 
 **Typography**
-- Display — `Anton`: heavy condensed mechanical sans, uppercase, 1.0 line-height. Headlines only.
-- Body — `Archivo`: geometric, hyper-legible, 400/500/600. 1.6 line-height.
-- Data — `IBM Plex Mono`: uppercase, 0.14em tracking. All metrics, indices, readouts, buttons, eyebrows.
+- Display, `Anton`: heavy condensed mechanical sans, uppercase, 1.0 line-height. Headlines only.
+- Body, `Archivo`: geometric, hyper-legible, 400/500/600. 1.6 line-height.
+- Data, `IBM Plex Mono`: uppercase, 0.14em tracking. All metrics, indices, readouts, buttons, eyebrows.
 
-**Fluid scale** — type (`--step--1` … `--step-4`) and rhythm (`--space-2` … `--space-6`)
+**Fluid scale**: type (`--step--1` … `--step-4`) and rhythm (`--space-2` … `--space-6`)
 are `clamp()` ramps with hard upper bounds, so a 1920px display gets the same
 capped sizes as a 1440px one rather than continuing to grow. Content container
 is `--max-w: 1320px`. There is no phone-only spacing override: the clamps handle it.
@@ -64,11 +64,11 @@ is `--max-w: 1320px`. There is no phone-only spacing override: the clamps handle
 | `--step-0` body | 15px | 16px |
 | `--space-6` section pad | 52px | 88px |
 
-**Touch targets** — every control clears 44px. Sizing that exists only to hit
+**Touch targets**: every control clears 44px. Sizing that exists only to hit
 that minimum (footer links, gallery captions, readout links) is scoped to
 `@media (hover: none)` so pointer devices keep the tighter desktop rhythm.
 
-**Fonts** — Anton, Archivo and IBM Plex Mono are self-hosted from `fonts/`
+**Fonts**: Anton, Archivo and IBM Plex Mono are self-hosted from `fonts/`
 (SIL OFL 1.1, license text alongside the files). Same-origin, so no
 third-party DNS, TCP or TLS handshake sits on the critical path and the
 typography cannot silently fall back to system metrics when a CDN is
@@ -77,7 +77,7 @@ browser fetches a file only when the page needs those codepoints, so an
 English page pulls just the four latin faces (~81 KB). The three faces that
 paint the first screen are preloaded.
 
-**Images** — photographs ship as WebP at quality 85 (~30 percent smaller than
+**Images**: photographs ship as WebP at quality 85 (~30 percent smaller than
 the JPEG sources, worst-case PSNR 38.5 dB), with an AVIF at quality 65 offered
 ahead of it through `<picture>`:
 
@@ -96,7 +96,7 @@ and wrapping an image never changes layout.
 The Open Graph, Twitter card and JSON-LD `image` URLs deliberately stay JPEG:
 social crawler support for WebP is inconsistent and a broken share preview
 costs leads. Flat-art carrier logos stay SVG or PNG wherever WebP and AVIF did
-not beat them — the nav logo is one of these, a 10 KB PNG that neither format
+not beat them. The nav logo is one of these, a 10 KB PNG that neither format
 improved on.
 
 **Do not hand-write any of this.** `tools/optimize-images.mjs` generates the
@@ -130,16 +130,16 @@ grid but means the lightbox upscales on a retina phone. Higher-resolution
 originals are the only fix; re-encoding cannot recover detail that is not there.
 
 **Signature components**
-- `.meta-point` — border-scoped spec rows (replaces icon boxes)
-- `.readout` — mono data-readout tables with `is-live` green values
-- `.spec-frame` — 1px frame with blueprint corner ticks in accent green
-- `.compare` — draggable before/after clip comparator
-- `.matrix` — technical contrast table (OEM column tinted green)
-- `.step` — 3-column advocacy framework rows with outlined display numerals
+- `.meta-point`: border-scoped spec rows (replaces icon boxes)
+- `.readout`: mono data-readout tables with `is-live` green values
+- `.spec-frame`: 1px frame with blueprint corner ticks in accent green
+- `.compare`: draggable before/after clip comparator
+- `.matrix`: technical contrast table (OEM column tinted green)
+- `.step`: 3-column advocacy framework rows with outlined display numerals
 
 ---
 
-## 3. PAGE C Blueprint — Collision & Frame Repair
+## 3. PAGE C Blueprint: Collision and Frame Repair
 
 Theme: **surgical mechanical precision**. Every section reads like a calibration report.
 
@@ -164,13 +164,13 @@ Theme: **surgical mechanical precision**. Every section reads like a calibration
 └──────────────────────────────────────────────────────────────┘
 ```
 
-Dual columns are separated by a single 1px `--line` rule; each item is a `.meta-point`-style row with a mono metric on the right (e.g., `WELD SPEC — GM SI DOC 24-NA-021`).
+Dual columns are separated by a single 1px `--line` rule; each item is a `.meta-point`-style row with a mono metric on the right (e.g., `WELD SPEC: GM SI DOC 24-NA-021`).
 
 ---
 
-## 4. PAGE D Blueprint — Paint Matching, Ceramic & Detailing
+## 4. PAGE D Blueprint: Paint Matching, Ceramic and Detailing
 
-Theme: **texturally rich, staggered rhythm** — alternating rows with unexpected column breaks (7/5 → 4/8 → 6/6-offset) so no two bands repeat.
+Theme: **texturally rich, staggered rhythm**. Alternating rows with unexpected column breaks (7/5 → 4/8 → 6/6-offset) so no two bands repeat.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -198,8 +198,82 @@ Theme: **texturally rich, staggered rhythm** — alternating rows with unexpecte
 
 ## 5. Files in this build
 
-- `css/mkc.css` — global design system (tokens, type, grid, nav, footer, components)
-- `js/mkc.js` — nav toggle, scroll reveals, before/after comparators
-- `tools/` — local image tooling, not deployed and not part of any build (see §2)
-- `index.html` — PAGE A, complete
-- `oem-advocacy.html` — PAGE B, complete
+- `css/mkc.css`: global design system (tokens, type, grid, nav, footer, components)
+- `js/mkc.js`: nav toggle, scroll reveals, before/after comparators
+- `tools/`: local image tooling, not deployed and not part of any build (see §2)
+- `index.html`: PAGE A, complete
+- `oem-advocacy.html`: PAGE B, complete
+
+---
+
+## 6. Measurement, consent and legal layer
+
+Added August 2026. Full detail in `docs/measurement-plan.md`; this section is
+the map of where things live and why they are shaped this way.
+
+### Files
+
+| File | Role |
+|---|---|
+| `js/mkc-consent.js` | Region and GPC detection, consent cookie, the banner, vendor consent signals |
+| `js/mkc-analytics.js` | The single `track()` function, tag loading, attribution capture, form and link events |
+| `middleware.ts` | Vercel routing middleware. Writes the `mkc_geo` region cookie |
+| `package.json` | Exists only so Vercel can compile the middleware. **No build script. Do not add one.** |
+| `tools/check-legal-dates.mjs` | Fails if a legal page's visible date and its JSON-LD `dateModified` disagree |
+| `accessibility.html` | Third legal page, alongside the existing `privacy.html` and `terms.html` |
+
+### Load order, which is not arbitrary
+
+Each page carries a small inline script at the end of `<head>` that defines
+`gtag` and sets the Consent Mode v2 defaults. **Region-specific denied first,
+global default second**, because the more specific region wins. This has to
+happen before any Google tag loads. Getting the order wrong invalidates the
+whole consent signal and reports no error anywhere, which is why it is inline
+on every page rather than in a shared file that could fail to load.
+
+Then, deferred and in this order: `mkc.js`, `mkc-consent.js`,
+`mkc-analytics.js`. Deferred scripts run in document order, so consent has
+always resolved before analytics decides whether it may request a vendor
+script.
+
+### Failure mode, chosen deliberately
+
+`middleware.ts` writes `mkc_geo` as `us`, `other` or `unknown`. The client
+treats anything that is not `us` as consent-required. **If the middleware fails
+to deploy, the cookie is absent and every visitor is treated as
+consent-required.** That fails towards privacy at the cost of data quality,
+which is the correct direction, but the symptom is easy to misread: a sudden
+global drop in measured sessions with no matching drop in Vercel Analytics.
+Check for the cookie before assuming traffic fell.
+
+### Nothing loads before consent
+
+In a consent-required region no vendor script is requested at all, rather than
+loading and sending cookieless pings. That includes Vercel Web Analytics, which
+is cookieless and arguably would not need consent, but is still a third-party
+request carrying an IP and a URL. Attribution still works in memory for that
+page view, so a lead submitted without consent keeps its source; nothing is
+persisted to be read back later.
+
+### Why no tag manager and no consent SaaS
+
+GTM is a heavyweight dependency, an extra network round trip, and another
+console for a one-person studio to babysit. A CMP subscription is a recurring
+cost passed to a small client for roughly 150 lines of code. Both were declined
+on purpose. The consent layer is in the repo where it can be read and changed.
+
+### IDs in the repo
+
+GA4 measurement IDs and Clarity project IDs sit in the `CONFIG` block at the
+top of `js/mkc-analytics.js`. They are public identifiers, visible in the page
+source of every site that uses them, and are not secrets. With no build step
+there is no environment variable mechanism to hide them behind and no security
+benefit in trying. Everything is guarded by hostname so localhost and
+`*.vercel.app` previews never send a hit.
+
+### Adding an event
+
+Add the name to the `NAMES` array in `js/mkc-analytics.js` and to the table in
+`docs/measurement-plan.md`, in the same commit. `track()` silently drops names
+that are not on the list, so a typo fails closed instead of creating a junk
+event that pollutes the property forever.

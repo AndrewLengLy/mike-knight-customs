@@ -368,7 +368,12 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
   border-top: 1px solid var(--line);
   padding-block: var(--space-2);
 }
-.footer__legal a { color: var(--silver-dim); transition: color 0.2s; }
+/* The legal row carries the privacy link, which CalOPPA wants conspicuous.
+   --silver-dim on --ink measures 3.43:1, under the 4.5:1 AA floor for body
+   text. --silver is 7.41:1 and still reads as the quiet row it should be. */
+.footer__legal { color: var(--silver); }
+.footer__legal .data { color: var(--silver); }
+.footer__legal a { color: var(--silver); transition: color 0.2s; }
 .footer__legal a:hover { color: var(--mkc-green); }
 .footer__legal nav { display: flex; gap: var(--space-2); flex-wrap: wrap; }
 @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
@@ -749,7 +754,7 @@ img.is-zoomable { cursor: zoom-in; }
    footer legal row and has to read as one of its siblings. */
 .footer__legal button {
   font: inherit;
-  color: var(--silver-dim);
+  color: var(--silver);
   padding: 0;
   transition: color 0.2s;
 }
@@ -757,3 +762,20 @@ img.is-zoomable { cursor: zoom-in; }
 @media (max-width: 640px) {
   .footer__legal button { display: inline-block; padding-block: 1rem; }
 }
+
+/* One plain sentence, not a checkbox. A required consent tickbox on a small
+   business lead form costs conversions and is not required here. */
+.form__privacy {
+  margin-top: var(--space-2);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  /* --silver-dim measures 3.42:1 here, under the 4.5:1 AA floor. The privacy
+     route has to be conspicuous, so this row uses --silver at 7.41:1. */
+  color: var(--silver);
+}
+.form__privacy a {
+  color: var(--silver);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form__privacy a:hover { color: var(--mkc-green); }

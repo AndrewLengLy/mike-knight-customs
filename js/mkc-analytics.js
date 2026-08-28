@@ -19,8 +19,10 @@
    * secrets. On a site with no build step there is nowhere else to put them.
    * Swap the two values here; nothing else needs editing. */
   var CONFIG = {
-    ga4: '',        // G-XXXXXXXXXX
-    clarity: '',    // 10 character Clarity project ID
+    // GA4 property "Mike Knight Customs" (551946853), stream 15520764940,
+    // inside the Parabox Digital Analytics account (403734694).
+    ga4: 'G-JDRZC2JHEV',
+    clarity: '',    // 10 character Clarity project ID, project not created yet
     hosts: ['mikeknightcustoms.com', 'www.mikeknightcustoms.com']
   };
 
@@ -194,7 +196,27 @@
 
   /* ---------------------------------------------------------- tag loading */
 
-  var loaded = { ga: false, clarity: false };
+  var loaded = { ga: false, clarity: false, vercel: false };
+
+  /* Vercel Web Analytics is cookieless, and Vercel's position is that it does
+   * not need consent. It is still a request to a third party carrying an IP
+   * address and a URL, so in a consent-required region it waits like the rest.
+   * The cost is that EEA visitors drop out of the baseline count too, which
+   * for a Chico body shop is a rounding error.
+   *
+   * It stays installed because it is free, already here, and unaffected by ad
+   * blockers that eat GA4. GA4 is the reporting source of record. Where the
+   * two disagree, the Scoreboard quotes GA4.
+   */
+  function loadVercelAnalytics() {
+    if (loaded.vercel) return;
+    loaded.vercel = true;
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var s = document.createElement('script');
+    s.defer = true;
+    s.src = '/_vercel/insights/script.js';
+    document.head.appendChild(s);
+  }
 
   function loadGa() {
     if (loaded.ga || !CONFIG.ga4) return;
@@ -240,6 +262,7 @@
     if (MKC.form) MKC.form.stamp();
     if (!PROD || !c.analytics) return;
 
+    loadVercelAnalytics();
     loadGa();
     loadClarity();
     if (typeof window.clarity === 'function') {

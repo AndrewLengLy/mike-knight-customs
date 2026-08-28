@@ -119,7 +119,7 @@
 .field { padding: var(--space-2) 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.5rem; }
 .field label {
   font-family: var(--f-data); font-size: var(--step--1);
-  text-transform: uppercase; letter-spacing: 0.14em; color: var(--silver-dim);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--silver);
   display: flex; justify-content: space-between; gap: var(--space-2);
 }
 .field label .req { color: var(--mkc-green); letter-spacing: 0.08em; }
@@ -163,9 +163,12 @@
   font-size: var(--step--1);
 }
 .form__submit { padding-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+/* Functional text beside the submit button, not decoration, so it takes
+   --silver at 7.41:1 rather than --silver-dim at 3.42:1. */
+.form__submit .data { color: var(--silver); }
 @media (max-width: 640px) {
   .form__row { grid-template-columns: 1fr; }
-  /* 16px floor — below it iOS Safari zooms the page in on field focus */
+  /* 16px floor. Below it iOS Safari zooms the page in on field focus. */
   .field input, .field select, .field textarea { font-size: 16px; }
 }
 
@@ -390,7 +393,7 @@
           <span class="data data--live">Photos</span>
           <p>Photos speed up your estimate. After you submit, please send
           pictures of the damage to
-          <a href="mailto:mikeknightcustoms@hotmail.com?subject=Damage%20Photos%20-%20Quote%20Request" style="color: var(--mkc-green);">mikeknightcustoms@hotmail.com</a>.
+          <a href="mailto:mikeknightcustoms@hotmail.com?subject=Damage%20Photos%20-%20Quote%20Request" style="color: var(--mkc-green); text-decoration: underline; text-underline-offset: 3px;">mikeknightcustoms@hotmail.com</a>.
           Include your name and vehicle in the email so we can match it to your intake.</p>
         </div>
 
@@ -655,12 +658,5 @@
   });
 })();
 </script>
-
-<!-- Vercel Web Analytics -->
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-
 </body>
 </html>
