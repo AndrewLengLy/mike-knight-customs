@@ -146,7 +146,8 @@ head.
 
 ### Docs
 
-`docs/` holds client facing and operational material, not code docs:
+`docs/` is `.vercelignore`d and does not deploy. It holds client facing and
+operational material, not code docs:
 `measurement-plan.md` (definition of record for what the site measures),
 `console-setup-checklist.md` (everything that cannot be done in code), and
 `client-explainer.md` (the plain language version for Mike).
