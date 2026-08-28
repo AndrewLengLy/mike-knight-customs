@@ -130,12 +130,23 @@ grid but means the lightbox upscales on a retina phone. Higher-resolution
 originals are the only fix; re-encoding cannot recover detail that is not there.
 
 **Signature components**
+
+Shared, defined in `css/mkc.css`:
 - `.meta-point`: border-scoped spec rows (replaces icon boxes)
 - `.readout`: mono data-readout tables with `is-live` green values
 - `.spec-frame`: 1px frame with blueprint corner ticks in accent green
 - `.compare`: draggable before/after clip comparator
-- `.matrix`: technical contrast table (OEM column tinted green)
-- `.step`: 3-column advocacy framework rows with outlined display numerals
+- `.lightbox`: full-bleed photo viewer, built by `js/mkc.js` and opened from
+  `.case__photo img`, `img[data-zoom]` and `.compare img`
+
+Page-scoped, despite the shared-looking names. Each is defined only in its own
+page's `<style>` block and has no rule in the global stylesheet. Promote one
+into `css/mkc.css` before using it on a second page rather than copying the
+block:
+- `.matrix`: technical contrast table (OEM column tinted green). Defined in
+  `oem-advocacy.html`
+- `.step`: 3-column advocacy framework rows with outlined display numerals.
+  Defined in `contact.html`
 
 ---
 
