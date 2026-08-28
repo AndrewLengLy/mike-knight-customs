@@ -249,8 +249,10 @@
 }
 
 /* short viewports (compact phones, laptops with heavy browser chrome):
-   shrink the display type and rhythm so both CTAs stay above the fold */
-@media (max-height: 700px) {
+   shrink the display type and rhythm so both CTAs stay above the fold.
+   Cut in at 740px, not 700px: at 701-730px the full-size rhythm clears the
+   fold by under 30px, which a font fallback or a longer meta value erases. */
+@media (max-height: 740px) {
   .hero__grid { min-height: 0; }
   .hero__copy { gap: var(--space-1); padding-block: var(--space-3); }
   .hero__title { font-size: clamp(2rem, 1.6rem + 2vw, 3.4rem); }
