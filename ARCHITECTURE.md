@@ -248,7 +248,7 @@ including the load order, which is not arbitrary.
 | `package.json` | Exists only so Vercel can compile `middleware.ts`. No build script. Do not add one |
 | `robots.txt`, `sitemap.xml` | Crawl directives, and the nine indexed URLs |
 | `favicon.ico`, `images/favicon-*`, `images/apple-touch-icon.png` | Icon set |
-| `.vercelignore` | The deploy boundary. Currently excludes `tools/` and `node_modules/` only |
+| `.vercelignore` | The deploy boundary. Excludes `tools/`, `node_modules/`, `docs/` and `*.md` |
 | `.claude/launch.json` | Local preview target `mkc`, port 4188 |
 
 **Local only**
@@ -261,12 +261,12 @@ including the load order, which is not arbitrary.
 guide for Claude Code), and `docs/`: `measurement-plan.md`,
 `console-setup-checklist.md`, `client-explainer.md`.
 
-> **Known gap.** Those five Markdown files are not in `.vercelignore`, so they
-> upload with the site and are fetchable, for example
-> `/docs/console-setup-checklist.md`. Nothing in them is a credential, but they
-> carry Parabox account structure and internal email addresses on a client
-> domain. They are absent from `sitemap.xml`, so this is exposure rather than
-> indexing. Adding `docs/` and `*.md` to `.vercelignore` closes it.
+None of it ships. `.vercelignore` excludes `docs/` and `*.md`, so the Markdown
+stays in the repo and never reaches the CDN. It used to: until August 2026 the
+ignore file covered only `tools/` and `node_modules/`, which left
+`/docs/console-setup-checklist.md` fetchable on the client domain complete
+with account structure and internal addresses. Keep new documentation under
+`docs/` or with a `.md` extension and it stays behind that line automatically.
 
 ---
 

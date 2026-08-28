@@ -1,3 +1,11 @@
 # Local image tooling. Never needs to reach the CDN.
 tools/
 node_modules/
+
+# Repo documentation. Reference material for whoever works on the site, not
+# part of it. Without this the Markdown uploads with the build and is
+# fetchable on the client's domain, for example
+# /docs/console-setup-checklist.md, which carries account structure and
+# internal addresses.
+docs/
+*.md
