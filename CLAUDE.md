@@ -172,8 +172,7 @@ head.
   `.matrix` is defined only in `oem-advocacy.html` and `.step` only in
   `contact.html`, each inside that page's own `<style>` block. If you need one on
   a second page, promote it into `css/mkc.css` rather than copying the block.
-  Note that `ARCHITECTURE.md` lists both among the shared components, which is
-  out of date.
+  `ARCHITECTURE.md` section 2 splits its component list on the same line.
 - The primary nav is duplicated in every HTML file. When adding, removing or
   renaming a page, update the nav block in **every** page.
 
