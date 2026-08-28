@@ -91,7 +91,7 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   const SLOP = 6;
 
   unit.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.compare__flag')) return;
+    if (e.target.closest('.compare__flag, .compare__zoom')) return;
     if (e.pointerType === 'mouse') {
       dragging = true;
       unit.setPointerCapture(e.pointerId);
@@ -195,7 +195,7 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
 // Photo lightbox — click any case or gallery photo to inspect it up close.
 // Click the enlarged photo to zoom in further and pan by scrolling.
 (() => {
-  const photos = Array.from(document.querySelectorAll('.case__photo img, img[data-zoom]'));
+  const photos = Array.from(document.querySelectorAll('.case__photo img, img[data-zoom], .compare img'));
   if (!photos.length) return;
 
   const lb = document.createElement('div');
@@ -338,6 +338,9 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
   });
 
   photos.forEach((el, i) => {
+    // Comparator photos sit under the drag surface and take pointer-events:none,
+    // so they get the dedicated button below instead of being clickable themselves.
+    if (el.closest('.compare')) return;
     el.classList.add('is-zoomable');
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');
@@ -346,5 +349,31 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
     });
+  });
+
+  // One "Full Photo" control per comparator. It opens whichever side the slider
+  // is currently favouring, so a visitor inspecting the damage lands on the
+  // before shot rather than the finished one.
+  document.querySelectorAll('.compare').forEach((unit) => {
+    const imgs = Array.from(unit.querySelectorAll('img'));
+    if (imgs.length < 2) return;
+    const before = imgs.find((im) => !im.classList.contains('compare__after'));
+    const after = unit.querySelector('.compare__after');
+    const range = unit.querySelector('input[type="range"]');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'compare__zoom';
+    btn.innerHTML = '<span aria-hidden="true">\u2922</span> Full Photo';
+    btn.setAttribute('aria-label', 'Open the full uncropped photo and zoom in');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // clip-path is inset from the left, so a high value means before is on top.
+      const showingBefore = !range || parseFloat(range.value) >= 50;
+      const target = (showingBefore ? before : after) || imgs[0];
+      const i = photos.indexOf(target);
+      if (i > -1) open(i);
+    });
+    unit.appendChild(btn);
   });
 })();

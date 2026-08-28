@@ -185,19 +185,24 @@
 
 .case__media {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  grid-template-columns: minmax(0, 2.08fr) minmax(0, 1fr);
   gap: var(--space-2);
   align-self: start;
+  align-items: start;
 }
 .case__side { display: grid; gap: var(--space-2); align-content: start; }
 .case__photo { position: relative; }
 .case__photo img {
-  display: block; width: 100%; height: 100%;
+  display: block; width: 100%; height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   filter: saturate(0.92);
 }
 .case__photo--wide img { aspect-ratio: 4 / 3; }
+/* A landscape lead cannot height-match two stacked portraits, so let it run
+   the full width and put the pair beneath it. */
+.case__media--wide { grid-template-columns: 1fr; }
+.case__media--wide .case__side { grid-template-columns: 1fr 1fr; }
 .ptag {
   position: absolute; left: 0.6rem; bottom: 0.6rem; z-index: 1;
   font-family: var(--f-data); font-size: 0.62rem;
@@ -663,7 +668,7 @@
 
     <!-- 08 · BOOM TRUCKS -->
     <article class="case" id="commercial-boom-trucks">
-      <div class="case__media reveal">
+      <div class="case__media case__media--wide reveal">
         <figure class="spec-frame case__photo case__photo--wide">
           <span class="tick" aria-hidden="true"></span>
           <picture>

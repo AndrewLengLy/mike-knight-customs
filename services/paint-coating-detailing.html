@@ -194,6 +194,7 @@
 
 /* row 1: 7/5, image left */
 .stagger--r1 { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-4); }
+.proof__media { width: 100%; max-width: 32rem; }
 
 /* row 2: 4/8, readout left, early break */
 .stagger--r2 { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-4); }
@@ -320,7 +321,7 @@
     </div>
 
     <article class="stagger stagger--r1">
-      <div class="reveal">
+      <div class="reveal proof__media">
         <div class="spec-frame">
           <span class="tick" aria-hidden="true"></span>
           <div class="compare" data-compare>
