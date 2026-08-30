@@ -212,7 +212,10 @@
   margin: 0;
   font-size: clamp(2.25rem, min(4.2vw, 7.8vh), 4rem);
 }
-.hero__title em { font-style: normal; color: var(--mkc-green); }
+/* inline-block keeps "Lifetime Warranty." whole: it moves to the next line
+   as one unit rather than orphaning "Warranty." on a line of its own. Line
+   count is unchanged at every width, so the fold budget is unaffected. */
+.hero__title em { font-style: normal; color: var(--mkc-green); display: inline-block; }
 .hero__actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-1); }
 .hero__meta { margin-top: var(--space-3); }
 
