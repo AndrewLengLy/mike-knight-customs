@@ -16,7 +16,7 @@
   /* type color */
   --white:      #F4F7F9;   /* primary display + headings      */
   --silver:     #98A2AB;   /* body copy                       */
-  --silver-dim: #5E6972;   /* captions / disabled             */
+  --silver-dim: #808B94;   /* captions / disabled, AA on all inks */
 
   /* single industrial accent, used sparingly */
   --mkc-green:      #A8F040;
