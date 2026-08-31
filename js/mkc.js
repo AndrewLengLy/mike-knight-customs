@@ -1,4 +1,5 @@
-/* MKC shared behaviors: nav, reveals, proof-center comparators, photo lightbox */
+/* MKC shared behaviors: nav, reveals, proof-center comparators, photo lightbox,
+   legal-page disclosures */
 
 // Mobile nav
 const nav = document.querySelector('.nav');
@@ -377,3 +378,47 @@ document.querySelectorAll('[data-compare]').forEach((unit) => {
     unit.appendChild(btn);
   });
 })();
+
+// Legal-page disclosures. Each section shows a one-line answer with the wordy
+// version inside a <details>, so anything that jumps to a section has to open
+// it first: a table-of-contents link, a pasted #fragment, or find-in-page in a
+// browser that does not expand a <details> on its own.
+const disclosures = Array.from(document.querySelectorAll('.disclose'));
+if (disclosures.length) {
+  const toggleAll = document.querySelector('[data-disclose-all]');
+  if (toggleAll) {
+    const relabel = () => {
+      const allOpen = disclosures.every((d) => d.open);
+      toggleAll.textContent = allOpen ? 'Collapse all' : 'Expand all';
+      return allOpen;
+    };
+    toggleAll.addEventListener('click', () => {
+      const opening = !relabel();
+      disclosures.forEach((d) => { d.open = opening; });
+      relabel();
+    });
+    disclosures.forEach((d) => d.addEventListener('toggle', relabel));
+    relabel();
+  }
+
+  // Printing a privacy policy should put the whole policy on paper, so every
+  // panel opens for the print and goes back to how the reader left it after.
+  let closedForPrint = [];
+  window.addEventListener('beforeprint', () => {
+    closedForPrint = disclosures.filter((d) => !d.open);
+    closedForPrint.forEach((d) => { d.open = true; });
+  });
+  window.addEventListener('afterprint', () => {
+    closedForPrint.forEach((d) => { d.open = false; });
+    closedForPrint = [];
+  });
+
+  const openFragment = () => {
+    if (!location.hash) return;
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return;
+    target.querySelectorAll('.disclose').forEach((d) => { d.open = true; });
+  };
+  window.addEventListener('hashchange', openFragment);
+  openFragment();
+}

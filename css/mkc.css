@@ -617,6 +617,47 @@ img.is-zoomable { cursor: zoom-in; }
 }
 .legal__body a { color: var(--mkc-green); text-decoration: underline; text-underline-offset: 3px; }
 .legal__body .readout { margin-top: var(--space-2); }
+
+/* A legal page is only read when someone is looking for one specific answer,
+   so each section states its answer in a line and parks the wordy version in
+   a <details>. Native element on purpose: keyboard and screen-reader behavior
+   come for free, and the full text stays in the DOM for crawlers and for
+   find-in-page. */
+.legal__gist { font-size: var(--step-1); color: var(--white); max-width: 56ch; }
+.legal__lead {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: var(--space-2);
+  padding-bottom: var(--space-2); border-bottom: 1px solid var(--line);
+}
+.legal__lead p { font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.14em; text-transform: uppercase; color: var(--silver); }
+
+.disclose { margin-top: var(--space-2); border-top: 1px solid var(--line-soft); }
+.disclose > summary {
+  display: flex; gap: var(--space-2); align-items: baseline;
+  padding-block: 0.7rem; list-style: none; cursor: pointer;
+  font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--silver); transition: color 0.2s;
+}
+.disclose > summary::-webkit-details-marker { display: none; }
+.disclose > summary::before { content: "+"; width: 1ch; color: var(--mkc-green); }
+.disclose[open] > summary::before { content: "\2212"; }
+.disclose > summary:hover, .disclose[open] > summary { color: var(--white); }
+.disclose__body { padding-bottom: var(--space-3); animation: disclose 0.25s ease; }
+.disclose__body > :first-child { margin-top: 0; }
+@keyframes disclose { from { opacity: 0; transform: translateY(-6px); } }
+
+/* Toggling all of them at once is how you print the thing or search it in a
+   browser that will not open a <details> for find-in-page. */
+.disclose__all {
+  font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--silver);
+  border-bottom: 1px solid var(--line); padding-bottom: 0.15rem; transition: color 0.2s, border-color 0.2s;
+}
+.disclose__all:hover { color: var(--mkc-green); border-color: var(--mkc-green); }
+@media (hover: none) {
+  .disclose > summary { padding-block: 1rem; }
+  .disclose__all { padding-block: 0.9rem; }
+}
 @media (max-width: 900px) {
   .legal { grid-template-columns: 1fr; gap: var(--space-3); }
   .legal__toc { position: static; }

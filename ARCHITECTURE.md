@@ -138,6 +138,11 @@ Shared, defined in `css/mkc.css`:
 - `.compare`: draggable before/after clip comparator
 - `.lightbox`: full-bleed photo viewer, built by `js/mkc.js` and opened from
   `.case__photo img`, `img[data-zoom]` and `.compare img`
+- `.disclose`: native `<details>` disclosure used by the legal pages, where each
+  section shows a one-line answer (`.legal__gist`) and parks the full text
+  behind a summary. `js/mkc.js` adds the expand-all control and opens whichever
+  section an in-page `#fragment` points at, since a collapsed panel would
+  otherwise scroll to a heading with nothing under it
 
 Page-scoped, despite the shared-looking names. Each is defined only in its own
 page's `<style>` block and has no rule in the global stylesheet. Promote one
