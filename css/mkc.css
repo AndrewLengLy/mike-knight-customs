@@ -82,6 +82,28 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
   outline-offset: 3px;
 }
 
+/* skip link: the first tab stop on every page, parked off screen until it
+   takes focus. Fixed, not absolute, so it lands in view no matter how far
+   down the visitor already is. The global reduced-motion rule above already
+   strips the transition. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: var(--gutter);
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  background: var(--mkc-green);
+  color: var(--ink);
+  font-family: var(--f-data);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 0.9rem 1.5rem;
+}
+.skip-link:focus { transform: translateY(0); }
+
 /* ---------- 03 · TYPE UTILITIES ---------- */
 .display {
   font-family: var(--f-display);
