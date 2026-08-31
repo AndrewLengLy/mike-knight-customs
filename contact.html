@@ -95,7 +95,15 @@
 /* masthead */
 .mast { border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
 .mast__inner { padding-block: var(--space-5); position: relative; z-index: 1; }
-.mast__title { max-width: 16ch; margin-block: var(--space-2) var(--space-3); }
+/* 18ch, not 16: "We take it from here." measures 17.4ch, so at 16 it wrapped
+   and orphaned "here." on a line of its own at every width. Below roughly
+   390px the container runs out before the ch cap does, so the size is capped
+   there too. min() never enlarges: 414px and up keep --step-4 untouched. */
+.mast__title {
+  max-width: 18ch;
+  font-size: min(var(--step-4), calc(11.5vw - 6px));
+  margin-block: var(--space-2) var(--space-3);
+}
 .mast__title em { font-style: normal; color: var(--mkc-green); }
 .mast__bg {
   position: absolute; inset: 0; z-index: 0; opacity: 0.35;
