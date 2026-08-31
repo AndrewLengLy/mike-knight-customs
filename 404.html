@@ -27,6 +27,31 @@
 }
 .e404__links a span:first-child { font-family: var(--f-data); font-size: var(--step--1); letter-spacing: 0.14em; color: var(--silver-dim); }
 .e404__links a:hover, .e404__links a:hover span { color: var(--mkc-green); }
+
+/* Short viewports: all six destinations belong on the first screen, since a
+   404 exists to hand the visitor a way out. At the base rhythm the list ran
+   past the fold on every short phone, clearing 375x667 by 1px and 320x568 by
+   -123px. Row padding stops at 0.75rem so the tap target holds 44px.
+   Gated at 740px because a 320px screen needs 691px to fit unaided, so a
+   700px gate would leave 701-731 overflowing. */
+@media (max-width: 560px) and (max-height: 740px) {
+  .e404 { padding-block: 1.25rem; }
+  .e404__code { font-size: 2rem; }
+  .e404__title { margin-block: 0.5rem 0.75rem; }
+  .e404 .lede { font-size: 1rem; line-height: 1.45; }
+  .e404__links { margin-top: var(--space-2); }
+  .e404__links a { padding-block: 0.75rem; }
+}
+
+/* 320px-class screens need the type down as well, same as the homepage hero.
+   0.6rem padding still leaves a 44px row. */
+@media (max-width: 340px) and (max-height: 740px) {
+  .e404 { padding-block: 0.75rem; }
+  .e404__title { font-size: 1.6rem; }
+  .e404 .lede { font-size: 0.9375rem; line-height: 1.4; }
+  .e404__links { margin-top: 0.5rem; }
+  .e404__links a { padding-block: 0.6rem; }
+}
 </style>
 <!-- Consent Mode v2 defaults. Region-specific call first, global default
      second: the more specific region wins. This has to run before any Google
